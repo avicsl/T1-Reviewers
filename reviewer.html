@@ -1,0 +1,2127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Operating Systems Review</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Barbie', 'Arial', sans-serif;
+            background: #fff0f6; /* Light pink solid background */
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .quiz-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #fff0f6;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            overflow: hidden;
+            border: 3px solid #ff69b4;
+        }
+        
+        .quiz-header {
+            background: #ff69b4; /* Solid Barbie pink for better readability */
+            color: #000;
+            padding: 30px;
+            text-align: center;
+            border-bottom: 3px solid #ff69b4;
+        }
+        
+        .quiz-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-family: 'Barbie', 'Arial', sans-serif;
+            letter-spacing: 2px;
+            color: #fff; /* White text for strong contrast */
+            text-shadow: 2px 2px 0 #ad1457;
+        }
+        
+        .quiz-header p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+            color: #fff; /* White text for strong contrast */
+            text-shadow: 1px 1px 0 #ad1457;
+        }
+        
+        .progress-container {
+            background: #fff0f6;
+            padding: 20px;
+            border-bottom: 1px solid #ff69b4;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background: #ff69b4;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ff69b4, #fff0f6);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        
+        .progress-text {
+            text-align: center;
+            margin-top: 10px;
+            font-weight: bold;
+            color: #000;
+            text-shadow: 1px 1px 0 #fff;
+        }
+        
+        .question-container {
+            padding: 40px;
+            min-height: 400px;
+            background: #fff0f6;
+        }
+        
+        .question {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #ff69b4;
+            margin-bottom: 25px;
+            line-height: 1.6;
+            text-shadow: 1px 1px 0 #fff;
+        }
+        
+        .options {
+            display: grid;
+            gap: 15px;
+        }
+        
+        .option {
+            background: #fff;
+            border: 2px solid #ff69b4;
+            border-radius: 10px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+            position: relative;
+            color: #000;
+            font-weight: bold;
+        }
+        
+        .option:hover {
+            border-color: #ff69b4;
+            background: #ffe4ec;
+            transform: translateY(-2px);
+        }
+        
+        .option.selected {
+            border-color: #ff69b4;
+            background: #ffe4ec;
+        }
+        
+        .option.correct {
+            border-color: #28a745;
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .option.incorrect {
+            border-color: #dc3545;
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        .option.disabled {
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+        
+        .feedback {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 10px;
+            display: none;
+            font-weight: bold;
+            color: #000;
+        }
+        
+        .feedback.show {
+            display: block;
+        }
+        
+        .feedback.correct {
+            background: #d4edda;
+            color: #155724;
+            border: 2px solid #28a745;
+        }
+        
+        .feedback.incorrect {
+            background: #f8d7da;
+            color: #721c24;
+            border: 2px solid #dc3545;
+        }
+        
+        .controls {
+            padding: 30px 40px;
+            background: #fff0f6;
+            text-align: center;
+            border-top: 1px solid #ff69b4;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, #ff69b4 0%, #fff0f6 100%);
+            color: #000;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 0 10px;
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(255, 105, 180, 0.2);
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(255, 105, 180, 0.3);
+            background: linear-gradient(135deg, #ffe4ec 0%, #ff69b4 100%);
+            color: #000;
+        }
+        
+        .btn:disabled {
+            background: #ffb6c1;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+            color: #000;
+        }
+        
+        .score-display {
+            display: inline-block;
+            background: #fff;
+            padding: 10px 20px;
+            border-radius: 25px;
+            margin: 0 15px;
+            font-weight: bold;
+            color: #ff69b4;
+            border: 2px solid #ff69b4;
+        }
+        
+        .final-score {
+            text-align: center;
+            padding: 40px;
+            display: none;
+            background: #fff0f6;
+            color: #000;
+        }
+        
+        .final-score.show {
+            display: block;
+        }
+        
+        .final-score h2 {
+            font-size: 2.5rem;
+            color: #ff69b4;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 0 #fff;
+        }
+        
+        .score-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ff69b4 0%, #fff0f6 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px auto;
+            color: #000;
+            font-size: 2rem;
+            font-weight: bold;
+            border: 3px solid #ff69b4;
+            text-shadow: 2px 2px 0 #fff;
+        }
+        
+        @media (max-width: 768px) {
+            .quiz-header h1 {
+                font-size: 2rem;
+            }
+            
+            .question-container {
+                padding: 20px;
+            }
+            
+            .question {
+                font-size: 1.1rem;
+            }
+            
+            .option {
+                padding: 15px;
+                font-size: 1rem;
+            }
+            
+            .controls {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <div class="quiz-header">
+            <h1>Operating Systems Reviewer</h1>
+            <p>4.0 cutie for everyone</p>
+        </div>
+        
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-text" id="progressText">Question 1 of 100</div>
+        </div>
+        
+        <div class="question-container" id="questionContainer">
+            <div class="question" id="questionText"></div>
+            <div class="options" id="optionsContainer"></div>
+            <div class="feedback" id="feedback"></div>
+        </div>
+        
+        <div class="controls">
+            <button class="btn" id="prevBtn" onclick="previousQuestion()">Previous</button>
+            <span class="score-display" id="scoreDisplay">Score: 0/0</span>
+            <button class="btn" id="nextBtn" onclick="nextQuestion()">Next</button>
+        </div>
+        
+        <div class="final-score" id="finalScore">
+            <h2>Quiz Complete!</h2>
+            <div class="score-circle" id="finalScoreCircle"></div>
+            <p id="finalScoreText"></p>
+            <button class="btn" onclick="restartQuiz()">Restart Quiz</button>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "What is an Operating System?",
+                options: [
+                    "A hardware component that manages memory",
+                    "A software program that manages computer hardware and provides services for computer programs",
+                    "A type of application software like MS Word",
+                    "A programming language used to write applications"
+                ],
+                correct: 1,
+                explanation: "An operating system is a software program that acts as an intermediary between hardware and software, managing hardware resources and providing services."
+            },
+            {
+                question: "Which of the following is NOT a component of a computer system?",
+                options: [
+                    "Users",
+                    "Application Programs",
+                    "Internet Browser",
+                    "Operating System"
+                ],
+                correct: 2,
+                explanation: "Internet Browser is an application program, not a fundamental component of the computer system structure."
+            },
+            {
+                question: "What are the main functions of an Operating System?",
+                options: [
+                    "Process Management, Memory Management, File Management",
+                    "Only CPU Scheduling",
+                    "Only Security Management",
+                    "Hardware Manufacturing"
+                ],
+                correct: 0,
+                explanation: "OS performs multiple functions including Process Management, Memory Management, CPU Scheduling, File Management, and Security."
+            },
+            {
+                question: "Which computer system was mentioned as one of the earliest without formal OS?",
+                options: [
+                    "IBM PC",
+                    "Apple Macintosh",
+                    "ENIAC",
+                    "Windows 95"
+                ],
+                correct: 2,
+                explanation: "ENIAC (Electronic Numerical Integrator and Computer) was one of the early computer systems that operated without formal operating systems."
+            },
+            {
+                question: "In which decade did time-sharing operating systems develop?",
+                options: [
+                    "1950s",
+                    "1960s",
+                    "1970s",
+                    "1980s"
+                ],
+                correct: 1,
+                explanation: "The 1960s saw the development of time-sharing operating systems like CTSS, allowing multiple users to interact with a single computer simultaneously."
+            },
+            {
+                question: "Which operating system introduced multi-user, multi-tasking concepts?",
+                options: [
+                    "CP/M",
+                    "UNIX",
+                    "MS-DOS",
+                    "Windows 1.0"
+                ],
+                correct: 1,
+                explanation: "UNIX, developed by AT&T Bell Labs, introduced the concept of multi-user, multi-tasking operating system that could run on various hardware platforms."
+            },
+            {
+                question: "What type of operating system is designed for real-time applications?",
+                options: [
+                    "Network OS",
+                    "Mobile OS",
+                    "Real-time OS (RTOS)",
+                    "Distributed OS"
+                ],
+                correct: 2,
+                explanation: "Real-time operating systems (RTOS) are designed to manage real-time applications where tasks need completion within strict time constraints."
+            },
+            {
+                question: "Which is an example of a Mobile Operating System?",
+                options: [
+                    "Windows Server",
+                    "Linux Server",
+                    "Android",
+                    "VxWorks"
+                ],
+                correct: 2,
+                explanation: "Android is a mobile operating system designed for smartphones and tablets, developed by Google."
+            },
+            {
+                question: "What is the core component of an operating system?",
+                options: [
+                    "Device drivers",
+                    "File system",
+                    "Kernel",
+                    "User interface"
+                ],
+                correct: 2,
+                explanation: "The kernel is the core component that manages system resources like memory, CPU, and I/O devices."
+            },
+            {
+                question: "What allows the OS to communicate with hardware devices?",
+                options: [
+                    "Kernel",
+                    "Device drivers",
+                    "File system",
+                    "GUI"
+                ],
+                correct: 1,
+                explanation: "Device drivers are software components that allow the operating system to communicate with hardware devices."
+            },
+            {
+                question: "What is a Process Control Block (PCB)?",
+                options: [
+                    "A hardware component",
+                    "A data structure used by OS to manage process information",
+                    "A type of memory",
+                    "A scheduling algorithm"
+                ],
+                correct: 1,
+                explanation: "PCB is a data structure that contains important information about a process including registers, quantum, priority, etc."
+            },
+            {
+                question: "What scheduling algorithm serves processes in the order they arrive?",
+                options: [
+                    "Shortest Job First",
+                    "Round Robin",
+                    "First-Come-First-Served (FCFS)",
+                    "Priority Scheduling"
+                ],
+                correct: 2,
+                explanation: "FCFS (First-Come-First-Served) processes jobs in the order they arrive in the ready queue."
+            },
+            {
+                question: "Which process state indicates a process is waiting for resources?",
+                options: [
+                    "Running",
+                    "Ready",
+                    "Block or Wait",
+                    "New"
+                ],
+                correct: 2,
+                explanation: "Block or Wait state occurs when a process waits for certain resources to be assigned or for user input."
+            },
+            {
+                question: "In the five-state process model, what happens in the 'New' state?",
+                options: [
+                    "Process is currently executing",
+                    "Process is prepared to execute",
+                    "Program is going to be picked up by OS into main memory",
+                    "Process has completed execution"
+                ],
+                correct: 2,
+                explanation: "New state refers to a program that is going to be picked up by the OS into the main memory."
+            },
+            {
+                question: "What causes a process to move from Running to Wait state?",
+                options: [
+                    "Process completion",
+                    "Time quantum expires",
+                    "Process requests I/O or other resources",
+                    "Higher priority process arrives"
+                ],
+                correct: 2,
+                explanation: "A process moves to Wait state when it requests I/O operations or waits for other resources to become available."
+            },
+            {
+                question: "Which scheduling algorithm is optimal for minimizing average waiting time?",
+                options: [
+                    "FCFS",
+                    "Shortest Job First (SJF)",
+                    "Round Robin",
+                    "Priority Scheduling"
+                ],
+                correct: 1,
+                explanation: "SJF is optimal for minimizing average waiting time as it always selects the process with shortest CPU cycle first."
+            },
+            {
+                question: "What is the main characteristic of Round Robin scheduling?",
+                options: [
+                    "Processes are selected based on priority",
+                    "Shortest job is selected first",
+                    "Time is divided into time quantum slices",
+                    "Jobs are processed in arrival order without interruption"
+                ],
+                correct: 2,
+                explanation: "Round Robin divides time into slices called time quantum and processes are allocated CPU time in FIFO manner."
+            },
+            {
+                question: "What is priority inversion?",
+                options: [
+                    "High-priority process gets CPU first",
+                    "Medium-priority process runs indefinitely",
+                    "High-priority process waits on low-priority process that is starved by medium-priority process",
+                    "Low-priority process gets promoted"
+                ],
+                correct: 2,
+                explanation: "Priority inversion occurs when a high-priority process waits on a low-priority process that is being starved by a medium-priority process."
+            },
+            {
+                question: "Which memory management scheme allocates entire memory to a single user?",
+                options: [
+                    "Fixed Partition Scheme",
+                    "Dynamic Partitions",
+                    "Single-User Contiguous Scheme",
+                    "Relocatable Dynamic Partitions"
+                ],
+                correct: 2,
+                explanation: "Single-User Contiguous Scheme is the simplest where entire memory is allocated to a single user or process at a time."
+            },
+            {
+                question: "What is internal fragmentation?",
+                options: [
+                    "Free memory available in small non-contiguous blocks",
+                    "Memory allocated more than actually needed, with unused memory wasted",
+                    "Process cannot fit in available memory",
+                    "Memory is completely full"
+                ],
+                correct: 1,
+                explanation: "Internal fragmentation occurs when a process is allocated more memory than it needs, and the unused portion is wasted."
+            },
+            {
+                question: "What characterizes external fragmentation?",
+                options: [
+                    "Unused memory within allocated space",
+                    "Complete memory utilization",
+                    "Free memory available in small non-contiguous blocks insufficient for new requests",
+                    "No memory available"
+                ],
+                correct: 2,
+                explanation: "External fragmentation occurs when free memory exists in small non-contiguous blocks that cannot satisfy new process requests."
+            },
+            {
+                question: "Which allocation strategy allocates the first hole that is big enough?",
+                options: [
+                    "Best-Fit",
+                    "Worst-Fit",
+                    "First-Fit",
+                    "Next-Fit"
+                ],
+                correct: 2,
+                explanation: "First-Fit allocation strategy allocates the first available hole that is big enough for the process."
+            },
+            {
+                question: "Best-Fit allocation strategy:",
+                options: [
+                    "Allocates the first available hole",
+                    "Allocates the largest available hole",
+                    "Allocates the smallest hole that is big enough",
+                    "Allocates randomly"
+                ],
+                correct: 2,
+                explanation: "Best-Fit allocates the smallest hole that is still big enough to accommodate the process, minimizing waste."
+            },
+            {
+                question: "What is the main goal of memory management?",
+                options: [
+                    "Increase CPU speed",
+                    "Efficient allocation and deallocation of memory",
+                    "Improve graphics performance",
+                    "Reduce power consumption"
+                ],
+                correct: 1,
+                explanation: "Memory management's primary goal is efficient allocation and deallocation of memory while maximizing system performance."
+            },
+            {
+                question: "Virtual memory is:",
+                options: [
+                    "Physical RAM only",
+                    "A memory management technique that uses disk space to extend physical memory",
+                    "A type of cache memory",
+                    "Secondary storage device"
+                ],
+                correct: 1,
+                explanation: "Virtual memory is a technique that allows computers to use disk storage to extend physical memory, creating an illusion of larger memory."
+            },
+            {
+                question: "What is the main benefit of virtual memory?",
+                options: [
+                    "Increases CPU speed",
+                    "Enables multitasking and increases available memory",
+                    "Reduces power consumption",
+                    "Improves graphics quality"
+                ],
+                correct: 1,
+                explanation: "Virtual memory enables multitasking, increases available memory, and allows efficient use of physical memory."
+            },
+            {
+                question: "In paged memory allocation, memory is divided into:",
+                options: [
+                    "Variable-sized segments",
+                    "Fixed-size pages",
+                    "Dynamic partitions",
+                    "Continuous blocks"
+                ],
+                correct: 1,
+                explanation: "Paged memory allocation divides memory into fixed-size pages that are mapped to physical frames through page tables."
+            },
+            {
+                question: "What is a page table?",
+                options: [
+                    "A list of running processes",
+                    "A structure that maps virtual pages to physical frames",
+                    "A scheduling queue",
+                    "A memory allocation algorithm"
+                ],
+                correct: 1,
+                explanation: "A page table maps virtual pages to physical frames, storing frame addresses and status bits."
+            },
+            {
+                question: "What is demand paging?",
+                options: [
+                    "Loading all pages at program start",
+                    "Loading pages only when referenced",
+                    "Loading pages randomly",
+                    "Loading pages in sequential order"
+                ],
+                correct: 1,
+                explanation: "Demand paging loads pages only when they are referenced, optimizing performance and reducing memory usage."
+            },
+            {
+                question: "What happens during a page fault?",
+                options: [
+                    "System crashes",
+                    "Page is already in memory",
+                    "Required page is not in memory and must be loaded from disk",
+                    "Memory becomes full"
+                ],
+                correct: 2,
+                explanation: "A page fault occurs when a required page is not in memory and must be fetched from disk storage."
+            },
+            {
+                question: "Which page replacement algorithm replaces the oldest page?",
+                options: [
+                    "LRU (Least Recently Used)",
+                    "FIFO (First-In-First-Out)",
+                    "Optimal",
+                    "Random"
+                ],
+                correct: 1,
+                explanation: "FIFO (First-In-First-Out) page replacement algorithm replaces the oldest page in memory."
+            },
+            {
+                question: "LRU page replacement algorithm replaces:",
+                options: [
+                    "The oldest page",
+                    "The newest page",
+                    "The least recently used page",
+                    "A random page"
+                ],
+                correct: 2,
+                explanation: "LRU (Least Recently Used) replaces the page that has been used least recently, using access history."
+            },
+            {
+                question: "What is thrashing in virtual memory?",
+                options: [
+                    "Efficient page replacement",
+                    "Too many page faults causing frequent swapping and poor performance",
+                    "Perfect memory utilization",
+                    "Fast page access"
+                ],
+                correct: 1,
+                explanation: "Thrashing occurs when there are too many page faults, causing frequent swapping between memory and disk, resulting in poor performance."
+            },
+            {
+                question: "In segmented memory allocation, memory is divided into:",
+                options: [
+                    "Fixed-size pages",
+                    "Variable-sized segments based on logical units",
+                    "Equal partitions",
+                    "Single continuous block"
+                ],
+                correct: 1,
+                explanation: "Segmented memory allocation divides memory into variable-sized segments based on logical units like functions and data structures."
+            },
+            {
+                question: "What is stored in a segment table?",
+                options: [
+                    "Page numbers",
+                    "Process IDs",
+                    "Base and limit addresses for each segment",
+                    "CPU registers"
+                ],
+                correct: 2,
+                explanation: "A segment table stores the base address and limit (size) for each segment to enable address translation."
+            },
+            {
+                question: "Cache memory is:",
+                options: [
+                    "Secondary storage",
+                    "Small, fast storage near CPU for frequently accessed data",
+                    "Virtual memory",
+                    "Main memory"
+                ],
+                correct: 1,
+                explanation: "Cache memory is small, fast storage located near the CPU that stores frequently accessed data to reduce access time."
+            },
+            {
+                question: "Which cache level is closest to the CPU?",
+                options: [
+                    "L1 Cache",
+                    "L2 Cache",
+                    "L3 Cache",
+                    "L4 Cache"
+                ],
+                correct: 0,
+                explanation: "L1 Cache is the smallest, fastest cache level and is closest to the CPU."
+            },
+            {
+                question: "What is TLB in virtual memory systems?",
+                options: [
+                    "Total Load Buffer",
+                    "Translation Lookaside Buffer",
+                    "Transfer Link Block",
+                    "Thread Local Block"
+                ],
+                correct: 1,
+                explanation: "TLB (Translation Lookaside Buffer) speeds up virtual-to-physical address translation by caching recent translations."
+            },
+            {
+                question: "A deadlock is:",
+                options: [
+                    "A fast execution state",
+                    "A situation where processes are blocked forever, waiting for each other",
+                    "Normal process termination",
+                    "High CPU utilization"
+                ],
+                correct: 1,
+                explanation: "Deadlock is a situation where two or more processes are blocked forever, each waiting for resources held by others."
+            },
+            {
+                question: "How many conditions must be present for deadlock to occur?",
+                options: [
+                    "2",
+                    "3",
+                    "4",
+                    "5"
+                ],
+                correct: 2,
+                explanation: "Four conditions must be present simultaneously for deadlock: Mutual Exclusion, Hold and Wait, No Preemption, and Circular Wait."
+            },
+            {
+                question: "Which condition means only one process can use a resource at a time?",
+                options: [
+                    "Hold and Wait",
+                    "Mutual Exclusion",
+                    "No Preemption",
+                    "Circular Wait"
+                ],
+                correct: 1,
+                explanation: "Mutual Exclusion means that only one process at a time can use a resource."
+            },
+            {
+                question: "Hold and Wait condition means:",
+                options: [
+                    "Process holds no resources",
+                    "Process holding at least one resource waits for additional resources",
+                    "Process releases all resources",
+                    "Process uses resources immediately"
+                ],
+                correct: 1,
+                explanation: "Hold and Wait means a process holding at least one resource is waiting to acquire additional resources held by other processes."
+            },
+            {
+                question: "No Preemption condition means:",
+                options: [
+                    "Resources can be forcibly taken away",
+                    "Resources can be released only voluntarily by the holding process",
+                    "Resources are shared freely",
+                    "Resources are unlimited"
+                ],
+                correct: 1,
+                explanation: "No Preemption means resources can be released only voluntarily by the process holding them, after completing their task."
+            },
+            {
+                question: "Circular Wait condition involves:",
+                options: [
+                    "Linear waiting chain",
+                    "Processes waiting for resources in a circular chain",
+                    "No waiting processes",
+                    "Random resource allocation"
+                ],
+                correct: 1,
+                explanation: "Circular Wait means there exists a set of processes waiting for resources in a circular chain."
+            },
+            {
+                question: "In Resource-Allocation Graph, a cycle with single instance per resource type indicates:",
+                options: [
+                    "No deadlock",
+                    "Possible deadlock",
+                    "Definite deadlock",
+                    "System error"
+                ],
+                correct: 2,
+                explanation: "In RAG, if there's a cycle and each resource type has only one instance, deadlock definitely exists."
+            },
+            {
+                question: "Which is NOT a method for handling deadlocks?",
+                options: [
+                    "Prevention",
+                    "Avoidance",
+                    "Detection",
+                    "Acceleration"
+                ],
+                correct: 3,
+                explanation: "The four methods for handling deadlocks are Prevention, Avoidance, Detection, and Recovery. Acceleration is not a deadlock handling method."
+            },
+            {
+                question: "Deadlock prevention involves:",
+                options: [
+                    "Allowing deadlock to occur",
+                    "Detecting deadlock after it occurs",
+                    "Ensuring at least one of the four deadlock conditions never occurs",
+                    "Ignoring deadlock"
+                ],
+                correct: 2,
+                explanation: "Deadlock prevention ensures that at least one of the four necessary conditions for deadlock never occurs."
+            },
+            {
+                question: "The Banker's Algorithm is used for:",
+                options: [
+                    "Deadlock detection",
+                    "Deadlock avoidance",
+                    "Deadlock recovery",
+                    "Deadlock prevention"
+                ],
+                correct: 1,
+                explanation: "Banker's Algorithm is used for deadlock avoidance when there are multiple instances of resource types."
+            },
+            {
+                question: "A safe state in deadlock avoidance means:",
+                options: [
+                    "Deadlock has occurred",
+                    "No processes are running",
+                    "There exists a sequence to execute all processes without deadlock",
+                    "System has crashed"
+                ],
+                correct: 2,
+                explanation: "A safe state means there exists a safe sequence in which all processes can execute to completion without deadlock."
+            },
+            {
+                question: "What is the time complexity of the deadlock detection algorithm?",
+                options: [
+                    "O(n)",
+                    "O(n²)",
+                    "O(m × n²)",
+                    "O(m × n)"
+                ],
+                correct: 2,
+                explanation: "The deadlock detection algorithm has a time complexity of O(m × n²) where m is resources and n is processes."
+            },
+            {
+                question: "Which deadlock recovery method involves terminating processes?",
+                options: [
+                    "Resource preemption",
+                    "Process termination",
+                    "System restart",
+                    "Memory allocation"
+                ],
+                correct: 1,
+                explanation: "Process termination is a deadlock recovery method that involves aborting deadlocked processes either all at once or one by one."
+            },
+            {
+                question: "What is the main disadvantage of the FCFS scheduling algorithm?",
+                options: [
+                    "Complex implementation",
+                    "High memory usage",
+                    "Unpredictable turnaround time, convoy effect",
+                    "Requires priority assignment"
+                ],
+                correct: 2,
+                explanation: "FCFS can suffer from unpredictable turnaround times and the convoy effect where short processes wait for long processes."
+            },
+            {
+                question: "Which scheduling algorithm can cause indefinite postponement?",
+                options: [
+                    "FCFS",
+                    "Round Robin",
+                    "Priority Scheduling",
+                    "Multilevel Queue"
+                ],
+                correct: 2,
+                explanation: "Priority scheduling can cause indefinite postponement (starvation) where low-priority processes may never execute."
+            },
+            {
+                question: "The solution to priority inversion is:",
+                options: [
+                    "Priority inheritance",
+                    "Process termination",
+                    "Memory increase",
+                    "CPU upgrade"
+                ],
+                correct: 0,
+                explanation: "Priority inheritance solves priority inversion by temporarily elevating the priority of low-priority processes holding required resources."
+            },
+            {
+                question: "Copy-on-Write is used to:",
+                options: [
+                    "Speed up disk access",
+                    "Share pages until modification, then copy",
+                    "Encrypt data",
+                    "Compress files"
+                ],
+                correct: 1,
+                explanation: "Copy-on-Write allows shared pages to remain shared until one process modifies the page, then a copy is made."
+            },
+            {
+                question: "Which type of jobs have many brief CPU cycles and long I/O cycles?",
+                options: [
+                    "CPU-bound jobs",
+                    "I/O-bound jobs",
+                    "Memory-bound jobs",
+                    "Network-bound jobs"
+                ],
+                correct: 1,
+                explanation: "I/O-bound jobs, like printing documents, have many brief CPU cycles and long I/O cycles."
+            },
+            {
+                question: "What is the Working Set Model used for?",
+                options: [
+                    "CPU scheduling",
+                    "Tracking actively used pages to reduce page faults",
+                    "Process synchronization",
+                    "Memory allocation"
+                ],
+                correct: 1,
+                explanation: "The Working Set Model tracks the set of pages actively used by a process to reduce page faults and improve performance."
+            },
+            {
+                question: "Which type of jobs have long CPU cycles and shorter I/O cycles?",
+                options: [
+                    "I/O-bound jobs",
+                    "CPU-bound jobs",
+                    "Memory-bound jobs",
+                    "Network-bound jobs"
+                ],
+                correct: 1,
+                explanation: "CPU-bound jobs, like finding prime numbers, have long CPU cycles and shorter I/O cycles."
+            },
+            {
+                question: "What is context switching?",
+                options: [
+                    "Switching between applications",
+                    "Saving and restoring process state when switching between processes",
+                    "Changing CPU frequency",
+                    "Switching between users"
+                ],
+                correct: 1,
+                explanation: "Context switching involves saving the current process state and restoring the state of the next process to be executed."
+            },
+            {
+                question: "Which scheduling policy allows external interrupts?",
+                options: [
+                    "Nonpreemptive scheduling",
+                    "Preemptive scheduling",
+                    "Batch scheduling",
+                    "Real-time scheduling"
+                ],
+                correct: 1,
+                explanation: "Preemptive scheduling allows external interrupts to stop current process execution and transfer CPU to another process."
+            },
+            {
+                question: "What happens in the 'Exit' state of a process?",
+                options: [
+                    "Process starts execution",
+                    "Process waits for resources",
+                    "Process is released from pool of executable programs",
+                    "Process is ready to execute"
+                ],
+                correct: 2,
+                explanation: "In the Exit state, the process is released from the pool of executable programs by the OS and all its resources are deallocated."
+            },
+            {
+                question: "What is suspend ready state?",
+                options: [
+                    "Process is currently running",
+                    "Process in ready state moved to secondary memory due to lack of resources",
+                    "Process has terminated",
+                    "Process is waiting for I/O"
+                ],
+                correct: 1,
+                explanation: "Suspend ready state occurs when a ready process is moved to secondary memory due to lack of main memory resources."
+            },
+            {
+                question: "Inter-process communication can be achieved through:",
+                options: [
+                    "Pipes and message queues only",
+                    "Shared memory only",
+                    "Pipes, message queues, shared memory, and sockets",
+                    "CPU registers only"
+                ],
+                correct: 2,
+                explanation: "Inter-process communication can be achieved through various mechanisms including pipes, message queues, shared memory, and sockets."
+            },
+            {
+                question: "What is RPC in process communication?",
+                options: [
+                    "Real Process Control",
+                    "Remote Procedure Call",
+                    "Rapid Process Communication",
+                    "Resource Process Control"
+                ],
+                correct: 1,
+                explanation: "RPC (Remote Procedure Call) is a protocol that allows one program to request services from another program on a different computer."
+            },
+            {
+                question: "Which memory allocation type occurs at compile-time?",
+                options: [
+                    "Dynamic allocation",
+                    "Static allocation",
+                    "Automatic allocation",
+                    "Runtime allocation"
+                ],
+                correct: 1,
+                explanation: "Static allocation occurs at compile-time, allocating fixed memory before program execution begins."
+            },
+            {
+                question: "What is the main advantage of dynamic partitioning over fixed partitioning?",
+                options: [
+                    "Simpler implementation",
+                    "Reduces internal fragmentation",
+                    "Faster allocation",
+                    "No memory management needed"
+                ],
+                correct: 1,
+                explanation: "Dynamic partitioning allocates memory based on exact process size, reducing internal fragmentation compared to fixed partitions."
+            },
+            {
+                question: "Relocatable dynamic partitions help reduce:",
+                options: [
+                    "CPU usage",
+                    "External fragmentation through compaction",
+                    "Internal fragmentation",
+                    "Process overhead"
+                ],
+                correct: 1,
+                explanation: "Relocatable dynamic partitions can move processes in memory to combine free spaces, reducing external fragmentation through compaction."
+            },
+            {
+                question: "What does aging in priority scheduling prevent?",
+                options: [
+                    "Process termination",
+                    "Memory leaks",
+                    "Indefinite postponement (starvation)",
+                    "CPU overhead"
+                ],
+                correct: 2,
+                explanation: "Aging gradually increases the priority of processes that have been waiting for a long time, preventing indefinite postponement."
+            },
+            {
+                question: "Which cache mapping technique provides the most flexibility?",
+                options: [
+                    "Direct mapping",
+                    "Fully associative mapping",
+                    "Set-associative mapping",
+                    "Random mapping"
+                ],
+                correct: 1,
+                explanation: "Fully associative mapping allows any cache line to store any memory block, providing maximum flexibility but requiring more complex hardware."
+            },
+            {
+                question: "What is cache coherence?",
+                options: [
+                    "Cache size optimization",
+                    "Ensuring data consistency across multiple caches",
+                    "Cache performance measurement",
+                    "Cache memory allocation"
+                ],
+                correct: 1,
+                explanation: "Cache coherence ensures that all caches in a multiprocessor system maintain consistent views of shared data."
+            },
+            {
+                question: "In segmentation with paging, the logical address consists of:",
+                options: [
+                    "Page number + offset",
+                    "Segment number + page number + offset",
+                    "Base + limit",
+                    "Frame number + offset"
+                ],
+                correct: 1,
+                explanation: "In segmented-paged systems, logical addresses contain segment number, page number within segment, and offset within page."
+            },
+            {
+                question: "What is the convoy effect in FCFS scheduling?",
+                options: [
+                    "Processes execute simultaneously",
+                    "Short processes wait behind long processes, increasing average waiting time",
+                    "Processes switch rapidly",
+                    "High-priority processes execute first"
+                ],
+                correct: 1,
+                explanation: "Convoy effect occurs in FCFS when short processes wait behind long processes, significantly increasing average waiting time."
+            },
+            {
+                question: "Which algorithm provides the theoretical minimum average waiting time?",
+                options: [
+                    "FCFS",
+                    "SJF (Shortest Job First)",
+                    "Round Robin",
+                    "Priority Scheduling"
+                ],
+                correct: 1,
+                explanation: "SJF (Shortest Job First) provides the theoretical minimum average waiting time when all jobs arrive simultaneously."
+            },
+            {
+                question: "What is the main challenge with implementing LRU page replacement?",
+                options: [
+                    "It's too simple",
+                    "Requires tracking access history, which can be expensive",
+                    "It's always optimal",
+                    "It causes more page faults"
+                ],
+                correct: 1,
+                explanation: "LRU requires tracking page access history, which involves significant hardware or software overhead to implement efficiently."
+            },
+            {
+                question: "What makes the Optimal page replacement algorithm impractical?",
+                options: [
+                    "It's too slow",
+                    "It requires knowledge of future page references",
+                    "It uses too much memory",
+                    "It's too complex to implement"
+                ],
+                correct: 1,
+                explanation: "Optimal algorithm requires knowledge of future page references, which is impossible to know in advance in real systems."
+            },
+            {
+                question: "In deadlock detection, if some processes have Finish[i] = false after the algorithm, it means:",
+                options: [
+                    "System is safe",
+                    "No deadlock exists",
+                    "System is in deadlock",
+                    "Algorithm failed"
+                ],
+                correct: 2,
+                explanation: "If some processes remain with Finish[i] = false after the detection algorithm, it indicates these processes are deadlocked."
+            },
+            {
+                question: "Resource preemption in deadlock recovery may cause:",
+                options: [
+                    "System crash",
+                    "Starvation if same process is always chosen as victim",
+                    "Memory overflow",
+                    "CPU overheating"
+                ],
+                correct: 1,
+                explanation: "Resource preemption can cause starvation if the same process is repeatedly chosen as a victim for resource preemption."
+            },
+            {
+                question: "What is the job scheduler responsible for?",
+                options: [
+                    "CPU allocation to processes",
+                    "Selecting jobs from queue and placing them in ready queue",
+                    "Memory management",
+                    "I/O operations"
+                ],
+                correct: 1,
+                explanation: "Job scheduler (high-level scheduler) selects jobs from the incoming queue and places them in the process ready queue."
+            },
+            {
+                question: "The middle-level scheduler is also known as:",
+                options: [
+                    "Job scheduler",
+                    "Process scheduler",
+                    "Swapper",
+                    "I/O scheduler"
+                ],
+                correct: 2,
+                explanation: "The middle-level scheduler is also called the swapper, responsible for swapping processes between main memory and secondary storage."
+            },
+            {
+                question: "What is the main purpose of process synchronization?",
+                options: [
+                    "Speed up execution",
+                    "Ensure processes cooperate and communicate effectively while accessing shared resources",
+                    "Reduce memory usage",
+                    "Increase CPU utilization"
+                ],
+                correct: 1,
+                explanation: "Process synchronization ensures that processes cooperate effectively and safely access shared resources without conflicts."
+            },
+            {
+                question: "Semaphores are used for:",
+                options: [
+                    "Process scheduling",
+                    "Process synchronization and access control",
+                    "Memory allocation",
+                    "File management"
+                ],
+                correct: 1,
+                explanation: "Semaphores are synchronization primitives used to control access to shared resources and coordinate process execution."
+            },
+            {
+                question: "What information does PCB typically NOT contain?",
+                options: [
+                    "Process identifier",
+                    "Program counter",
+                    "User passwords",
+                    "Memory pointers"
+                ],
+                correct: 2,
+                explanation: "PCB contains process-related information like identifier, state, priority, program counter, memory pointers, but not user passwords."
+            },
+            {
+                question: "Which transition moves a process from Wait to Ready state?",
+                options: [
+                    "Process completion",
+                    "I/O or resource becomes available",
+                    "CPU time quantum expires",
+                    "Higher priority process arrives"
+                ],
+                correct: 1,
+                explanation: "A process moves from Wait to Ready state when the I/O operation completes or the requested resource becomes available."
+            },
+            {
+                question: "What is multithreading?",
+                options: [
+                    "Running multiple programs",
+                    "Dividing a process into multiple threads that can run independently",
+                    "Using multiple CPUs",
+                    "Switching between processes"
+                ],
+                correct: 1,
+                explanation: "Multithreading allows a process to be divided into multiple threads, each capable of independent execution."
+            },
+            {
+                question: "Which factor is NOT typically used for priority assignment?",
+                options: [
+                    "Memory requirements",
+                    "CPU time requirements",
+                    "User's favorite color",
+                    "Number of devices required"
+                ],
+                correct: 2,
+                explanation: "Priority assignment considers factors like memory requirements, CPU time, and device needs, but not irrelevant personal preferences."
+            },
+            {
+                question: "Multilevel feedback queues address which problem?",
+                options: [
+                    "Memory fragmentation",
+                    "Indefinite postponement through priority adjustment",
+                    "CPU overheating",
+                    "Disk space shortage"
+                ],
+                correct: 1,
+                explanation: "Multilevel feedback queues help prevent indefinite postponement by adjusting process priorities based on their behavior over time."
+            },
+            {
+                question: "What happens when time quantum in Round Robin is too large?",
+                options: [
+                    "Better performance",
+                    "Approaches FCFS behavior",
+                    "More context switches",
+                    "Better fairness"
+                ],
+                correct: 1,
+                explanation: "When time quantum is very large, Round Robin scheduling behaves similar to FCFS since processes may complete within one quantum."
+            },
+            {
+                question: "What happens when time quantum in Round Robin is too small?",
+                options: [
+                    "Better throughput",
+                    "Excessive context switching overhead",
+                    "Better response time",
+                    "No effect"
+                ],
+                correct: 1,
+                explanation: "Very small time quantum causes excessive context switching overhead, reducing overall system performance."
+            },
+            {
+                question: "SRT (Shortest Remaining Time) is a ________ version of SJF.",
+                options: [
+                    "Non-preemptive",
+                    "Preemptive",
+                    "Simplified",
+                    "Batch"
+                ],
+                correct: 1,
+                explanation: "SRT is the preemptive version of SJF, where currently running process can be preempted if a shorter job arrives."
+            },
+            {
+                question: "Virtual memory allows programs to be:",
+                options: [
+                    "Smaller than physical memory only",
+                    "Larger than physical memory",
+                    "Faster than physical memory",
+                    "More secure than physical memory"
+                ],
+                correct: 1,
+                explanation: "Virtual memory allows programs to be larger than available physical memory by using disk storage as extension."
+            },
+            {
+                question: "Page size selection involves a tradeoff between:",
+                options: [
+                    "Speed and security",
+                    "Internal fragmentation and page table size",
+                    "CPU and memory usage",
+                    "Cost and performance"
+                ],
+                correct: 1,
+                explanation: "Larger pages reduce page table size but increase internal fragmentation; smaller pages reduce fragmentation but increase page table overhead."
+            },
+            {
+                question: "The effective access time in virtual memory systems depends on:",
+                options: [
+                    "CPU speed only",
+                    "Page fault rate and memory access time",
+                    "Disk size only",
+                    "Number of processes only"
+                ],
+                correct: 1,
+                explanation: "Effective access time depends on the page fault rate, memory access time, and time required to handle page faults."
+            },
+            {
+                question: "Which deadlock handling approach has the lowest overhead during normal operation?",
+                options: [
+                    "Prevention",
+                    "Avoidance",
+                    "Detection",
+                    "Ignorance (Ostrich algorithm)"
+                ],
+                correct: 3,
+                explanation: "The Ostrich algorithm (ignoring deadlocks) has the lowest overhead during normal operation but provides no deadlock handling."
+            },
+            {
+                question: "In banker's algorithm, a request is granted only if:",
+                options: [
+                    "Resources are available",
+                    "Granting the request leaves system in safe state",
+                    "Process has high priority",
+                    "It's the first request"
+                ],
+                correct: 1,
+                explanation: "Banker's algorithm grants requests only if doing so leaves the system in a safe state where all processes can complete."
+            },
+            {
+                question: "Which is true about embedded operating systems?",
+                options: [
+                    "They are always real-time systems",
+                    "They run on specialized devices like appliances and automobiles",
+                    "They are always network-based",
+                    "They require GUI interface"
+                ],
+                correct: 1,
+                explanation: "Embedded operating systems are designed to run on specialized devices like appliances, automobiles, and industrial machines."
+            },
+            {
+                question: "Linux follows which type of kernel architecture?",
+                options: [
+                    "Microkernel",
+                    "Monolithic kernel",
+                    "Hybrid kernel",
+                    "Distributed kernel"
+                ],
+                correct: 1,
+                explanation: "Linux follows a modular monolithic kernel architecture where kernel components run in the same address space."
+            },
+            {
+                question: "What characterizes a microkernel architecture?",
+                options: [
+                    "All services run in kernel space",
+                    "Minimal kernel with services running in user space",
+                    "No kernel at all",
+                    "Multiple kernels running simultaneously"
+                ],
+                correct: 1,
+                explanation: "Microkernel architecture keeps the kernel minimal, with most services running in user space for better modularity and reliability."
+            },
+            {
+                question: "Which Windows feature provides virtual memory management?",
+                options: [
+                    "Task Manager",
+                    "Virtual Memory Manager (VMM)",
+                    "Device Manager",
+                    "File Explorer"
+                ],
+                correct: 1,
+                explanation: "Windows Virtual Memory Manager (VMM) handles virtual memory operations including paging and address translation."
+            },
+            {
+                question: "What is the primary advantage of having multiple levels of cache?",
+                options: [
+                    "Reduced cost",
+                    "Better performance through hierarchical access",
+                    "Simpler design",
+                    "Lower power consumption"
+                ],
+                correct: 1,
+                explanation: "Multiple cache levels provide a hierarchy where frequently accessed data is kept in faster, smaller caches closer to the CPU."
+            },
+            {
+                question: "Cache miss occurs when:",
+                options: [
+                    "Cache is full",
+                    "Requested data is not found in cache",
+                    "Cache is empty",
+                    "CPU is idle"
+                ],
+                correct: 1,
+                explanation: "Cache miss occurs when the CPU requests data that is not currently stored in the cache memory."
+            },
+            {
+                question: "What is locality of reference in memory access?",
+                options: [
+                    "Random memory access pattern",
+                    "Tendency to access nearby memory locations or recently accessed locations",
+                    "Accessing only high memory addresses",
+                    "Accessing memory in alphabetical order"
+                ],
+                correct: 1,
+                explanation: "Locality of reference refers to the tendency of programs to access memory locations that are close to recently accessed locations."
+            },
+            {
+                question: "Which scheduling algorithm is most suitable for interactive systems?",
+                options: [
+                    "FCFS",
+                    "SJF",
+                    "Round Robin",
+                    "Priority without preemption"
+                ],
+                correct: 2,
+                explanation: "Round Robin is most suitable for interactive systems as it provides fair CPU allocation and reasonable response times for all users."
+            },
+            {
+                question: "What is the main disadvantage of Best-Fit memory allocation?",
+                options: [
+                    "High internal fragmentation",
+                    "Slower allocation due to searching entire memory",
+                    "Requires more memory",
+                    "Cannot handle large processes"
+                ],
+                correct: 1,
+                explanation: "Best-Fit requires searching through all available holes to find the smallest suitable one, making allocation slower than First-Fit."
+            },
+            {
+                question: "Memory compaction is used to solve:",
+                options: [
+                    "Internal fragmentation",
+                    "External fragmentation",
+                    "Cache misses",
+                    "Page faults"
+                ],
+                correct: 1,
+                explanation: "Memory compaction moves allocated memory blocks together to combine scattered free spaces, solving external fragmentation."
+            },
+            {
+                question: "What happens during process creation?",
+                options: [
+                    "Process terminates",
+                    "OS allocates resources and initializes process state",
+                    "Process waits for I/O",
+                    "Process releases resources"
+                ],
+                correct: 1,
+                explanation: "During process creation, the OS allocates necessary resources like memory and initializes the process control block (PCB)."
+            },
+            {
+                question: "The critical section problem is solved using:",
+                options: [
+                    "CPU scheduling",
+                    "Synchronization mechanisms like semaphores and mutexes",
+                    "Memory management",
+                    "File systems"
+                ],
+                correct: 1,
+                explanation: "Critical section problem requires synchronization mechanisms like semaphores, mutexes, and monitors to ensure mutual exclusion."
+            },
+            {
+                question: "Thrashing can be reduced by:",
+                options: [
+                    "Increasing CPU speed",
+                    "Using working set model and controlling degree of multiprogramming",
+                    "Adding more hard disk space",
+                    "Increasing cache size"
+                ],
+                correct: 1,
+                explanation: "Thrashing can be reduced by using working set model to keep frequently used pages in memory and controlling the number of active processes."
+            },
+            {
+                question: "What does ENIAC stand for?",
+                options: [
+                    "Electronic Numerical Integrator and Computer",
+                    "Enhanced Numerical Intelligence and Calculator",
+                    "Electronic Network Interface and Control",
+                    "Efficient Numerical Input and Computation"
+                ],
+                correct: 0,
+                explanation: "ENIAC stands for Electronic Numerical Integrator and Computer, one of the earliest general-purpose computers that operated without formal operating systems."
+            },
+            {
+                question: "What does UNIVAC stand for?",
+                options: [
+                    "Universal Variable Automatic Computer",
+                    "Universal Automatic Computer",
+                    "Unified Variable Access Computer",
+                    "Universal Virtual Automatic Calculator"
+                ],
+                correct: 1,
+                explanation: "UNIVAC stands for Universal Automatic Computer, another early computer system from the late 1940s era."
+            },
+            {
+                question: "What does CTSS stand for?",
+                options: [
+                    "Computer Time-Sharing System",
+                    "Compatible Time-Sharing System",
+                    "Central Time-Sharing Service",
+                    "Coordinated Time-Sharing System"
+                ],
+                correct: 1,
+                explanation: "CTSS stands for Compatible Time-Sharing System, developed at MIT as a notable example of time-sharing operating systems in the 1960s."
+            },
+            {
+                question: "The analogy of 'booking a box for shipping that holds 10 kg, but your item only weighs 6 kg' represents:",
+                options: [
+                    "External fragmentation",
+                    "Internal fragmentation",
+                    "Memory compaction",
+                    "Virtual memory"
+                ],
+                correct: 1,
+                explanation: "This analogy represents internal fragmentation - you've reserved the space, but some of it is unused, just like when a process is allocated more memory than it needs."
+            },
+            {
+                question: "The analogy of 'packing luggage in your suitcase with small empty spaces between items' represents:",
+                options: [
+                    "Internal fragmentation",
+                    "External fragmentation",
+                    "Memory allocation",
+                    "Page replacement"
+                ],
+                correct: 1,
+                explanation: "This represents external fragmentation - the total empty space might be enough for another item, but it won't fit because the space isn't all together."
+            },
+            {
+                question: "What does CP/M stand for?",
+                options: [
+                    "Computer Program Manager",
+                    "Control Program for Microcomputers",
+                    "Central Processing Machine",
+                    "Computer Process Management"
+                ],
+                correct: 1,
+                explanation: "CP/M stands for Control Program for Microcomputers, developed by Digital Research as one of the early operating systems for personal computers."
+            },
+            {
+                question: "What does GUI stand for?",
+                options: [
+                    "General User Interface",
+                    "Graphical User Interface",
+                    "Global User Integration",
+                    "Generic User Input"
+                ],
+                correct: 1,
+                explanation: "GUI stands for Graphical User Interface, which allows users to interact with computers through visual elements like windows, icons, and menus."
+            },
+            {
+                question: "What does CLI stand for?",
+                options: [
+                    "Computer Language Interface",
+                    "Central Logic Input",
+                    "Command-Line Interface",
+                    "Core Logic Interface"
+                ],
+                correct: 2,
+                explanation: "CLI stands for Command-Line Interface, a text-based user interface used to interact with the operating system through typed commands."
+            },
+            {
+                question: "What does RPC stand for?",
+                options: [
+                    "Real Process Control",
+                    "Remote Procedure Call",
+                    "Rapid Process Communication",
+                    "Resource Process Control"
+                ],
+                correct: 1,
+                explanation: "RPC stands for Remote Procedure Call, a protocol that allows one program to request services from another program on a different computer."
+            },
+            {
+                question: "In the chess analogy mentioned in the document, checkmate represents:",
+                options: [
+                    "Process synchronization",
+                    "Memory allocation",
+                    "Deadlock situation",
+                    "CPU scheduling"
+                ],
+                correct: 2,
+                explanation: "Checkmate in chess is used as an analogy for deadlock - a situation where no chance of escaping is possible and the player must hold without any move."
+            },
+            {
+                question: "What does TLB stand for?",
+                options: [
+                    "Total Load Buffer",
+                    "Translation Lookaside Buffer",
+                    "Transfer Link Block",
+                    "Thread Local Block"
+                ],
+                correct: 1,
+                explanation: "TLB stands for Translation Lookaside Buffer, which speeds up virtual-to-physical address translation by caching recent translations."
+            },
+            {
+                question: "The two trains at a crossing analogy represents:",
+                options: [
+                    "Process scheduling",
+                    "Memory management",
+                    "Deadlock situation",
+                    "File system operations"
+                ],
+                correct: 2,
+                explanation: "The two trains analogy represents deadlock - when a crossing comes, one train must wait for the other, creating a waiting situation that represents deadlock."
+            },
+            {
+                question: "What does RTOS stand for?",
+                options: [
+                    "Real-Time Operating System",
+                    "Rapid Task Operating System",
+                    "Resource Tracking Operating System",
+                    "Remote Terminal Operating System"
+                ],
+                correct: 0,
+                explanation: "RTOS stands for Real-Time Operating System, designed to manage real-time applications where tasks need completion within strict time constraints."
+            },
+            {
+                question: "What does PCB stand for?",
+                options: [
+                    "Process Control Board",
+                    "Program Control Block",
+                    "Process Control Block",
+                    "Program Control Board"
+                ],
+                correct: 2,
+                explanation: "PCB stands for Process Control Block, a data structure used by the operating system to manage information about a process."
+            },
+            {
+                question: "The Banker's Algorithm analogy involves:",
+                options: [
+                    "Customers asking for loans up to a limit",
+                    "Banks storing customer data",
+                    "Interest rate calculations",
+                    "Currency exchange operations"
+                ],
+                correct: 0,
+                explanation: "In the Banker's Algorithm analogy, clients (processes) ask for loans (resources) up to a limit, and the banker ensures enough resources remain to satisfy at least one client."
+            },
+            {
+                question: "What does MIT stand for in the context of CTSS development?",
+                options: [
+                    "Michigan Institute of Technology",
+                    "Massachusetts Institute of Technology",
+                    "Minnesota Institute of Technology",
+                    "Maryland Institute of Technology"
+                ],
+                correct: 1,
+                explanation: "MIT stands for Massachusetts Institute of Technology, where the Compatible Time-Sharing System (CTSS) was developed."
+            },
+            {
+                question: "What does IBM stand for?",
+                options: [
+                    "International Business Machines",
+                    "Integrated Business Management",
+                    "International Banking Machines",
+                    "Industrial Business Motors"
+                ],
+                correct: 0,
+                explanation: "IBM stands for International Business Machines, the company that produced early computers like the IBM 709 and IBM PC."
+            },
+            {
+                question: "What does AT&T stand for in the context of UNIX development?",
+                options: [
+                    "American Telephone and Telegraph",
+                    "Advanced Technology and Telecommunications",
+                    "Automated Technology Transfer",
+                    "American Technology and Transport"
+                ],
+                correct: 0,
+                explanation: "AT&T stands for American Telephone and Telegraph, the company whose Bell Labs developed the influential UNIX operating system."
+            },
+            {
+                question: "What does MS-DOS stand for?",
+                options: [
+                    "Microsoft Disk Operating System",
+                    "Multi-System Disk Operating System",
+                    "Micro-System Disk Operating System",
+                    "Microsoft Data Operating System"
+                ],
+                correct: 0,
+                explanation: "MS-DOS stands for Microsoft Disk Operating System, an early operating system for personal computers."
+            },
+            {
+                question: "What does iOS stand for?",
+                options: [
+                    "Internet Operating System",
+                    "iPhone Operating System",
+                    "Integrated Operating System",
+                    "Interactive Operating System"
+                ],
+                correct: 1,
+                explanation: "iOS originally stood for iPhone Operating System, Apple's mobile operating system for smartphones and tablets."
+            },
+            {
+                question: "What does BSD stand for?",
+                options: [
+                    "Berkeley Software Distribution",
+                    "Basic System Distribution",
+                    "Binary Software Development",
+                    "Berkeley System Development"
+                ],
+                correct: 0,
+                explanation: "BSD stands for Berkeley Software Distribution, an open-source operating system that contributed to democratizing the OS landscape."
+            },
+            {
+                question: "What does SSD stand for?",
+                options: [
+                    "Solid State Drive",
+                    "System Storage Device",
+                    "Super Speed Drive",
+                    "Sequential Storage Drive"
+                ],
+                correct: 0,
+                explanation: "SSD stands for Solid State Drive, a type of storage device mentioned in the context of file system management."
+            },
+            {
+                question: "What does RAG stand for in deadlock detection?",
+                options: [
+                    "Resource Access Graph",
+                    "Resource-Allocation Graph",
+                    "Resource Assignment Grid",
+                    "Resource Availability Graph"
+                ],
+                correct: 1,
+                explanation: "RAG stands for Resource-Allocation Graph, used to detect deadlocks by analyzing cycles in resource allocation."
+            },
+            {
+                question: "What does VMM stand for in Windows?",
+                options: [
+                    "Virtual Machine Manager",
+                    "Virtual Memory Manager",
+                    "Variable Memory Management",
+                    "Virtual Media Manager"
+                ],
+                correct: 1,
+                explanation: "VMM stands for Virtual Memory Manager, the Windows component that handles virtual memory operations including paging and address translation."
+            },
+            {
+                question: "What does macOS originally stand for?",
+                options: [
+                    "Macintosh Operating System",
+                    "Mac Apple Operating System",
+                    "Machine Operating System",
+                    "Multi-Access Operating System"
+                ],
+                correct: 0,
+                explanation: "macOS stands for Macintosh Operating System, Apple's operating system for its Macintosh computers."
+            },
+            {
+                question: "The analogy of a process being like a recipe that needs ingredients (resources) represents:",
+                options: [
+                    "Process scheduling",
+                    "Resource allocation and process management",
+                    "Memory fragmentation",
+                    "Virtual memory"
+                ],
+                correct: 1,
+                explanation: "This analogy shows how processes need various resources (like ingredients in a recipe) to execute properly, illustrating resource allocation concepts."
+            },
+            {
+                question: "What does RAM stand for?",
+                options: [
+                    "Random Access Memory",
+                    "Rapid Access Memory",
+                    "Read Access Memory",
+                    "Real-time Access Memory"
+                ],
+                correct: 0,
+                explanation: "RAM stands for Random Access Memory, the main physical memory of a computer system."
+            },
+            {
+                question: "What does SJN stand for in scheduling algorithms?",
+                options: [
+                    "Shortest Job Next",
+                    "System Job Network",
+                    "Sequential Job Number",
+                    "Scheduled Job Node"
+                ],
+                correct: 0,
+                explanation: "SJN stands for Shortest Job Next, another name for the Shortest Job First scheduling algorithm."
+            },
+            {
+                question: "What does SRT stand for in process scheduling?",
+                options: [
+                    "System Response Time",
+                    "Shortest Remaining Time",
+                    "Scheduled Run Time",
+                    "System Resource Table"
+                ],
+                correct: 1,
+                explanation: "SRT stands for Shortest Remaining Time, the preemptive version of Shortest Job First scheduling."
+            },
+            {
+                question: "What does FIFO stand for?",
+                options: [
+                    "First Input, First Output",
+                    "First In, First Out",
+                    "Fast Input, Fast Output",
+                    "Fixed Input, Fixed Output"
+                ],
+                correct: 1,
+                explanation: "FIFO stands for First In, First Out, a scheduling and queue management principle used in various OS algorithms."
+            },
+            {
+                question: "The analogy comparing cache levels to a library system represents:",
+                options: [
+                    "Memory hierarchy and access speeds",
+                    "Process synchronization",
+                    "File system organization",
+                    "Network communication"
+                ],
+                correct: 0,
+                explanation: "This analogy illustrates memory hierarchy - frequently used books (data) are kept closer for faster access, like how cache memory works."
+            },
+            {
+                question: "What does LRU stand for in page replacement?",
+                options: [
+                    "Last Recently Used",
+                    "Least Recently Used",
+                    "Least Resource Usage",
+                    "Last Resource Update"
+                ],
+                correct: 1,
+                explanation: "LRU stands for Least Recently Used, a page replacement algorithm that replaces the page that has been used least recently."
+            },
+            {
+                question: "What does GM-NAA I/O stand for?",
+                options: [
+                    "General Motors - North American Aviation Input/Output",
+                    "Global Memory - Network Access Authorization Input/Output",
+                    "General Management - Network Application Input/Output",
+                    "General Machine - Network Access Input/Output"
+                ],
+                correct: 0,
+                explanation: "GM-NAA I/O stands for General Motors - North American Aviation Input/Output, one of the first generation operating systems for the IBM 709 computer."
+            },
+            {
+                question: "During which decade did computer systems become more complex and require more efficient operating systems?",
+                options: [
+                    "1940s and 1950s",
+                    "1950s and 1960s",
+                    "1960s and 1970s",
+                    "1970s and 1980s"
+                ],
+                correct: 1,
+                explanation: "In the 1950s and 1960s, as computer systems became more complex and were used for a wider range of applications, the need for more efficient operating systems became apparent."
+            },
+            {
+                question: "Which decade saw the development of personal computers and minicomputers with user-friendly operating systems?",
+                options: [
+                    "1960s",
+                    "1970s",
+                    "1980s",
+                    "1990s"
+                ],
+                correct: 1,
+                explanation: "The 1970s saw the development of personal computers and minicomputers, leading to more user-friendly operating systems such as CP/M and UNIX."
+            },
+            {
+                question: "In which decade did graphical user interfaces (GUIs) rise with Apple Macintosh and Microsoft Windows?",
+                options: [
+                    "1970s",
+                    "1980s",
+                    "1990s",
+                    "2000s"
+                ],
+                correct: 1,
+                explanation: "The 1980s saw the rise of graphical user interfaces (GUIs) with the development of operating systems such as the Apple Macintosh and Microsoft Windows."
+            },
+            {
+                question: "During which decades did open-source operating systems like Linux and BSD develop?",
+                options: [
+                    "1980s and 1990s",
+                    "1990s and 2000s",
+                    "2000s and 2010s",
+                    "1970s and 1980s"
+                ],
+                correct: 1,
+                explanation: "In the 1990s and 2000s, the development of open-source operating systems such as Linux and BSD further democratized the operating system landscape."
+            },
+            {
+                question: "Which era laid the groundwork for mobile operating systems like Android and iOS?",
+                options: [
+                    "1980s and 1990s",
+                    "1990s and 2000s",
+                    "2000s and 2010s",
+                    "1970s and 1980s"
+                ],
+                correct: 1,
+                explanation: "The developments in the 1990s and 2000s, particularly with Linux and BSD systems, laid the groundwork for mobile operating systems such as Android and iOS."
+            },
+            {
+                question: "In which decade was UNIX developed by AT&T Bell Labs?",
+                options: [
+                    "1960s",
+                    "1970s",
+                    "1980s",
+                    "1990s"
+                ],
+                correct: 1,
+                explanation: "UNIX was developed by AT&T Bell Labs in the 1970s, introducing the concept of a multi-user, multi-tasking operating system."
+            },
+            {
+                question: "When did the era of personal computers begin according to the document?",
+                options: [
+                    "1970s",
+                    "1980s",
+                    "1990s",
+                    "2000s"
+                ],
+                correct: 1,
+                explanation: "The 1980s ushered in the era of the personal computer with the development of GUIs that made computers accessible to non-technical users."
+            },
+            {
+                question: "Which period saw early computer systems like ENIAC and UNIVAC that operated without formal operating systems?",
+                options: [
+                    "Early 1940s",
+                    "Late 1940s",
+                    "Early 1950s",
+                    "Late 1950s"
+                ],
+                correct: 1,
+                explanation: "The history of operating systems dates back to the late 1940s, with early computer systems such as ENIAC and UNIVAC that operated without formal operating systems."
+            },
+            {
+                question: "What decade marked the beginning of time-sharing operating systems development?",
+                options: [
+                    "1950s",
+                    "1960s",
+                    "1970s",
+                    "1980s"
+                ],
+                correct: 1,
+                explanation: "The 1960s saw the development of time-sharing operating systems, with CTSS being the most notable example developed at MIT."
+            },
+            {
+                question: "During which time period were the first generation of operating systems like GM-NAA I/O developed?",
+                options: [
+                    "Late 1940s and early 1950s",
+                    "1950s and 1960s",
+                    "1960s and 1970s",
+                    "1970s and 1980s"
+                ],
+                correct: 1,
+                explanation: "The first generation of operating systems, such as GM-NAA I/O for IBM 709, were developed in the 1950s and 1960s as computer systems became more complex."
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+        let userAnswers = [];
+        let quizCompleted = false;
+
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        // Shuffle questions on initial load
+        shuffle(questions);
+
+        function initializeQuiz() {
+            showQuestion();
+            updateProgress();
+            updateScore();
+        }
+
+        function showQuestion() {
+            const questionData = questions[currentQuestion];
+            document.getElementById('questionText').innerHTML = `<span style="color: #ad1457; font-weight: bold;">Question ${currentQuestion + 1}:</span> ${questionData.question}`;
+            
+            const optionsContainer = document.getElementById('optionsContainer');
+            optionsContainer.innerHTML = '';
+            
+            questionData.options.forEach((option, index) => {
+                const optionElement = document.createElement('div');
+                optionElement.className = 'option';
+                optionElement.innerHTML = `<strong>${String.fromCharCode(65 + index)}.</strong> ${option}`;
+                optionElement.onclick = () => selectOption(index);
+                optionElement.dataset.index = index;
+                optionsContainer.appendChild(optionElement);
+            });
+            
+            document.getElementById('feedback').classList.remove('show');
+            document.getElementById('prevBtn').disabled = currentQuestion === 0;
+            document.getElementById('nextBtn').disabled = true;
+            document.getElementById('nextBtn').textContent = currentQuestion === questions.length - 1 ? 'Finish Quiz' : 'Next';
+        }
+
+        function selectOption(selectedIndex) {
+            const questionData = questions[currentQuestion];
+            const options = document.querySelectorAll('.option');
+            
+            // Disable all options
+            options.forEach(option => {
+                option.classList.add('disabled');
+                option.onclick = null;
+            });
+            
+            // Mark selected option
+            options[selectedIndex].classList.add('selected');
+            
+            // Show correct answer (green)
+            options[questionData.correct].classList.add('correct');
+            
+            // Mark incorrect if wrong selection (red)
+            if (selectedIndex !== questionData.correct) {
+                options[selectedIndex].classList.add('incorrect');
+            }
+            
+            // Store answer
+            userAnswers[currentQuestion] = selectedIndex;
+            
+            // Show feedback
+            const feedback = document.getElementById('feedback');
+            feedback.className = `feedback show ${selectedIndex === questionData.correct ? 'correct' : 'incorrect'}`;
+            feedback.innerHTML = `
+                <strong>${selectedIndex === questionData.correct ? '✓ Correct!' : '✗ Incorrect'}</strong><br>
+                <strong>Correct Answer:</strong> ${String.fromCharCode(65 + questionData.correct)}. ${questionData.options[questionData.correct]}<br>
+                <strong>Explanation:</strong> ${questionData.explanation}
+            `;
+            
+            document.getElementById('nextBtn').disabled = false;
+            updateScore();
+        }
+
+        function updateScore() {
+            // Calculate score based on all answered questions
+            let calculatedScore = 0;
+            userAnswers.forEach((ans, idx) => {
+                if (ans === questions[idx].correct) calculatedScore++;
+            });
+            document.getElementById('scoreDisplay').textContent = `Score: ${calculatedScore}/${currentQuestion + 1}`;
+            score = calculatedScore;
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++;
+                showQuestion();
+                updateProgress();
+            } else {
+                finishQuiz();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                showQuestion();
+                updateProgress();
+                
+                // If question was already answered, show the previous selection
+                if (userAnswers[currentQuestion] !== undefined) {
+                    setTimeout(() => {
+                        selectOption(userAnswers[currentQuestion]);
+                    }, 100);
+                }
+            }
+        }
+
+        function updateProgress() {
+            const progress = ((currentQuestion) / questions.length) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+            document.getElementById('progressText').textContent = `Question ${currentQuestion + 1} of ${questions.length}`;
+        }
+
+        function finishQuiz() {
+            quizCompleted = true;
+            const percentage = Math.round((score / questions.length) * 100);
+            
+            document.getElementById('questionContainer').style.display = 'none';
+            document.getElementById('finalScore').classList.add('show');
+            document.getElementById('finalScoreCircle').textContent = `${percentage}%`;
+            document.getElementById('finalScoreText').innerHTML = `
+                You scored <strong>${score}</strong> out of <strong>${questions.length}</strong> questions correctly!<br>
+                <span style="font-size: 1.1em; margin-top: 10px; display: block;">
+                    ${percentage >= 120 ? '🏆 Excellent! Outstanding knowledge of Operating Systems!' :
+                      percentage >= 100 ? '🎉 Great job! Very good understanding!' :
+                      percentage >= 80 ? '👍 Good work! Solid foundation!' :
+                      percentage >= 60 ? '📚 Not bad! Keep studying to improve!' :
+                      '💪 Keep learning! Practice makes perfect!'}
+                </span>
+            `;
+            
+            // Update progress to 100%
+            document.getElementById('progressFill').style.width = '100%';
+            document.getElementById('progressText').textContent = 'Quiz Completed!';
+        }
+
+        function restartQuiz() {
+            currentQuestion = 0;
+            score = 0;
+            userAnswers = [];
+            quizCompleted = false;
+
+            // Shuffle questions on restart
+            shuffle(questions);
+
+            document.getElementById('questionContainer').style.display = 'block';
+            document.getElementById('finalScore').classList.remove('show');
+
+            initializeQuiz();
+        }
+
+        // Initialize quiz when page loads
+        window.onload = initializeQuiz;
+    </script>
+</body>
+</html>
