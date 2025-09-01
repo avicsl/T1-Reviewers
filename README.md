@@ -1,6 +1,6 @@
 # Reviewers (flashcard)
 OS Reviewer: https://avicsl.github.io/Reviewers/os  
-Rizal Reviewer:  
+Rizal Reviewer: https://avicsl.github.io/Reviewers/rizal  
 IS Reviewer:  
 Automata-Reviewer:  
 SoftEng Reviewer:  
