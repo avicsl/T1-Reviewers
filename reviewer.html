@@ -1,0 +1,1797 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rizal Review</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Barbie', 'Arial', sans-serif;
+            background: #fff0f6; /* Light pink solid background */
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .quiz-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #fff0f6;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            overflow: hidden;
+            border: 3px solid #ff69b4;
+        }
+        
+        .quiz-header {
+            background: #ff69b4; /* Solid Barbie pink for better readability */
+            color: #000;
+            padding: 30px;
+            text-align: center;
+            border-bottom: 3px solid #ff69b4;
+        }
+        
+        .quiz-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-family: 'Barbie', 'Arial', sans-serif;
+            letter-spacing: 2px;
+            color: #fff; /* White text for strong contrast */
+            text-shadow: 2px 2px 0 #ad1457;
+        }
+        
+        .quiz-header p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+            color: #fff; /* White text for strong contrast */
+            text-shadow: 1px 1px 0 #ad1457;
+        }
+        
+        .progress-container {
+            background: #fff0f6;
+            padding: 20px;
+            border-bottom: 1px solid #ff69b4;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background: #ff69b4;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ff69b4, #fff0f6);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        
+        .progress-text {
+            text-align: center;
+            margin-top: 10px;
+            font-weight: bold;
+            color: #000;
+            text-shadow: 1px 1px 0 #fff;
+        }
+        
+        .question-container {
+            padding: 40px;
+            min-height: 400px;
+            background: #fff0f6;
+        }
+        
+        .question {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #ff69b4;
+            margin-bottom: 25px;
+            line-height: 1.6;
+            text-shadow: 1px 1px 0 #fff;
+        }
+        
+        .options {
+            display: grid;
+            gap: 15px;
+        }
+        
+        .option {
+            background: #fff;
+            border: 2px solid #ff69b4;
+            border-radius: 10px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+            position: relative;
+            color: #000;
+            font-weight: bold;
+        }
+        
+        .option:hover {
+            border-color: #ff69b4;
+            background: #ffe4ec;
+            transform: translateY(-2px);
+        }
+        
+        .option.selected {
+            border-color: #ff69b4;
+            background: #ffe4ec;
+        }
+        
+        .option.correct {
+            border-color: #28a745;
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .option.incorrect {
+            border-color: #dc3545;
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        .option.disabled {
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+        
+        .feedback {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 10px;
+            display: none;
+            font-weight: bold;
+            color: #000;
+        }
+        
+        .feedback.show {
+            display: block;
+        }
+        
+        .feedback.correct {
+            background: #d4edda;
+            color: #155724;
+            border: 2px solid #28a745;
+        }
+        
+        .feedback.incorrect {
+            background: #f8d7da;
+            color: #721c24;
+            border: 2px solid #dc3545;
+        }
+        
+        .controls {
+            padding: 30px 40px;
+            background: #fff0f6;
+            text-align: center;
+            border-top: 1px solid #ff69b4;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, #ff69b4 0%, #fff0f6 100%);
+            color: #000;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 0 10px;
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(255, 105, 180, 0.2);
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(255, 105, 180, 0.3);
+            background: linear-gradient(135deg, #ffe4ec 0%, #ff69b4 100%);
+            color: #000;
+        }
+        
+        .btn:disabled {
+            background: #ffb6c1;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+            color: #000;
+        }
+        
+        .score-display {
+            display: inline-block;
+            background: #fff;
+            padding: 10px 20px;
+            border-radius: 25px;
+            margin: 0 15px;
+            font-weight: bold;
+            color: #ff69b4;
+            border: 2px solid #ff69b4;
+        }
+        
+        .final-score {
+            text-align: center;
+            padding: 40px;
+            display: none;
+            background: #fff0f6;
+            color: #000;
+        }
+        
+        .final-score.show {
+            display: block;
+        }
+        
+        .final-score h2 {
+            font-size: 2.5rem;
+            color: #ff69b4;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 0 #fff;
+        }
+        
+        .score-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ff69b4 0%, #fff0f6 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px auto;
+            color: #000;
+            font-size: 2rem;
+            font-weight: bold;
+            border: 3px solid #ff69b4;
+            text-shadow: 2px 2px 0 #fff;
+        }
+        
+        @media (max-width: 768px) {
+            .quiz-header h1 {
+                font-size: 2rem;
+            }
+            
+            .question-container {
+                padding: 20px;
+            }
+            
+            .question {
+                font-size: 1.1rem;
+            }
+            
+            .option {
+                padding: 15px;
+                font-size: 1rem;
+            }
+            
+            .controls {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <div class="quiz-header">
+            <h1>Rizal’s Life, Works and Writings Reviewer</h1>
+            <p>4.0 cutie for everyone</p>
+        </div>
+        
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-text" id="progressText">Question 1 of 100</div>
+        </div>
+        
+        <div class="question-container" id="questionContainer">
+            <div class="question" id="questionText"></div>
+            <div class="options" id="optionsContainer"></div>
+            <div class="feedback" id="feedback"></div>
+        </div>
+        
+        <div class="controls">
+            <button class="btn" id="prevBtn" onclick="previousQuestion()">Previous</button>
+            <span class="score-display" id="scoreDisplay">Score: 0/0</span>
+            <button class="btn" id="nextBtn" onclick="nextQuestion()">Next</button>
+        </div>
+        
+        <div class="final-score" id="finalScore">
+            <h2>Quiz Complete!</h2>
+            <div class="score-circle" id="finalScoreCircle"></div>
+            <p id="finalScoreText"></p>
+            <button class="btn" onclick="restartQuiz()">Restart Quiz</button>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            {
+        question: "When did General Aguinaldo officially declare December 30 as a national day of mourning?",
+        options: [
+            "1897",
+            "1898",
+            "1899",
+            "1900"
+        ],
+        correct: 1,
+        explanation: "In 1898, General Aguinaldo officially declared December 30 as a national day of mourning in solemn remembrance of Rizal's execution."
+    },
+    {
+        question: "What province was created to honor Rizal?",
+        options: [
+            "Laguna Province",
+            "Rizal Province",
+            "Manila Province",
+            "Cavite Province"
+        ],
+        correct: 1,
+        explanation: "Morong and the Province of Manila were merged into Rizal Province by Philippine Commission Act No. 137 dated June 11, 1900."
+    },
+    {
+        question: "What was the original capital of Rizal Province?",
+        options: [
+            "Antipolo",
+            "Pasig",
+            "Marikina",
+            "Cainta"
+        ],
+        correct: 1,
+        explanation: "The capital of Rizal Province was officially Pasig until 2020, which explains why Pasig has Kapitolyo and Capitol Commons."
+    },
+    {
+        question: "What city was temporarily named Rizal City?",
+        options: [
+            "Manila",
+            "Pasay",
+            "Quezon City",
+            "Makati"
+        ],
+        correct: 1,
+        explanation: "Pasay became Rizal City through Republic Act 183 dated June 21, 1947, but reverted to Pasay on June 27, 1950."
+    },
+    {
+        question: "In which Manila district were streets named after Rizal's novel characters?",
+        options: [
+            "Intramuros",
+            "Sampaloc",
+            "Malate",
+            "Ermita"
+        ],
+        correct: 1,
+        explanation: "The streets of Sampaloc district in Manila were named after the characters in Rizal's novels."
+    },
+    {
+        question: "When was Rizal's monument erected in Luneta?",
+        options: [
+            "September 28, 1901",
+            "December 30, 1901",
+            "June 19, 1902",
+            "December 30, 1912"
+        ],
+        correct: 0,
+        explanation: "Rizal's monument was erected in Luneta through Philippine Commission Act 243 dated September 28, 1901."
+    },
+    {
+        question: "When were Rizal's remains transferred to the Luneta monument?",
+        options: [
+            "December 30, 1911",
+            "December 30, 1912",
+            "June 19, 1913",
+            "December 30, 1913"
+        ],
+        correct: 1,
+        explanation: "December 30, 1912 marked the day when Rizal was officially acclaimed The National Hero and his remains were transferred to the Luneta monument."
+    },
+    {
+        question: "Who issued Presidential Memorandum Order 247 to implement RA 1425?",
+        options: [
+            "President Marcos",
+            "President Aquino",
+            "President Fidel Ramos",
+            "President Estrada"
+        ],
+        correct: 2,
+        explanation: "President Fidel Ramos issued Presidential Memorandum Order 247 on December 26, 1994, directing full implementation of RA 1425."
+    },
+    {
+        question: "What is the significance of the word 'kalayaan' in the poem 'Sa Aking mga Kabata'?",
+        options: [
+            "It was commonly used in 1869",
+            "It didn't exist in primary Philippine languages in 1869",
+            "It was Rizal's favorite word",
+            "It was introduced by Spanish colonizers"
+        ],
+        correct: 1,
+        explanation: "According to National Artist Virgilio Almario, the word 'kalayaan' did not exist in primary Philippine languages in 1869 when Rizal was supposedly 8 years old."
+    },
+    {
+        question: "What was the Bell Trade Act of 1946?",
+        options: [
+            "It established Philippine independence",
+            "It granted parity rights to Americans",
+            "It created the Philippine peso",
+            "It established diplomatic relations"
+        ],
+        correct: 1,
+        explanation: "The Bell Trade Act of 1946 granted parity rights to Americans and allowed them to exploit the country's natural resources."
+    },
+    {
+        question: "What did the 1955 Laurel-Langley Agreement ensure?",
+        options: [
+            "Philippine sovereignty",
+            "Free entry of American products",
+            "Philippine representation in US Congress",
+            "Equal trade relations"
+        ],
+        correct: 1,
+        explanation: "The 1955 Laurel-Langley Agreement ensured free entry of American products, resulting in Filipinos preferring American goods over Philippine-made products."
+    },
+    {
+        question: "Who commented that Rizal's novels contained '25 patriotic statements compared to 120 anti-church statements'?",
+        options: [
+            "Father Jesus Cavana",
+            "Jesus Paredes",
+            "Narciso Pimentel",
+            "Francisco Rodrigo"
+        ],
+        correct: 0,
+        explanation: "Father Jesus Cavana commented that there were only 25 patriotic statements compared to 120 anti-church statements in Rizal's novels."
+    },
+    {
+        question: "Which senator was the brother of Archbishop Julio Rosales?",
+        options: [
+            "Sen. Mariano Cuenco",
+            "Sen. Decoroso Rosales",
+            "Sen. Francisco Rodrigo",
+            "Sen. Jose P. Laurel"
+        ],
+        correct: 1,
+        explanation: "Senator Decoroso Rosales was the brother of Archbishop (Cardinal) Julio Rosales and opposed the Rizal Bill."
+    },
+    {
+        question: "What was Recto's main counter-argument defending the Rizal Bill?",
+        options: [
+            "The novels were fiction",
+            "Rizal portrayed the actual situation in the Philippines",
+            "The church was too powerful",
+            "Students needed to know history"
+        ],
+        correct: 1,
+        explanation: "Recto argued that nobody could dispute that the situation described by Rizal was actually obtaining in the Philippines at that time."
+    },
+    {
+        question: "What was the compromise that led to the passage of the Rizal Law?",
+        options: [
+            "Removing anti-church passages",
+            "A substitute bill by Sen. Laurel based on proposals by Sens. Lim and Pelaez",
+            "Making the course optional",
+            "Allowing religious exemptions"
+        ],
+        correct: 1,
+        explanation: "After a month-long stand-off, Senator Jose P. Laurel filed a compromise substitute bill based on proposals by Senators Roseller Lim and Emmanuel Pelaez."
+    },
+    {
+        question: "According to the National Historical Institute, what is one criterion for being a national hero?",
+        options: [
+            "Must die for the country",
+            "Must be of noble birth",
+            "Must be an admirable leader with exceptional talent and distinguished valor",
+            "Must write books"
+        ],
+        correct: 2,
+        explanation: "The National Historical Institute defined a hero as 'an admirable leader towering over his peers, who serves a noble cause, possessing exceptional talent, distinguished valor and/or enterprise.'"
+    },
+    {
+        question: "What does Section 1 of RA 1425 require for collegiate courses?",
+        options: [
+            "Translated versions of the novels",
+            "Original or unexpurgated editions",
+            "Summarized versions",
+            "Audio recordings"
+        ],
+        correct: 1,
+        explanation: "Section 1 requires that in collegiate courses, the original or unexpurgated editions of Noli and El Fili or their English translations shall be used as basic texts."
+    },
+    {
+        question: "What does Section 2 of RA 1425 mandate for school libraries?",
+        options: [
+            "Buy new books annually",
+            "Keep adequate copies of unexpurgated editions of Rizal's works",
+            "Establish Rizal reading rooms",
+            "Display Rizal's portrait"
+        ],
+        correct: 1,
+        explanation: "Section 2 mandates that schools and universities keep adequate copies of the original and unexpurgated editions of Rizal's novels and other works in their libraries."
+    },
+    {
+        question: "What does Section 3 of RA 1425 authorize?",
+        options: [
+            "Translation and free distribution of Rizal's works",
+            "Building Rizal monuments",
+            "Establishing Rizal museums",
+            "Creating Rizal scholarships"
+        ],
+        correct: 0,
+        explanation: "Section 3 authorizes the Board of National Education to translate Rizal's works into English, Tagalog and principal Philippine dialects and distribute them free of charge."
+    },
+    {
+        question: "When did CHED issue Memorandum Order 6 requiring Rizal as a separate course?",
+        options: [
+            "February 15, 1995",
+            "February 15, 1996",
+            "December 26, 1994",
+            "February 15, 1997"
+        ],
+        correct: 1,
+        explanation: "On February 15, 1996, CHED issued Memorandum Order 6 ordering all colleges and universities to offer Rizal course as a separate three-unit course."
+    },
+    {
+        question: "What was the role of the Jesuits in Philippine education during Rizal's time?",
+        options: [
+            "They were expelled permanently",
+            "They were expelled in 1768 but returned in 1859",
+            "They controlled all universities",
+            "They only taught Spanish students"
+        ],
+        correct: 1,
+        explanation: "The Jesuits were expelled from the Philippines in 1768 and only returned in 1859, which is why they weren't included in the powerful friar orders initially."
+    },
+    {
+        question: "What was the Council of Trent's mandate regarding secularization?",
+        options: [
+            "Regular clergy should control all parishes",
+            "Secular priests should take over parishes",
+            "Foreign priests should be expelled",
+            "All clergy should be Spanish"
+        ],
+        correct: 1,
+        explanation: "The Council of Trent during the 16th century mandated secularization - turning over parishes to secular priests."
+    },
+    {
+        question: "What happened to Mariano Herbosa, Lucia Rizal's husband?",
+        options: [
+            "He was executed as a revolutionary",
+            "He died of cholera and was denied Christian burial",
+            "He was exiled to Spain",
+            "He became a Spanish collaborator"
+        ],
+        correct: 1,
+        explanation: "Mariano Herbosa died of cholera in 1889 and was denied Christian burial because he was Rizal's brother-in-law."
+    },
+    {
+        question: "Which of Rizal's sisters helped create the Philippine Flag?",
+        options: [
+            "Narcisa's daughter",
+            "Olimpia's daughter",
+            "Lucia's daughter Delfina",
+            "Maria's daughter"
+        ],
+        correct: 2,
+        explanation: "Delfina, daughter of Lucia and Mariano Herbosa, helped create the Philippine Flag."
+    },
+    {
+        question: "What was significant about Concha (Concepcion) in Rizal's life?",
+        options: [
+            "She was his favorite sister",
+            "Her death was Rizal's first sorrow in life",
+            "She taught him to read",
+            "She funded his education"
+        ],
+        correct: 1,
+        explanation: "Concepcion (Concha) died of sickness at age 3, and her death was Rizal's first sorrow in life."
+    },
+    {
+        question: "Who was the President of the Women's Chapter of the Katipunan among Rizal's sisters?",
+        options: [
+            "Trinidad",
+            "Josefa",
+            "Soledad",
+            "Narcisa"
+        ],
+        correct: 1,
+        explanation: "Josefa (Panggoy) was the President of the Women's Chapter of the Katipunan and died single at age 80."
+    },
+    {
+        question: "What did Uncle Gregorio teach Rizal?",
+        options: [
+            "To work hard and think for himself",
+            "Swimming and fencing",
+            "Sketching and painting",
+            "Reading and writing"
+        ],
+        correct: 0,
+        explanation: "Uncle Gregorio Alberto taught Rizal to work hard, think for himself, and observe life keenly."
+    },
+    {
+        question: "What unfortunate event led to Doña Teodora's arrest?",
+        options: [
+            "She was accused of revolutionary activities",
+            "She was accused of trying to poison her half-brother's wife",
+            "She refused to pay taxes",
+            "She criticized the friars publicly"
+        ],
+        correct: 1,
+        explanation: "Teodora was accused of being an accomplice in trying to poison her half-brother Jose Alberto's wife, whom she had advised about marital problems."
+    },
+    {
+        question: "How long was Doña Teodora imprisoned?",
+        options: [
+            "One year",
+            "Two years",
+            "Two and a half years",
+            "Three years"
+        ],
+        correct: 2,
+        explanation: "Teodora was imprisoned for two and a half years before being freed through the intervention of Governor General after young Soledad's request."
+    },
+    {
+        question: "What was the original name of Ateneo before it became Ateneo Municipal?",
+        options: [
+            "Colegio de San Juan",
+            "Escuela Pia",
+            "Seminario de Manila",
+            "Colegio de Santa Potenciana"
+        ],
+        correct: 1,
+        explanation: "Ateneo was originally called Escuela Pia (Charity School), established by the city government in 1817 as a school for poor boys."
+    },
+    {
+        question: "What distinguished the Jesuit Ateneo's curriculum from other schools?",
+        options: [
+            "It only taught in Spanish",
+            "It included humanities, sciences, and Spanish studies",
+            "It focused only on religious studies",
+            "It excluded Filipino students"
+        ],
+        correct: 1,
+        explanation: "Unlike other schools limited to the 3 Rs, the Jesuit Ateneo Municipal included humanities, sciences, and the study of Spanish, even having a physics laboratory."
+    },
+    {
+        question: "Which uncle taught Rizal artistic skills?",
+        options: [
+            "Uncle Gregorio",
+            "Uncle Jose",
+            "Uncle Manuel",
+            "Uncle Alberto"
+        ],
+        correct: 1,
+        explanation: "Uncle Jose taught Rizal to sketch, paint, and sculpt, developing his artistic abilities."
+    },
+    {
+        question: "What sports did Uncle Manuel teach Rizal?",
+        options: [
+            "Swimming, fencing, wrestling and other sports",
+            "Only swimming",
+            "Boxing and wrestling",
+            "Tennis and golf"
+        ],
+        correct: 0,
+        explanation: "Uncle Manuel taught Rizal swimming, fencing, wrestling and other sports, contributing to his physical development."
+    },
+    {
+        question: "What was Maestro Justiniano Cruz known for?",
+        options: [
+            "His gentle teaching methods",
+            "Being quick to discipline students with a short thin stick",
+            "Teaching only wealthy students",
+            "Refusing to teach Filipino children"
+        ],
+        correct: 1,
+        explanation: "Maestro Justiniano Aquino Cruz, Rizal's first formal teacher, was known for being quick to discipline students using a short thin stick."
+    },
+    {
+        question: "What was the 'parable of the moth' about in Rizal's childhood?",
+        options: [
+            "The importance of education",
+            "The beauty of sacrifice for knowledge",
+            "The danger of curiosity",
+            "The value of hard work"
+        ],
+        correct: 1,
+        explanation: "The moth story inspired Rizal to believe that 'light [knowledge] is the most beautiful thing in creation, and that it is worthy for a man to sacrifice his life' for it."
+    },
+    {
+        question: "What religious poem did Rizal write while at Ateneo about the alliance of religion and education?",
+        options: [
+            "Al Nino Jesus",
+            "A La Virgen Maria",
+            "Alianza Intima Entre la Religion y la Buena Educacion",
+            "Mi Primera Inspiracion"
+        ],
+        correct: 2,
+        explanation: "Rizal wrote 'Alianza Intima Entre la Religion y la Buena Educacion' (Intimate Alliance Between Religion and Good Education) showing the importance of religion in education."
+    },
+    {
+        question: "What did Father Vilaclara advise Rizal regarding his poetry?",
+        options: [
+            "To write more poems",
+            "To stop communing with the Muse and focus on practical studies",
+            "To publish his poems",
+            "To teach poetry to others"
+        ],
+        correct: 1,
+        explanation: "Father Jose Vilaclara advised Rizal to stop communing with the Muse and pay more attention to more practical studies."
+    },
+    {
+        question: "Under whom did Rizal study painting and sculpture?",
+        options: [
+            "Agustin Saez for painting, Romualdo de Jesus for sculpture",
+            "Romualdo de Jesus for painting, Agustin Saez for sculpture",
+            "Father Sanchez for both",
+            "Foreign teachers only"
+        ],
+        correct: 0,
+        explanation: "Rizal studied painting under the famous Spanish painter Agustin Saez and sculpture under noted Filipino sculptor Romualdo de Jesus."
+    },
+    {
+        question: "What did Father Lleonart request Rizal to carve for him?",
+        options: [
+            "Image of the Virgin Mary",
+            "Image of Sacred Heart of Jesus",
+            "A religious cross",
+            "Image of Saint Joseph"
+        ],
+        correct: 1,
+        explanation: "Father Lleonart, impressed by Rizal's sculptural talent, requested him to carve an image of the Sacred Heart of Jesus."
+    },
+    {
+        question: "What was 'El Heroismo de Colon' about?",
+        options: [
+            "Spanish colonization",
+            "Christopher Columbus as discoverer of America",
+            "Filipino heroes",
+            "Spanish conquest of the Philippines"
+        ],
+        correct: 1,
+        explanation: "'El Heroismo de Colon' (The Heroism of Columbus) was a poem by Rizal that praises Columbus as the discoverer of America."
+    },
+    {
+        question: "What was unique about Rizal's final poem at Ateneo?",
+        options: [
+            "It was his longest poem",
+            "It was a poignant farewell to classmates",
+            "It criticized Spanish rule",
+            "It was written in Tagalog"
+        ],
+        correct: 1,
+        explanation: "'Un Dialogo Alusivo a la Despedida de los Colegiales' (A Farewell Dialogue of the Students) was Rizal's last poem at Ateneo and a poignant farewell to classmates."
+    },
+    {
+        question: "Why did Rizal's father want him to take Philosophy and Letters at UST?",
+        options: [
+            "It was the most prestigious course",
+            "It was his father's preference",
+            "It guaranteed government positions",
+            "It was the easiest course"
+        ],
+        correct: 1,
+        explanation: "Rizal took Philosophy and Letters because his father liked it, though Rizal was still uncertain about his career."
+    },
+    {
+        question: "What was Doña Teodora's concern about Rizal's continued education?",
+        options: [
+            "It was too expensive",
+            "He was too young",
+            "The Spaniards would cut off his head if he learned too much",
+            "He should focus on practical skills"
+        ],
+        correct: 2,
+        explanation: "Doña Teodora said: 'Don't send him to Manila again; he knows enough. If he gets to know more, the Spaniards will cut off his head.'"
+    },
+    {
+        question: "What was Rizal's attitude toward his academic performance in his third year at Ateneo?",
+        options: [
+            "He was very proud of his achievements",
+            "He was not impressed by his scholastic work",
+            "He wanted to quit school",
+            "He demanded more challenging courses"
+        ],
+        correct: 1,
+        explanation: "At the end of his third year (March 1875), Rizal himself was not impressed by his scholastic work despite maintaining excellent grades."
+    },
+    {
+        question: "What position did Rizal hold in the Marian Congregation at Ateneo?",
+        options: [
+            "President",
+            "Secretary",
+            "Treasurer",
+            "Vice President"
+        ],
+        correct: 1,
+        explanation: "Rizal was an active member of the Marian Congregation, a religious society, and later became its secretary."
+    },
+    {
+        question: "What makes Rizal's poem 'A La Juventud Filipina' significant in Philippine literature?",
+        options: [
+            "It was his first published poem",
+            "It was the first great poem in Spanish by a Filipino recognized by Spanish authorities and expressed Filipino nationalism",
+            "It was the longest poem ever written",
+            "It was written when he was very young"
+        ],
+        correct: 1,
+        explanation: "'A La Juventud Filipina' is significant because it was the first great poem in Spanish written by a Filipino whose merit was recognized by Spanish literary authorities, and it expressed the nationalistic concept that Filipinos were the 'fair hope of the Fatherland.'"
+    },
+        {
+            question: "What is Republic Act No. 1425 commonly known as?",
+            options: [
+                "Rizal Day Act",
+                "Rizal Law",
+                "Rizal Education Act",
+                "Rizal Memorial Act"
+            ],
+            correct: 1,
+            explanation: "Republic Act No. 1425 is commonly known as the Rizal Law, which mandates the inclusion of courses on Rizal's life, works and writings in all educational institutions."
+        },
+        {
+            question: "Who was the original author of the Rizal Bill?",
+            options: [
+                "Jose P. Laurel",
+                "Claro M. Recto",
+                "Ramon Magsaysay",
+                "Mariano Cuenco"
+            ],
+            correct: 1,
+            explanation: "Claro M. Recto was the original author of Republic Act No. 1425, who saw the need to instill patriotism among Filipinos."
+        },
+        {
+            question: "When was Jose Rizal born?",
+            options: [
+                "June 19, 1860",
+                "June 19, 1861",
+                "June 20, 1861",
+                "June 18, 1861"
+            ],
+            correct: 1,
+            explanation: "Jose Protasio Rizal Mercado y Alonso Realonda was born on June 19, 1861 in Calamba, Laguna."
+        },
+        {
+            question: "What was Rizal's nickname?",
+            options: [
+                "Pepe",
+                "Jose",
+                "Peping",
+                "Proto"
+            ],
+            correct: 0,
+            explanation: "Rizal's nickname was Pepe or Pepito."
+        },
+        {
+            question: "Who was Rizal's first teacher?",
+            options: [
+                "His father Francisco",
+                "His mother Teodora",
+                "Maestro Justiniano Cruz",
+                "His uncle Gregorio"
+            ],
+            correct: 1,
+            explanation: "Dona Teodora, his mother, was the first teacher of Jose Rizal who taught him the alphabet."
+        },
+        {
+            question: "At what age did Rizal enroll in Ateneo?",
+            options: [
+                "10 years old",
+                "11 years old",
+                "12 years old",
+                "13 years old"
+            ],
+            correct: 1,
+            explanation: "Rizal was 11 years old when he enrolled in Ateneo Municipal de Manila."
+        },
+        {
+            question: "What degree did Rizal receive from Ateneo in 1877?",
+            options: [
+                "Bachelor of Science",
+                "Bachelor of Arts",
+                "Bachelor of Philosophy",
+                "Bachelor of Letters"
+            ],
+            correct: 1,
+            explanation: "On March 23, 1877, Rizal received the degree of Bachelor of Arts with highest honors (Sobresaliente) from Ateneo Municipal."
+        },
+        {
+            question: "What was Rizal's first poem?",
+            options: [
+                "A La Juventud Filipina",
+                "Mi Primera Inspiracion",
+                "Al Nino Jesus",
+                "Sa Aking mga Kabata"
+            ],
+            correct: 1,
+            explanation: "Mi Primera Inspiracion (My First Inspiration) was probably Rizal's first poem, written in 1874 and dedicated to his mother on her birthday."
+        },
+        {
+            question: "Which university did Rizal attend after Ateneo?",
+            options: [
+                "University of Madrid",
+                "University of Santo Tomas",
+                "University of Barcelona",
+                "University of Paris"
+            ],
+            correct: 1,
+            explanation: "After Ateneo, Rizal matriculated at the University of Santo Tomas in April 1877."
+        },
+        {
+            question: "Why did Rizal transfer to the medical course at UST?",
+            options: [
+                "His father's advice",
+                "To cure his mother's failing eyesight",
+                "Personal interest in medicine",
+                "Better career prospects"
+            ],
+            correct: 1,
+            explanation: "Rizal transferred to medicine primarily to cure his mother's failing eyesight."
+        },
+        {
+            question: "What secret society did Rizal found at UST?",
+            options: [
+                "La Liga Filipina",
+                "Compañerismo",
+                "Katipunan",
+                "Propaganda Movement"
+            ],
+            correct: 1,
+            explanation: "Compañerismo (Comradeship) was a secret society of Filipino students at UST founded by Rizal and his companions in 1880."
+        },
+        {
+            question: "On what date did Rizal depart for Spain?",
+            options: [
+                "May 1, 1882",
+                "May 3, 1882",
+                "May 5, 1882",
+                "May 9, 1882"
+            ],
+            correct: 1,
+            explanation: "Rizal departed on May 3, 1882, on board the Spanish steamer Salvadora bound for Singapore."
+        },
+        {
+            question: "What was the first European ground Rizal set foot on?",
+            options: [
+                "Barcelona, Spain",
+                "Marseilles, France",
+                "Naples, Italy",
+                "Madrid, Spain"
+            ],
+            correct: 2,
+            explanation: "Naples, Italy was the first European ground Rizal set foot on during his journey to Europe."
+        },
+        {
+            question: "What was Rizal's first article written in Spain?",
+            options: [
+                "Los Viajes",
+                "Amor Patrio",
+                "Me Piden Versos",
+                "A La Juventud Filipina"
+            ],
+            correct: 1,
+            explanation: "Amor Patrio (Love of Country) was Rizal's first article written on Spain's soil, published under the pen-name Laong Laan."
+        },
+        {
+            question: "When did Rizal finish his medical degree?",
+            options: [
+                "June 1883",
+                "June 1884",
+                "June 1885",
+                "June 1886"
+            ],
+            correct: 1,
+            explanation: "Rizal finished his medical education in June 1884 and was conferred the degree of Licentiate in Medicine."
+        },
+        {
+            question: "Who was Rizal's ophthalmology mentor in Paris?",
+            options: [
+                "Dr. Rudolf Virchow",
+                "Dr. Louis De Wecker",
+                "Dr. Feodor Jagor",
+                "Dr. Otto Becker"
+            ],
+            correct: 1,
+            explanation: "Dr. Louis De Wecker was the leading French ophthalmologist who mentored Rizal."
+        },
+        {
+            question: "Who helped fund the publication of Noli Me Tangere?",
+            options: [
+                "Paciano Rizal",
+                "Maximo Viola",
+                "Dr. Antonio Regidor",
+                "Trinidad Pardo de Tavera"
+            ],
+            correct: 1,
+            explanation: "Maximo Viola, Rizal's friend from Bulacan, loaned him the needed funds to publish the Noli Me Tangere."
+        },
+        {
+            question: "When was Noli Me Tangere published?",
+            options: [
+                "February 21, 1887",
+                "March 21, 1887",
+                "April 21, 1887",
+                "May 21, 1887"
+            ],
+            correct: 1,
+            explanation: "Noli Me Tangere came off the press on March 21, 1887."
+        },
+        {
+            question: "What does 'Noli Me Tangere' mean?",
+            options: [
+                "Do Not Touch Me",
+                "Touch Me Not",
+                "Don't Follow Me",
+                "Leave Me Alone"
+            ],
+            correct: 1,
+            explanation: "Noli Me Tangere is a Latin phrase meaning 'Touch Me Not,' taken from the Bible."
+        },
+        {
+            question: "Who defended the Noli Me Tangere against its critics?",
+            options: [
+                "Father Salvador Font",
+                "Rev. Vicente Garcia",
+                "Father Jose Rodriguez",
+                "Msgr. Pedro Payo"
+            ],
+            correct: 1,
+            explanation: "Rev. Vicente Garcia, using the pen name Justo Desiderio Magalang, defended the Noli."
+        },
+        {
+            question: "What was Rizal's love interest's name in Japan?",
+            options: [
+                "O-Sei san",
+                "Sakura-san",
+                "Yuki-san",
+                "Hana-san"
+            ],
+            correct: 0,
+            explanation: "O-Sei san was Rizal's love interest during his romantic interlude in Japan."
+        },
+        {
+            question: "How long did Rizal stay in the United States?",
+            options: [
+                "Two weeks",
+                "Three weeks",
+                "Eighteen days",
+                "One month"
+            ],
+            correct: 2,
+            explanation: "Rizal visited the US from April 28 to May 16, 1888, staying for eighteen days."
+        },
+        {
+            question: "What was La Solidaridad?",
+            options: [
+                "A revolutionary society",
+                "A patriotic newspaper",
+                "A political party",
+                "A secret organization"
+            ],
+            correct: 1,
+            explanation: "La Solidaridad was a patriotic newspaper founded by Graciano Lopez Jaena in Barcelona that served as the organ of the Propaganda Movement."
+        },
+        {
+            question: "Who founded the newspaper La Solidaridad?",
+            options: [
+                "Jose Rizal",
+                "Graciano Lopez Jaena",
+                "Marcelo H. del Pilar",
+                "Mariano Ponce"
+            ],
+            correct: 1,
+            explanation: "Graciano Lopez Jaena founded La Solidaridad in Barcelona on February 15, 1889."
+        },
+        {
+            question: "What pen names did Rizal use in La Solidaridad?",
+            options: [
+                "Laong Laan and Jose Mercado",
+                "Dimasalang and Laong Laan",
+                "Pepe and Dimasalang",
+                "Jose Protasio and Laong Laan"
+            ],
+            correct: 1,
+            explanation: "Rizal used the pen names Dimasalang and Laong Laan when writing for La Solidaridad."
+        },
+        {
+            question: "When did Rizal establish La Liga Filipina?",
+            options: [
+                "July 3, 1892",
+                "July 6, 1892",
+                "July 7, 1892",
+                "July 10, 1892"
+            ],
+            correct: 0,
+            explanation: "Rizal established La Liga Filipina on July 3, 1892, at a meeting at Doroteo Ongjunco's house in Tondo."
+        },
+        {
+            question: "When was Rizal arrested after establishing La Liga Filipina?",
+            options: [
+                "July 3, 1892",
+                "July 6, 1892",
+                "July 7, 1892",
+                "July 10, 1892"
+            ],
+            correct: 1,
+            explanation: "Rizal was arrested on July 6, 1892, just three days after establishing La Liga Filipina."
+        },
+        {
+            question: "Where was Rizal exiled?",
+            options: [
+                "Mindoro",
+                "Palawan",
+                "Dapitan",
+                "Sulu"
+            ],
+            correct: 2,
+            explanation: "Rizal was exiled to Dapitan, Zamboanga del Norte from July 17, 1892 to July 31, 1896."
+        },
+        {
+            question: "Who was the Spanish commandant of Dapitan when Rizal arrived?",
+            options: [
+                "Juan Sitges",
+                "Captain Ricardo Carnicero",
+                "Captain Delgras",
+                "Antonio Vivencio del Rosario"
+            ],
+            correct: 1,
+            explanation: "Captain Ricardo Carnicero was the Spanish commandant of Dapitan who received Rizal and treated him well."
+        },
+        {
+            question: "How many languages could Rizal speak?",
+            options: [
+                "20 languages",
+                "22 languages",
+                "25 languages",
+                "18 languages"
+            ],
+            correct: 1,
+            explanation: "Rizal could speak 22 languages, making him rank with the world's great linguists."
+        },
+        {
+            question: "What invention did Rizal create in Dapitan?",
+            options: [
+                "A wooden machine for making bricks",
+                "A cigarette lighter called 'sulpukan'",
+                "A water system",
+                "All of the above"
+            ],
+            correct: 3,
+            explanation: "Rizal created all of these inventions during his exile in Dapitan, showing his inventive ability."
+        },
+        {
+            question: "Who was the Katipunan emissary sent to Rizal in Dapitan?",
+            options: [
+                "Andres Bonifacio",
+                "Dr. Pio Valenzuela",
+                "Emilio Jacinto",
+                "Deodato Arellano"
+            ],
+            correct: 1,
+            explanation: "Dr. Pio Valenzuela was sent as emissary to inform Rizal of the Katipunan's plan to launch a revolution."
+        },
+        {
+            question: "What was Rizal's advice to the Katipunan about the revolution?",
+            options: [
+                "Start immediately",
+                "The people were unprepared",
+                "Wait for Spanish reinforcements",
+                "Seek foreign help first"
+            ],
+            correct: 1,
+            explanation: "Rizal advised that the people were unprepared and a premature revolution would hurt them."
+        },
+        {
+            question: "Who was Rizal's Irish girlfriend?",
+            options: [
+                "Leonor Rivera",
+                "Segunda Katigbak",
+                "Josephine Bracken",
+                "Nellie Boustead"
+            ],
+            correct: 2,
+            explanation: "Josephine Bracken was the Irish girl from Hong Kong who lived with Rizal in Dapitan."
+        },
+        {
+            question: "When did Rizal's exile in Dapitan end?",
+            options: [
+                "July 30, 1896",
+                "July 31, 1896",
+                "August 1, 1896",
+                "August 6, 1896"
+            ],
+            correct: 1,
+            explanation: "Rizal's four-year exile in Dapitan ended on July 31, 1896."
+        },
+        {
+            question: "Where was Rizal arrested on his way to Cuba?",
+            options: [
+                "Singapore",
+                "Port Said",
+                "Barcelona",
+                "Gibraltar"
+            ],
+            correct: 2,
+            explanation: "Rizal was arrested in Barcelona and kept in Monjuich prison-fortress."
+        },
+        {
+            question: "What were the three crimes Rizal was accused of?",
+            options: [
+                "Treason, sedition, conspiracy",
+                "Rebellion, sedition, illegal association",
+                "Murder, rebellion, treason",
+                "Sedition, conspiracy, murder"
+            ],
+            correct: 1,
+            explanation: "Rizal was accused of rebellion, sedition, and illegal association."
+        },
+        {
+            question: "Who was Rizal's defense lawyer during his trial?",
+            options: [
+                "Jose Taviel de Andrade",
+                "Luis Taviel de Andrade",
+                "Don Pedro Roxas",
+                "Manuel Camus"
+            ],
+            correct: 1,
+            explanation: "Lieutenant Luis Taviel de Andrade was chosen by Rizal as his defense lawyer."
+        },
+        {
+            question: "Who replaced Governor General Blanco and approved Rizal's execution?",
+            options: [
+                "Camilo Garcia de Polavieja",
+                "Ramon Despujol",
+                "Emilio Terrero",
+                "Valeriano Weyler"
+            ],
+            correct: 0,
+            explanation: "General Camilo Garcia de Polavieja replaced Blanco and approved Rizal's death sentence."
+        },
+        {
+            question: "When was Rizal executed?",
+            options: [
+                "December 29, 1896",
+                "December 30, 1896",
+                "December 31, 1896",
+                "January 1, 1897"
+            ],
+            correct: 1,
+            explanation: "Rizal was executed on December 30, 1896 at 7:03 AM at Bagumbayan Field (now Luneta)."
+        },
+        {
+            question: "What is the title of Rizal's farewell poem?",
+            options: [
+                "Ultimo Adios",
+                "Mi Ultimo Adios",
+                "Farewell to My Country",
+                "Last Farewell"
+            ],
+            correct: 1,
+            explanation: "Mi Ultimo Adios (My Last Farewell) was Rizal's farewell poem, originally untitled and unsigned."
+        },
+        {
+            question: "Who gave the title to Rizal's last poem?",
+            options: [
+                "Trinidad Rizal",
+                "Father Mariano Dacanay",
+                "Josephine Bracken",
+                "Paciano Rizal"
+            ],
+            correct: 1,
+            explanation: "Father Mariano Dacanay, a Filipino priest-patriot, gave the title 'Ultimo Adios' to Rizal's last poem."
+        },
+        {
+            question: "Where did Rizal hide his last poem?",
+            options: [
+                "In his shoe",
+                "In his alcohol cooking lamp",
+                "In his clothes",
+                "In a book"
+            ],
+            correct: 1,
+            explanation: "Rizal hid his last poem in his alcohol cooking lamp, which he gave to his sister Trinidad."
+        },
+        {
+            question: "What was the name of Rizal's second novel?",
+            options: [
+                "El Filibusterismo",
+                "Noli Me Tangere",
+                "The Reign of Greed",
+                "The Subversive"
+            ],
+            correct: 0,
+            explanation: "El Filibusterismo (The Subversive or The Reign of Greed) was Rizal's second novel."
+        },
+        {
+            question: "Who was Rizal's older brother and confidant?",
+            options: [
+                "Francisco Rizal",
+                "Paciano Rizal",
+                "Saturnina Rizal",
+                "Narcisa Rizal"
+            ],
+            correct: 1,
+            explanation: "Paciano Rizal was Jose's older brother and confidant, who served as a second father to him."
+        },
+        {
+            question: "What was the name of Rizal's youngest sister?",
+            options: [
+                "Trinidad",
+                "Josefa",
+                "Soledad",
+                "Maria"
+            ],
+            correct: 2,
+            explanation: "Soledad (nicknamed Choleng) was the youngest of the Rizal children."
+        },
+        {
+            question: "How many children were in the Rizal family?",
+            options: [
+                "10 children",
+                "11 children",
+                "12 children",
+                "9 children"
+            ],
+            correct: 1,
+            explanation: "There were 11 children in the Rizal family, with Jose being the 7th child."
+        },
+        {
+            question: "What was the Economic system that preceded the Galleon Trade?",
+            options: [
+                "Polo system",
+                "Encomienda system",
+                "Hacienda system",
+                "Tribute system"
+            ],
+            correct: 1,
+            explanation: "The Encomienda system preceded the Galleon Trade, where Spaniards were entrusted with native communities."
+        },
+        {
+            question: "What educational decree was issued in 1863?",
+            options: [
+                "The Rizal Law",
+                "The Educational Decree of 1863",
+                "The Spanish Education Act",
+                "The Colonial School Law"
+            ],
+            correct: 1,
+            explanation: "The Educational Decree of 1863 established teacher training schools and government supervision of public schools."
+        },
+        {
+            question: "What was Frailocracy?",
+            options: [
+                "Rule by Spanish officials",
+                "Rule by the friars",
+                "Rule by the military",
+                "Rule by Filipino elites"
+            ],
+            correct: 1,
+            explanation: "Frailocracy refers to the rule of the friars, who were very powerful in handling Philippine affairs."
+        },
+        {
+            question: "What was the Secularization Movement about?",
+            options: [
+                "Separating church and state",
+                "Turning over parishes to secular priests",
+                "Removing Spanish officials",
+                "Establishing public schools"
+            ],
+            correct: 1,
+            explanation: "The Secularization Movement sought to turn over the country's parishes from regular clergy to secular priests."
+        },
+        {
+            question: "Which Filipino priests were at the forefront of the Secularization struggle?",
+            options: [
+                "Gomez, Burgos, and Zamora",
+                "Pelaez, Zamora, Gomez, and Burgos",
+                "Only Burgos and Zamora",
+                "Pelaez and Burgos only"
+            ],
+            correct: 1,
+            explanation: "Fathers Pedro Pelaez, Jacinto Zamora, Mariano Gomez, and Jose Burgos were at the forefront of this struggle."
+        },
+        {
+            question: "What was the motto of the Enlightenment Era?",
+            options: [
+                "Liberty, Equality, Fraternity",
+                "Dare to Know! Have courage to use your own intelligence!",
+                "Knowledge is Power",
+                "Reason above all"
+            ],
+            correct: 1,
+            explanation: "The Enlightenment motto was 'Dare to Know! Have the courage to use your own intelligence!' by Emmanuel Kant."
+        },
+        {
+            question: "Which philosopher wrote 'The Social Contract'?",
+            options: [
+                "John Locke",
+                "Jean-Jacques Rousseau",
+                "Voltaire",
+                "Immanuel Kant"
+            ],
+            correct: 1,
+            explanation: "Jean-Jacques Rousseau wrote 'The Social Contract' and argued that political authority comes from the general will of the people."
+        },
+        {
+            question: "Who was known as the 'Father of Liberalism'?",
+            options: [
+                "John Locke",
+                "Adam Smith",
+                "Thomas Hobbes",
+                "Voltaire"
+            ],
+            correct: 0,
+            explanation: "John Locke was considered the 'Father of Liberalism' and argued that knowledge was gained through accumulated experience."
+        },
+        {
+            question: "What was the Spanish Constitution of 1876 significant for?",
+            options: [
+                "It granted independence to the Philippines",
+                "It established constitutional monarchy under Alfonso XII",
+                "It abolished slavery",
+                "It gave voting rights to Filipinos"
+            ],
+            correct: 1,
+            explanation: "The Spanish Constitution of 1876 established constitutional monarchy under Alfonso XII, with Cuba and Puerto Rico granted representation in the Cortes, but not the Philippines."
+        },
+        {
+            question: "What was Turnismo in Spanish politics?",
+            options: [
+                "Military rule",
+                "Liberals and Conservatives taking turns in leadership",
+                "Colonial administration",
+                "Economic reform"
+            ],
+            correct: 1,
+            explanation: "Turnismo was the agreement between Liberals and Conservatives to take turns leading Spain, rigging elections to generate needed majorities."
+        },
+        {
+            question: "When did Spain open Manila to global trade?",
+            options: [
+                "1834",
+                "1840",
+                "1845",
+                "1850"
+            ],
+            correct: 0,
+            explanation: "In 1834, Spain opened Manila to global trade, allowing foreign trading houses and more Chinese merchants to enter."
+        },
+        {
+            question: "What was the last serious revolt before Rizal's time?",
+            options: [
+                "Diego Silang revolt",
+                "Apolinario de la Cruz revolt",
+                "Ilocano insurrection",
+                "Dagohoy revolt"
+            ],
+            correct: 1,
+            explanation: "The revolt of Apolinario de la Cruz in 1841-1842 was the last serious revolt, involving his religious organization Confradia de San Jose."
+        },
+        {
+            question: "What was the first poem Rizal wrote in Ateneo?",
+            options: [
+                "Mi Primera Inspiracion",
+                "A La Juventud Filipina",
+                "Al Nino Jesus",
+                "Un Recuerdo a Mi Pueblo"
+            ],
+            correct: 2,
+            explanation: "Al Nino Jesus (To the Child Jesus) was written in 1875 when Rizal was 14 years old, making it one of his earliest poems in Ateneo."
+        },
+        {
+            question: "Which poem won Rizal a special prize in poetry?",
+            options: [
+                "Mi Primera Inspiracion",
+                "A La Juventud Filipina",
+                "Al Nino Jesus",
+                "Un Recuerdo a Mi Pueblo"
+            ],
+            correct: 1,
+            explanation: "A La Juventud Filipina (To the Filipino Youth) won Rizal a special prize in poetry while he was at Ateneo."
+        },
+        {
+            question: "What was the former name of Ateneo?",
+            options: [
+                "Colegio de Manila",
+                "Escuela Pia",
+                "Seminario de Manila",
+                "Universidad de Manila"
+            ],
+            correct: 1,
+            explanation: "Escuela Pia (Charity School) was the former name of Ateneo, established as a school for poor boys in Manila in 1817."
+        },
+        {
+            question: "What book greatly influenced Rizal during his UST days?",
+            options: [
+                "Uncle Tom's Cabin",
+                "The Count of Monte Cristo",
+                "Universal History by Cesar Cantu",
+                "Travels in the Philippines"
+            ],
+            correct: 1,
+            explanation: "The Count of Monte Cristo by Alexander Dumas was the first favorite novel of Rizal which made a deep impression on him."
+        },
+        {
+            question: "Who wrote 'Travels in the Philippines' that influenced Rizal?",
+            options: [
+                "Dr. Rudolf Virchow",
+                "Dr. Feodor Jagor",
+                "Alexander Dumas",
+                "Cesar Cantu"
+            ],
+            correct: 1,
+            explanation: "Dr. Feodor Jagor, a German scientist-traveler, wrote 'Travels in the Philippines' which impressed Rizal with its keen observations."
+        },
+        {
+            question: "What was Rizal's surveying course title?",
+            options: [
+                "Expert surveyor",
+                "Perito agrimensor",
+                "Land surveyor",
+                "Topographic engineer"
+            ],
+            correct: 1,
+            explanation: "Rizal took a vocational course leading to the title of 'perito agrimensor' (expert surveyor) while studying at UST."
+        },
+        {
+            question: "In what year did Rizal receive his surveying title?",
+            options: [
+                "November 25, 1880",
+                "November 25, 1881",
+                "November 25, 1882",
+                "November 25, 1883"
+            ],
+            correct: 1,
+            explanation: "On November 25, 1881, Rizal received the title of perito agrimensor after passing the final examination."
+        },
+        {
+            question: "What was the original name of the Katipunan founded by Bonifacio?",
+            options: [
+                "Kataas-taasang Kagalang-galangang Katipunan",
+                "Kataastaasan Kagalanggalang na Katipunan ng mga Anak ng Bayan",
+                "Kamatayan sa mga Kastila",
+                "Kapatirang Makabayan"
+            ],
+            correct: 1,
+            explanation: "The full name was 'Kataastaasan Kagalanggalang na Katipunan ng mga Anak ng Bayan' (KKK)."
+        },
+        {
+            question: "When was the Katipunan founded?",
+            options: [
+                "July 6, 1892",
+                "July 7, 1892",
+                "July 8, 1892",
+                "July 10, 1892"
+            ],
+            correct: 1,
+            explanation: "The Katipunan was founded on July 7, 1892, the day after Rizal's arrest."
+        },
+        {
+            question: "What community project did Rizal NOT implement in Dapitan?",
+            options: [
+                "Water system",
+                "Lighting system using coconut oil lamps",
+                "Telegraph system",
+                "Draining marshes to eliminate malaria"
+            ],
+            correct: 2,
+            explanation: "Rizal constructed a water system, lighting system, drained marshes, and beautified the town plaza, but did not implement a telegraph system."
+        },
+        {
+            question: "How many shells did Rizal collect for his conchology studies?",
+            options: [
+                "346 shells representing 203 species",
+                "203 shells representing 346 species",
+                "300 shells representing 200 species",
+                "250 shells representing 150 species"
+            ],
+            correct: 0,
+            explanation: "Rizal built up a rich collection of 346 shells representing 203 species during his exile in Dapitan."
+        },
+        {
+            question: "What was the name of Rizal's poem about his serene life in exile?",
+            options: [
+                "Mi Retiro",
+                "My Retreat",
+                "Both A and B",
+                "Vida en Dapitan"
+            ],
+            correct: 2,
+            explanation: "Mi Retiro (My Retreat) was the poem Rizal wrote about his serene life as an exile in Dapitan."
+        },
+        {
+            question: "Who was the military physician who checked Rizal's pulse before execution?",
+            options: [
+                "Dr. Felipe Ruiz Castillo",
+                "Dr. Antonio Regidor",
+                "Dr. Jose Mercado",
+                "Dr. Ricardo Carnicero"
+            ],
+            correct: 0,
+            explanation: "Dr. Felipe Ruiz Castillo, a Spanish military physician, was amazed to find Rizal's pulse normal, showing he was not afraid to die."
+        },
+        {
+            question: "Where was Rizal secretly buried?",
+            options: [
+                "Manila Cathedral",
+                "Paco Cemetery",
+                "Luneta Park",
+                "Fort Santiago"
+            ],
+            correct: 1,
+            explanation: "Rizal was secretly buried in Paco Cemetery in Manila with no identification on his grave."
+        },
+        {
+            question: "What letters did Narcisa Rizal use to mark her brother's grave?",
+            options: [
+                "JR (Jose Rizal)",
+                "RPJ (Rizal's initials in reverse)",
+                "JMR (Jose Mercado Rizal)",
+                "PR (Pepe Rizal)"
+            ],
+            correct: 1,
+            explanation: "Narcisa marked the grave site with 'RPJ', Rizal's initials in reverse."
+        }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+        let userAnswers = [];
+        let quizCompleted = false;
+
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        // Shuffle questions on initial load
+        shuffle(questions);
+
+        function initializeQuiz() {
+            showQuestion();
+            updateProgress();
+            updateScore();
+        }
+
+        function showQuestion() {
+            const questionData = questions[currentQuestion];
+            document.getElementById('questionText').innerHTML = `<span style="color: #ad1457; font-weight: bold;">Question ${currentQuestion + 1}:</span> ${questionData.question}`;
+            
+            const optionsContainer = document.getElementById('optionsContainer');
+            optionsContainer.innerHTML = '';
+            
+            questionData.options.forEach((option, index) => {
+                const optionElement = document.createElement('div');
+                optionElement.className = 'option';
+                optionElement.innerHTML = `<strong>${String.fromCharCode(65 + index)}.</strong> ${option}`;
+                optionElement.onclick = () => selectOption(index);
+                optionElement.dataset.index = index;
+                optionsContainer.appendChild(optionElement);
+            });
+            
+            document.getElementById('feedback').classList.remove('show');
+            document.getElementById('prevBtn').disabled = currentQuestion === 0;
+            document.getElementById('nextBtn').disabled = true;
+            document.getElementById('nextBtn').textContent = currentQuestion === questions.length - 1 ? 'Finish Quiz' : 'Next';
+        }
+
+        function selectOption(selectedIndex) {
+            const questionData = questions[currentQuestion];
+            const options = document.querySelectorAll('.option');
+            
+            // Disable all options
+            options.forEach(option => {
+                option.classList.add('disabled');
+                option.onclick = null;
+            });
+            
+            // Mark selected option
+            options[selectedIndex].classList.add('selected');
+            
+            // Show correct answer (green)
+            options[questionData.correct].classList.add('correct');
+            
+            // Mark incorrect if wrong selection (red)
+            if (selectedIndex !== questionData.correct) {
+                options[selectedIndex].classList.add('incorrect');
+            }
+            
+            // Store answer
+            userAnswers[currentQuestion] = selectedIndex;
+            
+            // Show feedback
+            const feedback = document.getElementById('feedback');
+            feedback.className = `feedback show ${selectedIndex === questionData.correct ? 'correct' : 'incorrect'}`;
+            feedback.innerHTML = `
+                <strong>${selectedIndex === questionData.correct ? '✓ Correct!' : '✗ Incorrect'}</strong><br>
+                <strong>Correct Answer:</strong> ${String.fromCharCode(65 + questionData.correct)}. ${questionData.options[questionData.correct]}<br>
+                <strong>Explanation:</strong> ${questionData.explanation}
+            `;
+            
+            document.getElementById('nextBtn').disabled = false;
+            updateScore();
+        }
+
+        function updateScore() {
+            // Calculate score based on all answered questions
+            let calculatedScore = 0;
+            userAnswers.forEach((ans, idx) => {
+                if (ans === questions[idx].correct) calculatedScore++;
+            });
+            document.getElementById('scoreDisplay').textContent = `Score: ${calculatedScore}/${currentQuestion + 1}`;
+            score = calculatedScore;
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++;
+                showQuestion();
+                updateProgress();
+            } else {
+                finishQuiz();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                showQuestion();
+                updateProgress();
+                
+                // If question was already answered, show the previous selection
+                if (userAnswers[currentQuestion] !== undefined) {
+                    setTimeout(() => {
+                        selectOption(userAnswers[currentQuestion]);
+                    }, 100);
+                }
+            }
+        }
+
+        function updateProgress() {
+            const progress = ((currentQuestion) / questions.length) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+            document.getElementById('progressText').textContent = `Question ${currentQuestion + 1} of ${questions.length}`;
+        }
+
+        function finishQuiz() {
+            quizCompleted = true;
+            const percentage = Math.round((score / questions.length) * 100);
+            
+            document.getElementById('questionContainer').style.display = 'none';
+            document.getElementById('finalScore').classList.add('show');
+            document.getElementById('finalScoreCircle').textContent = `${percentage}%`;
+            document.getElementById('finalScoreText').innerHTML = `
+                You scored <strong>${score}</strong> out of <strong>${questions.length}</strong> questions correctly!<br>
+                <span style="font-size: 1.1em; margin-top: 10px; display: block;">
+                    ${percentage >= 120 ? '🏆 Excellent! Outstanding knowledge of Operating Systems!' :
+                      percentage >= 100 ? '🎉 Great job! Very good understanding!' :
+                      percentage >= 80 ? '👍 Good work! Solid foundation!' :
+                      percentage >= 60 ? '📚 Not bad! Keep studying to improve!' :
+                      '💪 Keep learning! Practice makes perfect!'}
+                </span>
+            `;
+            
+            // Update progress to 100%
+            document.getElementById('progressFill').style.width = '100%';
+            document.getElementById('progressText').textContent = 'Quiz Completed!';
+        }
+
+        function restartQuiz() {
+            currentQuestion = 0;
+            score = 0;
+            userAnswers = [];
+            quizCompleted = false;
+
+            // Shuffle questions on restart
+            shuffle(questions);
+
+            document.getElementById('questionContainer').style.display = 'block';
+            document.getElementById('finalScore').classList.remove('show');
+
+            initializeQuiz();
+        }
+
+        // Initialize quiz when page loads
+        window.onload = initializeQuiz;
+    </script>
+</body>
+</html>
