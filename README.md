@@ -1,1 +1,2 @@
-OS-Reviewer: https://avicsl.github.io/OS-Reviewer/reviewer
+# Reviewers
+OS-Reviewer: https://avicsl.github.io/Reviewers/os
