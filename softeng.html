@@ -1,0 +1,1797 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Software Engineering Review</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Barbie', 'Arial', sans-serif;
+            background: #fff0f6; /* Light pink solid background */
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .quiz-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #fff0f6;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            overflow: hidden;
+            border: 3px solid #ff69b4;
+        }
+        
+        .quiz-header {
+            background: #ff69b4; /* Solid Barbie pink for better readability */
+            color: #000;
+            padding: 30px;
+            text-align: center;
+            border-bottom: 3px solid #ff69b4;
+        }
+        
+        .quiz-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-family: 'Barbie', 'Arial', sans-serif;
+            letter-spacing: 2px;
+            color: #fff; /* White text for strong contrast */
+            text-shadow: 2px 2px 0 #ad1457;
+        }
+        
+        .quiz-header p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+            color: #fff; /* White text for strong contrast */
+            text-shadow: 1px 1px 0 #ad1457;
+        }
+        
+        .progress-container {
+            background: #fff0f6;
+            padding: 20px;
+            border-bottom: 1px solid #ff69b4;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background: #ff69b4;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ff69b4, #fff0f6);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        
+        .progress-text {
+            text-align: center;
+            margin-top: 10px;
+            font-weight: bold;
+            color: #000;
+            text-shadow: 1px 1px 0 #fff;
+        }
+        
+        .question-container {
+            padding: 40px;
+            min-height: 400px;
+            background: #fff0f6;
+        }
+        
+        .question {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #ff69b4;
+            margin-bottom: 25px;
+            line-height: 1.6;
+            text-shadow: 1px 1px 0 #fff;
+        }
+        
+        .options {
+            display: grid;
+            gap: 15px;
+        }
+        
+        .option {
+            background: #fff;
+            border: 2px solid #ff69b4;
+            border-radius: 10px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+            position: relative;
+            color: #000;
+            font-weight: bold;
+        }
+        
+        .option:hover {
+            border-color: #ff69b4;
+            background: #ffe4ec;
+            transform: translateY(-2px);
+        }
+        
+        .option.selected {
+            border-color: #ff69b4;
+            background: #ffe4ec;
+        }
+        
+        .option.correct {
+            border-color: #28a745;
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .option.incorrect {
+            border-color: #dc3545;
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        .option.disabled {
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+        
+        .feedback {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 10px;
+            display: none;
+            font-weight: bold;
+            color: #000;
+        }
+        
+        .feedback.show {
+            display: block;
+        }
+        
+        .feedback.correct {
+            background: #d4edda;
+            color: #155724;
+            border: 2px solid #28a745;
+        }
+        
+        .feedback.incorrect {
+            background: #f8d7da;
+            color: #721c24;
+            border: 2px solid #dc3545;
+        }
+        
+        .controls {
+            padding: 30px 40px;
+            background: #fff0f6;
+            text-align: center;
+            border-top: 1px solid #ff69b4;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, #ff69b4 0%, #fff0f6 100%);
+            color: #000;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 0 10px;
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(255, 105, 180, 0.2);
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(255, 105, 180, 0.3);
+            background: linear-gradient(135deg, #ffe4ec 0%, #ff69b4 100%);
+            color: #000;
+        }
+        
+        .btn:disabled {
+            background: #ffb6c1;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+            color: #000;
+        }
+        
+        .score-display {
+            display: inline-block;
+            background: #fff;
+            padding: 10px 20px;
+            border-radius: 25px;
+            margin: 0 15px;
+            font-weight: bold;
+            color: #ff69b4;
+            border: 2px solid #ff69b4;
+        }
+        
+        .final-score {
+            text-align: center;
+            padding: 40px;
+            display: none;
+            background: #fff0f6;
+            color: #000;
+        }
+        
+        .final-score.show {
+            display: block;
+        }
+        
+        .final-score h2 {
+            font-size: 2.5rem;
+            color: #ff69b4;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 0 #fff;
+        }
+        
+        .score-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ff69b4 0%, #fff0f6 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px auto;
+            color: #000;
+            font-size: 2rem;
+            font-weight: bold;
+            border: 3px solid #ff69b4;
+            text-shadow: 2px 2px 0 #fff;
+        }
+        
+        @media (max-width: 768px) {
+            .quiz-header h1 {
+                font-size: 2rem;
+            }
+            
+            .question-container {
+                padding: 20px;
+            }
+            
+            .question {
+                font-size: 1.1rem;
+            }
+            
+            .option {
+                padding: 15px;
+                font-size: 1rem;
+            }
+            
+            .controls {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <div class="quiz-header">
+            <h1>Software Engineering 1 Reviewer</h1>
+            <p>4.0 cutie for everyone</p>
+        </div>
+        
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-text" id="progressText">Question 1 of 100</div>
+        </div>
+        
+        <div class="question-container" id="questionContainer">
+            <div class="question" id="questionText"></div>
+            <div class="options" id="optionsContainer"></div>
+            <div class="feedback" id="feedback"></div>
+        </div>
+        
+        <div class="controls">
+            <button class="btn" id="prevBtn" onclick="previousQuestion()">Previous</button>
+            <span class="score-display" id="scoreDisplay">Score: 0/0</span>
+            <button class="btn" id="nextBtn" onclick="nextQuestion()">Next</button>
+        </div>
+        
+        <div class="final-score" id="finalScore">
+            <h2>Quiz Complete!</h2>
+            <div class="score-circle" id="finalScoreCircle"></div>
+            <p id="finalScoreText"></p>
+            <button class="btn" onclick="restartQuiz()">Restart Quiz</button>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+    {
+        question: "Which component is NOT typically included in software according to the definition provided?",
+        options: [
+            "Programs (executable code)",
+            "Data structures",
+            "Hardware components",
+            "Documentation"
+        ],
+        correct: 2,
+        explanation: "Software includes programs, data structures, and documentation, but hardware components are separate physical entities that software runs on."
+    },
+    {
+        question: "What does software deliver according to the fundamental definition?",
+        options: [
+            "Just computation",
+            "Only data processing",
+            "Information, not just computation",
+            "Hardware functionality"
+        ],
+        correct: 2,
+        explanation: "Software delivers information, not just computation, emphasizing its role in providing meaningful data and services."
+    },
+    {
+        question: "Which characteristic refers to the software's ability to operate across various platforms?",
+        options: [
+            "Reliability",
+            "Portability",
+            "Maintainability",
+            "Efficiency"
+        ],
+        correct: 1,
+        explanation: "Portability is the ability to operate across various platforms or environments, including ease of installation and adaptability."
+    },
+    {
+        question: "What does maintainability in software characteristics primarily focus on?",
+        options: [
+            "Speed of execution",
+            "User interface design",
+            "Ease of correcting faults and adapting software",
+            "Memory usage optimization"
+        ],
+        correct: 2,
+        explanation: "Maintainability refers to the ease of correcting faults, improving, or adapting software, supporting long-term sustainability."
+    },
+    {
+        question: "Which software application domain typically operates in real-time environments?",
+        options: [
+            "Application Software",
+            "System Software",
+            "Embedded Software",
+            "Web Applications"
+        ],
+        correct: 2,
+        explanation: "Embedded software controls hardware devices and often operates in real-time environments, such as in cars, microwaves, and medical devices."
+    },
+    {
+        question: "What type of software would MATLAB and CAD tools be classified as?",
+        options: [
+            "System Software",
+            "Embedded Software",
+            "Engineering & Scientific Software",
+            "Artificial Intelligence Software"
+        ],
+        correct: 2,
+        explanation: "MATLAB and CAD tools are examples of Engineering & Scientific Software used in R&D and technical computation."
+    },
+    {
+        question: "Which development dynamic is characteristic of cloud-based applications?",
+        options: [
+            "Annual software updates",
+            "Continuous delivery & integration (CI/CD)",
+            "Manual deployment processes",
+            "Single-platform design"
+        ],
+        correct: 1,
+        explanation: "Cloud-based applications feature continuous delivery & integration (CI/CD) with frequent updates and A/B testing."
+    },
+    {
+        question: "What is a primary concern with legacy software systems?",
+        options: [
+            "They are too fast",
+            "They have too much documentation",
+            "They may have known security vulnerabilities",
+            "They are too easy to maintain"
+        ],
+        correct: 2,
+        explanation: "Legacy software often has known security vulnerabilities due to being built with older tools and practices."
+    },
+    {
+        question: "Why is legacy software often expensive to replace?",
+        options: [
+            "It's too simple",
+            "Rewriting can be risky, costly, and time-consuming",
+            "It has too many features",
+            "It's too well documented"
+        ],
+        correct: 1,
+        explanation: "Legacy software is expensive to replace because rewriting can be risky, costly, and time-consuming, especially for mission-critical systems."
+    },
+    {
+        question: "What is the primary goal of software engineering?",
+        options: [
+            "Fast development only",
+            "Cheap software production",
+            "High-quality, timely, cost-effective software",
+            "Maximum feature implementation"
+        ],
+        correct: 2,
+        explanation: "The goal of software engineering is to produce high-quality, timely, cost-effective software through structured approaches."
+    },
+    {
+        question: "Which is NOT a framework activity in the software process?",
+        options: [
+            "Communication",
+            "Planning",
+            "Marketing",
+            "Construction"
+        ],
+        correct: 2,
+        explanation: "The five framework activities are Communication, Planning, Modeling, Construction, and Deployment. Marketing is not a core software engineering activity."
+    },
+    {
+        question: "What type of activity is Quality Assurance (QA) in the software process?",
+        options: [
+            "Framework Activity",
+            "Umbrella Activity",
+            "Construction Activity",
+            "Deployment Activity"
+        ],
+        correct: 1,
+        explanation: "Quality Assurance (QA) is an umbrella activity that supports all phases of the software process."
+    },
+    {
+        question: "According to software engineering practice, what should be prioritized in design?",
+        options: [
+            "Complex algorithms",
+            "Maximum features",
+            "Simplicity and ease of understanding",
+            "Advanced technology use"
+        ],
+        correct: 2,
+        explanation: "Good practice focuses on simplicity, designing systems that are easy to understand, modify, and test while avoiding unnecessary complexity."
+    },
+    {
+        question: "What does the principle 'Be Agile' emphasize?",
+        options: [
+            "Extensive documentation",
+            "Fixed requirements",
+            "Working software over excessive documentation",
+            "Waterfall methodology"
+        ],
+        correct: 2,
+        explanation: "Being agile means prioritizing working software over excessive documentation and embracing change with incremental value delivery."
+    },
+    {
+        question: "What does requirement traceability help achieve?",
+        options: [
+            "Faster development",
+            "Link requirements to design, code, and tests",
+            "Reduced documentation",
+            "Lower costs"
+        ],
+        correct: 1,
+        explanation: "Maintaining traceability links requirements to design, code, and tests, ensuring accountability and helping manage change."
+    },
+    {
+        question: "Which software myth assumes that existing processes are always adequate?",
+        options: [
+            "Customer Myth",
+            "Developer Myth",
+            "Management Myth",
+            "User Myth"
+        ],
+        correct: 2,
+        explanation: "The management myth 'We already have standards and procedures' assumes existing processes are adequate and ignores continuous improvement needs."
+    },
+    {
+        question: "What does the customer myth 'All I have to do is write requirements' ignore?",
+        options: [
+            "Testing phases",
+            "The need for collaboration afterward",
+            "Documentation needs",
+            "Budget constraints"
+        ],
+        correct: 1,
+        explanation: "This customer myth ignores the need for collaboration after writing requirements, leading to unclear expectations and missed functionality."
+    },
+    {
+        question: "What does the developer myth about completed programs ignore?",
+        options: [
+            "Coding standards",
+            "Programming languages",
+            "Testing, documentation, maintenance, and evolution",
+            "User requirements"
+        ],
+        correct: 2,
+        explanation: "The developer myth ignores testing, documentation, maintenance, and evolution, leading to fragile, short-lived software."
+    },
+    {
+        question: "What typically initiates a software project?",
+        options: [
+            "Available budget",
+            "Technology trends",
+            "A need, problem, or opportunity",
+            "Team availability"
+        ],
+        correct: 2,
+        explanation: "Software projects start with an initial idea or requirement based on a need, problem, or opportunity identified through users, management, or market analysis."
+    },
+    {
+        question: "Which SDLC model follows a linear and sequential approach?",
+        options: [
+            "Spiral",
+            "Agile",
+            "Waterfall",
+            "DevOps"
+        ],
+        correct: 2,
+        explanation: "The Waterfall model is characterized by its linear and sequential approach to software development."
+    },
+    {
+        question: "What does the V-Model emphasize compared to other traditional models?",
+        options: [
+            "Rapid development",
+            "Validation at each step",
+            "Continuous deployment",
+            "User feedback loops"
+        ],
+        correct: 1,
+        explanation: "The V-Model emphasizes validation at each step, ensuring verification and validation activities parallel development phases."
+    },
+    {
+        question: "Which SDLC model combines iterative development with risk analysis?",
+        options: [
+            "Waterfall",
+            "V-Model",
+            "Spiral",
+            "Incremental"
+        ],
+        correct: 2,
+        explanation: "The Spiral model combines iterative development with systematic risk analysis throughout the development process."
+    },
+    {
+        question: "What does DevOps SDLC emphasize most strongly?",
+        options: [
+            "Individual productivity",
+            "Team empowerment and cross-team collaboration",
+            "Documentation standards",
+            "Sequential phases"
+        ],
+        correct: 1,
+        explanation: "DevOps emphasizes team empowerment, cross-team communication and collaboration, and technology automation."
+    },
+    {
+        question: "How does Agile SDLC break down projects?",
+        options: [
+            "Into sequential phases",
+            "Into smaller, manageable phases called iterations or sprints",
+            "Into independent modules",
+            "Into documentation sections"
+        ],
+        correct: 1,
+        explanation: "Agile emphasizes breaking projects into smaller, manageable phases called iterations or sprints for better adaptability."
+    },
+    {
+        question: "What is the primary purpose of prototyping as an alternative technique?",
+        options: [
+            "Final product delivery",
+            "Early validation and feedback",
+            "Complete system documentation",
+            "Performance optimization"
+        ],
+        correct: 1,
+        explanation: "Prototyping allows for early validation and feedback, helping stakeholders visualize and refine requirements before full development."
+    },
+    {
+        question: "What does RAD (Rapid Application Development) prioritize?",
+        options: [
+            "Comprehensive documentation",
+            "Sequential development phases",
+            "Speed of development and user involvement",
+            "Risk analysis"
+        ],
+        correct: 2,
+        explanation: "RAD prioritizes rapid development speed and active user involvement throughout the development process."
+    },
+    {
+        question: "What is the foundation of Component-Based Development (CBD)?",
+        options: [
+            "Writing all code from scratch",
+            "Using pre-existing, reusable components",
+            "Following waterfall methodology",
+            "Avoiding third-party libraries"
+        ],
+        correct: 1,
+        explanation: "Component-Based Development focuses on using pre-existing, reusable components to build software systems efficiently."
+    },
+    {
+        question: "Which Agile methodology uses visual task boards for flow control?",
+        options: [
+            "Scrum",
+            "XP (Extreme Programming)",
+            "Kanban",
+            "Crystal"
+        ],
+        correct: 2,
+        explanation: "Kanban uses visual task boards and focuses on flow control to manage work in progress and optimize throughput."
+    },
+    {
+        question: "What distinguishes XP (Extreme Programming) from other Agile methodologies?",
+        options: [
+            "Sprint planning",
+            "Visual boards",
+            "Test-driven development and continuous integration",
+            "Daily meetings"
+        ],
+        correct: 2,
+        explanation: "XP is distinguished by its emphasis on test-driven development and continuous integration practices."
+    },
+    {
+        question: "What do process standards primarily define?",
+        options: [
+            "What the outcome should be",
+            "How work is done",
+            "Documentation format",
+            "Team structure"
+        ],
+        correct: 1,
+        explanation: "Process standards define how work is done, providing guidelines for executing development activities."
+    },
+    {
+        question: "Which type of standard ensures consistency in communication?",
+        options: [
+            "Process Standards",
+            "Product Standards",
+            "Documentation Standards",
+            "Quality Standards"
+        ],
+        correct: 2,
+        explanation: "Documentation standards ensure consistency in communication across teams and projects."
+    },
+    {
+        question: "What does ISO 12207 primarily cover?",
+        options: [
+            "Only software development",
+            "Hardware specifications",
+            "Entire life cycle of software",
+            "Testing procedures only"
+        ],
+        correct: 2,
+        explanation: "ISO 12207 covers the entire life cycle of software, defining primary, supporting, and organizational processes."
+    },
+    {
+        question: "Which IEEE standard focuses on Software Requirements Specification?",
+        options: [
+            "IEEE 830",
+            "IEEE 1016",
+            "IEEE 1058",
+            "IEEE 729"
+        ],
+        correct: 0,
+        explanation: "IEEE 830 is the standard for Software Requirements Specification, providing guidelines for documenting requirements."
+    },
+    {
+        question: "What is IEEE 1058 specifically designed for?",
+        options: [
+            "Software design descriptions",
+            "Requirements specification",
+            "Software Project Management Plans",
+            "Testing procedures"
+        ],
+        correct: 2,
+        explanation: "IEEE 1058 provides standards for Software Project Management Plans, helping structure project planning documentation."
+    },
+    {
+        question: "Which approach to requirements varies between Waterfall and Agile methodologies?",
+        options: [
+            "Requirements gathering techniques",
+            "Fixed requirements early vs. evolving requirements",
+            "Stakeholder identification",
+            "Documentation standards"
+        ],
+        correct: 1,
+        explanation: "Waterfall uses fixed requirements early in the process, while Agile allows for evolving requirements throughout development."
+    },
+    {
+        question: "What is the most important part of a feasibility study?",
+        options: [
+            "Technical Feasibility",
+            "Legal Feasibility",
+            "Economic Feasibility",
+            "Schedule Feasibility"
+        ],
+        correct: 2,
+        explanation: "Economic Feasibility Study is the most important part of feasibility analysis, while Legal Feasibility is less considered."
+    },
+    {
+        question: "Which feasibility type is least considered in feasibility analysis?",
+        options: [
+            "Technical Feasibility",
+            "Operational Feasibility",
+            "Economic Feasibility",
+            "Legal Feasibility"
+        ],
+        correct: 3,
+        explanation: "Legal Feasibility Study is less considered compared to other types of feasibility analysis."
+    },
+    {
+        question: "What is requirements elicitation primarily concerned with?",
+        options: [
+            "Writing code specifications",
+            "Gaining knowledge about project domain and requirements",
+            "Testing system functionality",
+            "Designing user interfaces"
+        ],
+        correct: 1,
+        explanation: "Requirements elicitation focuses on gaining knowledge about the project domain and requirements through various sources and techniques."
+    },
+    {
+        question: "Which technique is NOT commonly used for requirements elicitation?",
+        options: [
+            "Interviews",
+            "Prototyping",
+            "Code reviews",
+            "Focus Groups"
+        ],
+        correct: 2,
+        explanation: "Code reviews are not used for requirements elicitation. Common techniques include interviews, surveys, focus groups, observation, and prototyping."
+    },
+    {
+        question: "What does requirements specification primarily produce?",
+        options: [
+            "Source code",
+            "Test cases",
+            "Formal software requirement models",
+            "User manuals"
+        ],
+        correct: 2,
+        explanation: "Requirements specification produces formal software requirement models that specify all functional, non-functional requirements and constraints."
+    },
+    {
+        question: "What is the key difference between verification and validation in requirements?",
+        options: [
+            "Verification is faster than validation",
+            "Verification ensures correct function implementation, validation ensures traceability to customer requirements",
+            "Verification is optional, validation is mandatory",
+            "Verification focuses on non-functional requirements only"
+        ],
+        correct: 1,
+        explanation: "Verification ensures software correctly implements specific functions, while validation ensures built software is traceable to customer requirements."
+    },
+    {
+        question: "What happens if requirements are not validated properly?",
+        options: [
+            "Development proceeds faster",
+            "Costs are reduced",
+            "Errors propagate to successive stages causing modification and rework",
+            "Testing becomes easier"
+        ],
+        correct: 2,
+        explanation: "If requirements aren't validated, errors in requirement definitions propagate to successive stages, resulting in extensive modification and rework."
+    },
+    {
+        question: "Which activity is NOT part of requirements management?",
+        options: [
+            "Tracking and controlling changes",
+            "Version control",
+            "Code optimization",
+            "Communication with stakeholders"
+        ],
+        correct: 2,
+        explanation: "Requirements management includes tracking changes, version control, traceability, communication, and monitoring - but not code optimization."
+    },
+    {
+        question: "What type of requirement describes what the system must do?",
+        options: [
+            "Non-functional requirements",
+            "Functional requirements",
+            "Extended requirements",
+            "System requirements"
+        ],
+        correct: 1,
+        explanation: "Functional requirements describe what the system must do, specifying the required behaviors and functions."
+    },
+    {
+        question: "Which example represents a non-functional requirement?",
+        options: [
+            "System shall generate an invoice after checkout",
+            "Users can browse the menu and place an order",
+            "System shall generate the invoice within 5 seconds",
+            "Users should receive notifications after making a transaction"
+        ],
+        correct: 2,
+        explanation: "Time performance constraints like 'within 5 seconds' are non-functional requirements defining quality and performance standards."
+    },
+    {
+        question: "What characterizes extended requirements?",
+        options: [
+            "Mandatory system functions",
+            "Performance specifications",
+            "'Nice to have' requirements that might be out of scope",
+            "Security requirements"
+        ],
+        correct: 2,
+        explanation: "Extended requirements are basically 'nice to have' requirements that might be out of the scope of the system."
+    },
+    {
+        question: "Which technique combines user needs assessment with technical capabilities?",
+        options: [
+            "Quality Function Deployment",
+            "Simple interviews",
+            "Code review",
+            "Performance testing"
+        ],
+        correct: 0,
+        explanation: "Quality Function Deployment is a technique that systematically combines user needs assessment with technical capabilities for requirements elicitation."
+    },
+    {
+        question: "What is the primary focus when defining User Requirements Specification (URS)?",
+        options: [
+            "Technical implementation details",
+            "What users need, not just what they request",
+            "System architecture",
+            "Database design"
+        ],
+        correct: 1,
+        explanation: "URS focuses on what users need, not just what they request, ensuring the real underlying needs are addressed."
+    },
+    {
+        question: "Which representation method is commonly used in URS?",
+        options: [
+            "Technical specifications",
+            "User stories and use cases",
+            "Code documentation",
+            "System logs"
+        ],
+        correct: 1,
+        explanation: "URS is commonly represented using user stories, use cases, and scenarios to capture user needs effectively."
+    },
+    {
+        question: "What should NOT be included in a User Requirements Specification?",
+        options: [
+            "Stakeholder identification",
+            "Requirements documentation",
+            "Implementation code",
+            "Supporting documents"
+        ],
+        correct: 2,
+        explanation: "URS should include stakeholders, objectives, requirements, and supporting documents, but not implementation code which comes later."
+    },
+    {
+        question: "Which validation technique involves creating test scenarios from requirements?",
+        options: [
+            "Prototyping",
+            "Test Case Generation",
+            "Walk-through",
+            "Requirements Reviews"
+        ],
+        correct: 1,
+        explanation: "Test Case Generation involves creating test scenarios directly from requirements to validate their completeness and clarity."
+    },
+    {
+        question: "What is the primary purpose of a Requirements Traceability Matrix (RTM)?",
+        options: [
+            "Track project costs",
+            "Monitor team performance",
+            "Track requirements from origin to implementation",
+            "Manage project schedules"
+        ],
+        correct: 2,
+        explanation: "RTM tracks requirements from their origin through to implementation, ensuring coverage and helping identify impacts of changes."
+    },
+    {
+        question: "Why is requirements change considered inevitable?",
+        options: [
+            "Poor initial planning",
+            "Lack of stakeholder involvement",
+            "Market changes, regulatory updates, and feedback",
+            "Technical limitations"
+        ],
+        correct: 2,
+        explanation: "Requirements change is inevitable due to market changes, regulatory updates, user feedback, and evolving business needs."
+    },
+    {
+        question: "What is the correct sequence for managing requirement changes?",
+        options: [
+            "Approve → Log → Assess → Update",
+            "Log request → Assess impact → Approve/reject → Update docs",
+            "Update → Assess → Log → Approve",
+            "Assess → Update → Log → Approve"
+        ],
+        correct: 1,
+        explanation: "The proper sequence is: Log request → Assess impact → Approve/reject → Update documentation."
+    },
+    {
+        question: "What distinguishes an inspection from a review in requirements validation?",
+        options: [
+            "Inspections are informal, reviews are formal",
+            "Inspections are faster than reviews",
+            "Inspections are formal structured defect-finding sessions, reviews are informal peer checks",
+            "Inspections focus on code, reviews focus on requirements"
+        ],
+        correct: 2,
+        explanation: "Inspections are formal, structured defect-finding sessions, while reviews are informal peer checks for requirements validation."
+    },
+    {
+        question: "Which modeling technique is best for showing system behavior over time?",
+        options: [
+            "Use Case Diagrams",
+            "Data Flow Diagrams (DFD)",
+            "Entity-Relationship Diagrams (ERD)",
+            "State Diagrams"
+        ],
+        correct: 3,
+        explanation: "State Diagrams are best for showing system behavior changes over time and different system states."
+    },
+    {
+        question: "What characterizes requirements in Agile methodology?",
+        options: [
+            "Fixed detailed specifications",
+            "User stories with acceptance criteria",
+            "Complete upfront documentation",
+            "Technical design documents"
+        ],
+        correct: 1,
+        explanation: "Agile expresses requirements as user stories with acceptance criteria, allowing for flexibility and continuous refinement."
+    },
+    {
+        question: "What is backlog grooming in Agile requirements engineering?",
+        options: [
+            "Removing old requirements",
+            "Continuous refinement of requirements",
+            "Writing technical specifications",
+            "Testing requirement implementation"
+        ],
+        correct: 1,
+        explanation: "Backlog grooming involves continuous refinement of requirements through regular review and prioritization of user stories."
+    },
+    {
+        question: "Which component of a user story describes the desired outcome?",
+        options: [
+            "User role identification",
+            "Feature description",
+            "Acceptance criteria",
+            "Priority level"
+        ],
+        correct: 2,
+        explanation: "Acceptance criteria in user stories describe the desired outcome and conditions that must be met for the story to be complete."
+    },
+    {
+        question: "In the context of software engineering, what does 'agile' primarily mean?",
+        options: [
+            "Fast coding",
+            "Minimal documentation",
+            "Embracing change and delivering value incrementally",
+            "Working alone"
+        ],
+        correct: 2,
+        explanation: "Being agile means embracing change and delivering value incrementally while prioritizing working software and customer collaboration."
+    },
+    {
+        question: "What is the main risk of not following structured requirements engineering?",
+        options: [
+            "Slower development",
+            "Higher costs",
+            "Project failure due to unclear expectations and missed functionality",
+            "Too much documentation"
+        ],
+        correct: 2,
+        explanation: "Without structured requirements engineering, projects risk failure due to unclear expectations, missed functionality, and communication breakdowns."
+    },
+    {
+        question: "Which process model would be most suitable for a project with well-defined, stable requirements?",
+        options: [
+            "Agile",
+            "Spiral",
+            "Waterfall",
+            "Prototyping"
+        ],
+        correct: 2,
+        explanation: "Waterfall model is most suitable for projects with well-defined, stable requirements due to its sequential, structured approach."
+    },
+    {
+        question: "When would you choose Spiral model over other SDLC models?",
+        options: [
+            "When requirements are stable",
+            "For small, simple projects",
+            "When risk analysis is crucial and requirements may evolve",
+            "When documentation is minimal"
+        ],
+        correct: 2,
+        explanation: "Spiral model is chosen when risk analysis is crucial and requirements may evolve, as it combines iterative development with systematic risk assessment."
+    },
+    {
+        question: "What makes embedded software different from other application domains?",
+        options: [
+            "It's always connected to internet",
+            "It controls hardware devices and often operates in real-time",
+            "It requires more documentation",
+            "It's easier to maintain"
+        ],
+        correct: 1,
+        explanation: "Embedded software is unique because it controls hardware devices directly and often must operate in real-time environments with strict timing constraints."
+    },
+    {
+        question: "Why might cloud-based applications favor DevOps methodology?",
+        options: [
+            "Cheaper development costs",
+            "Less complex requirements",
+            "Need for continuous deployment and infrastructure automation",
+            "Simpler user interfaces"
+        ],
+        correct: 2,
+        explanation: "Cloud-based applications benefit from DevOps due to the need for continuous deployment, automated infrastructure management, and seamless integration."
+    },
+    {
+        question: "What is a key advantage of incremental SDLC model?",
+        options: [
+            "Fastest development time",
+            "Lowest cost",
+            "Early delivery of working software modules",
+            "Least documentation required"
+        ],
+        correct: 2,
+        explanation: "Incremental model allows early delivery of working software modules, providing value to users while development continues on remaining features."
+    },
+    {
+        question: "In Scrum methodology, what is the typical duration of a sprint?",
+        options: [
+            "1 day to 1 week",
+            "1-4 weeks",
+            "2-6 months",
+            "6 months to 1 year"
+        ],
+        correct: 1,
+        explanation: "Scrum sprints typically last 1-4 weeks, allowing teams to deliver working software incrementally while maintaining agility."
+    },
+    {
+        question: "What distinguishes system software from application software?",
+        options: [
+            "System software is more expensive",
+            "System software supports other software, application software solves specific tasks",
+            "System software is easier to use",
+            "System software requires less testing"
+        ],
+        correct: 1,
+        explanation: "System software provides core support for other software (like operating systems), while application software solves specific business or personal tasks."
+    },
+    {
+        question: "Which characteristic of software is most critical for financial applications?",
+        options: [
+            "Usability",
+            "Portability",
+            "Reliability",
+            "Efficiency"
+        ],
+        correct: 2,
+        explanation: "Reliability is most critical for financial applications as they must perform consistently and correctly, with fault tolerance and recovery capabilities."
+    },
+    {
+        question: "What makes AI software distinct from other software domains?",
+        options: [
+            "It requires more memory",
+            "It mimics human intelligence and decision-making",
+            "It's always web-based",
+            "It needs special hardware"
+        ],
+        correct: 1,
+        explanation: "AI software is distinct because it mimics human intelligence and decision-making processes, like chatbots, recommendation engines, and autonomous vehicles."
+    },
+    {
+        question: "Why is knowledge gap a major concern with legacy software?",
+        options: [
+            "The software is too advanced",
+            "Original developers often gone and code may be difficult to maintain",
+            "The software is too simple",
+            "Documentation is too detailed"
+        ],
+        correct: 1,
+        explanation: "Knowledge gap occurs because original developers are often gone and the code may be difficult to maintain, creating risks for ongoing support."
+    },
+    {
+        question: "What is the primary benefit of Infrastructure as Code in cloud applications?",
+        options: [
+            "Reduced development time",
+            "Lower licensing costs",
+            "Automated, repeatable infrastructure deployment",
+            "Simplified user interfaces"
+        ],
+        correct: 2,
+        explanation: "Infrastructure as Code enables automated, repeatable infrastructure deployment, making cloud applications more reliable and scalable."
+    },
+    {
+        question: "Which framework activity involves understanding objectives and gathering requirements?",
+        options: [
+            "Planning",
+            "Communication",
+            "Modeling",
+            "Construction"
+        ],
+        correct: 1,
+        explanation: "Communication is the framework activity focused on understanding objectives and gathering requirements from stakeholders."
+    },
+    {
+        question: "What is the relationship between umbrella activities and framework activities?",
+        options: [
+            "They are the same thing",
+            "Umbrella activities replace framework activities",
+            "Umbrella activities support all phases of framework activities",
+            "Framework activities are optional, umbrella activities are mandatory"
+        ],
+        correct: 2,
+        explanation: "Umbrella activities (like QA, SCM, Risk Management) support all phases of the framework activities throughout the software process."
+    },
+    {
+        question: "Which principle emphasizes linking requirements through the entire development process?",
+        options: [
+            "Be Agile",
+            "Maintain Traceability",
+            "Use Iterative Processes",
+            "Encourage Quality"
+        ],
+        correct: 1,
+        explanation: "Maintaining traceability ensures requirements are linked to design, code, and tests, providing accountability and change management."
+    },
+    {
+        question: "What does 'Use Iterative Processes' principle primarily enable?",
+        options: [
+            "Faster coding",
+            "Less documentation",
+            "Gradual improvement and early error detection",
+            "Reduced testing needs"
+        ],
+        correct: 2,
+        explanation: "Iterative processes enable gradual improvement and early error detection through cycles of development, feedback, and refinement."
+    },
+    {
+        question: "Why do software myths lead to project failure?",
+        options: [
+            "They make development too fast",
+            "They create unrealistic expectations and poor communication",
+            "They require too much documentation",
+            "They make testing unnecessary"
+        ],
+        correct: 1,
+        explanation: "Software myths create unrealistic expectations and poor communication between stakeholders, leading to project failures and unmet objectives."
+    },
+    {
+        question: "What typically happens after initial idea generation in software projects?",
+        options: [
+            "Immediate coding begins",
+            "Communication with stakeholders",
+            "System deployment",
+            "User training"
+        ],
+        correct: 1,
+        explanation: "After initial idea generation, communication with stakeholders begins to discuss objectives, constraints, and expectations."
+    },
+    {
+        question: "Which roles are typically identified during stakeholder communication?",
+        options: [
+            "Only programmers",
+            "Users, sponsors, and technical team roles",
+            "Only project managers",
+            "Only end users"
+        ],
+        correct: 1,
+        explanation: "Stakeholder communication identifies users, sponsors, technical team roles, and other parties involved in or affected by the project."
+    },
+    {
+        question: "What follows planning and analysis in the project initiation process?",
+        options: [
+            "Immediate deployment",
+            "Team formation",
+            "Defining scope, risks, and feasibility",
+            "User training"
+        ],
+        correct: 2,
+        explanation: "Planning and analysis involve defining scope, identifying risks, assessing feasibility, and documenting functional and non-functional requirements."
+    },
+    {
+        question: "Why is Component-Based Development considered efficient?",
+        options: [
+            "It requires less planning",
+            "It uses pre-existing, tested components reducing development time",
+            "It needs fewer developers",
+            "It eliminates testing needs"
+        ],
+        correct: 1,
+        explanation: "CBD is efficient because it leverages pre-existing, tested components, reducing development time and increasing reliability through reuse."
+    },
+    {
+        question: "What is the main advantage of RAD over traditional waterfall model?",
+        options: [
+            "Better documentation",
+            "Lower costs",
+            "Faster development with active user involvement",
+            "More comprehensive testing"
+        ],
+        correct: 2,
+        explanation: "RAD's main advantage is faster development cycles with active user involvement throughout the process, enabling quicker feedback and iteration."
+    },
+    {
+        question: "What makes prototyping particularly valuable in requirements engineering?",
+        options: [
+            "It provides the final product",
+            "It allows early validation and stakeholder feedback",
+            "It eliminates the need for documentation",
+            "It reduces development costs to zero"
+        ],
+        correct: 1,
+        explanation: "Prototyping is valuable because it allows early validation of concepts and enables stakeholder feedback before committing to full development."
+    },
+    {
+        question: "Which organizational process is defined by ISO 12207?",
+        options: [
+            "Development and maintenance",
+            "Testing and QA",
+            "Training and audits",
+            "Customer support"
+        ],
+        correct: 2,
+        explanation: "ISO 12207 defines organizational processes including training and audits, alongside primary processes (development, maintenance) and supporting processes."
+    },
+    {
+        question: "What does IEEE 1016 specifically address?",
+        options: [
+            "Requirements specification",
+            "Software Design Descriptions",
+            "Project management plans",
+            "Testing procedures"
+        ],
+        correct: 1,
+        explanation: "IEEE 1016 provides standards for Software Design Descriptions, ensuring consistent documentation of software design decisions."
+    },
+    {
+        question: "In technical feasibility assessment, what is primarily evaluated?",
+        options: [
+            "Project costs",
+            "Legal constraints",
+            "Whether the technology can support the proposed solution",
+            "Market demand"
+        ],
+        correct: 2,
+        explanation: "Technical feasibility evaluates whether the available or proposed technology can adequately support the solution requirements."
+    },
+    {
+        question: "What does operational feasibility assess?",
+        options: [
+            "Technology capabilities",
+            "Budget constraints",
+            "How well the solution will work within the organization",
+            "Legal compliance"
+        ],
+        correct: 2,
+        explanation: "Operational feasibility assesses how well the proposed solution will work within the existing organizational structure and processes."
+    },
+    {
+        question: "Which elicitation technique involves direct user observation?",
+        options: [
+            "Interviews",
+            "Surveys",
+            "Observation",
+            "Focus Groups"
+        ],
+        correct: 2,
+        explanation: "Observation technique involves directly watching users perform their tasks to understand actual work processes and identify requirements."
+    },
+    {
+        question: "What distinguishes surveys from interviews in requirements elicitation?",
+        options: [
+            "Surveys are more detailed",
+            "Interviews allow for deeper, interactive questioning",
+            "Surveys are more expensive",
+            "Interviews reach more people"
+        ],
+        correct: 1,
+        explanation: "Interviews allow for deeper, interactive questioning and follow-up, while surveys gather broader but less detailed information from more participants."
+    },
+    {
+        question: "What should requirements be according to good specification practices?",
+        options: [
+            "Complex and comprehensive",
+            "Clear, measurable, and testable",
+            "Technical and detailed",
+            "Flexible and ambiguous"
+        ],
+        correct: 1,
+        explanation: "Requirements should be clear, measurable, and testable to ensure they can be properly implemented and verified."
+    },
+    {
+        question: "Which requirement type defines quality, performance, and constraints?",
+        options: [
+            "Functional requirements",
+            "Non-functional requirements",
+            "Extended requirements",
+            "System requirements"
+        ],
+        correct: 1,
+        explanation: "Non-functional requirements define quality attributes, performance criteria, and system constraints rather than specific behaviors."
+    },
+    {
+        question: "What makes acceptance criteria important in requirements?",
+        options: [
+            "They speed up development",
+            "They reduce costs",
+            "They define when a requirement is considered complete",
+            "They eliminate testing needs"
+        ],
+        correct: 2,
+        explanation: "Acceptance criteria define the specific conditions that must be met for a requirement to be considered complete and acceptable."
+    },
+    {
+        question: "Why might a food delivery app need to handle 50,000 concurrent orders?",
+        options: [
+            "This is a functional requirement",
+            "This addresses peak-hour scalability as a non-functional requirement",
+            "This is for testing purposes only",
+            "This is an extended requirement"
+        ],
+        correct: 1,
+        explanation: "Handling concurrent users is a non-functional requirement addressing scalability and performance during peak usage periods."
+    },
+    {
+        question: "What characterizes 'nice to have' requirements?",
+        options: [
+            "They are mandatory for system operation",
+            "They are performance requirements",
+            "They might be out of scope but add value",
+            "They are security requirements"
+        ],
+        correct: 2,
+        explanation: "Extended or 'nice to have' requirements might be out of scope of core functionality but could add value if resources permit."
+    },
+    {
+        question: "Which technique systematically maps user needs to technical features?",
+        options: [
+            "Simple interviews",
+            "Quality Function Deployment",
+            "Observation",
+            "Prototyping"
+        ],
+        correct: 1,
+        explanation: "Quality Function Deployment systematically maps user needs to technical features, ensuring customer requirements drive technical decisions."
+    },
+    {
+        question: "What is the Facilitated Application Specification Technique (FAST) designed to do?",
+        options: [
+            "Speed up coding",
+            "Facilitate structured requirements workshops",
+            "Automate testing",
+            "Manage project budgets"
+        ],
+        correct: 1,
+        explanation: "FAST facilitates structured requirements workshops where stakeholders collaborate to define and prioritize system requirements."
+    },
+    {
+        question: "Why do User Requirements Specifications focus on 'what' rather than 'how'?",
+        options: [
+            "To reduce documentation",
+            "To keep requirements independent of implementation details",
+            "To speed up development",
+            "To reduce costs"
+        ],
+        correct: 1,
+        explanation: "URS focuses on 'what' to keep requirements independent of implementation details, allowing flexibility in technical solutions."
+    },
+    {
+        question: "What should be included in a URS glossary?",
+        options: [
+            "Code snippets",
+            "Technical specifications",
+            "Definitions of domain-specific terms",
+            "Project timelines"
+        ],
+        correct: 2,
+        explanation: "A URS glossary should include definitions of domain-specific terms to ensure all stakeholders understand terminology consistently."
+    },
+    {
+        question: "Which validation technique creates working models to test concepts?",
+        options: [
+            "Requirements Reviews",
+            "Prototyping",
+            "Walk-through",
+            "Checklists"
+        ],
+        correct: 1,
+        explanation: "Prototyping creates working models that stakeholders can interact with to validate concepts and provide concrete feedback."
+    },
+    {
+        question: "What does automated consistency analysis help identify?",
+        options: [
+            "Performance issues",
+            "Conflicting or contradictory requirements",
+            "User interface problems",
+            "Security vulnerabilities"
+        ],
+        correct: 1,
+        explanation: "Automated consistency analysis helps identify conflicting or contradictory requirements that could cause implementation problems."
+    },
+    {
+        question: "Why is simulation used in requirements validation?",
+        options: [
+            "To reduce documentation",
+            "To model system behavior under various conditions",
+            "To speed up development",
+            "To eliminate testing"
+        ],
+        correct: 1,
+        explanation: "Simulation models system behavior under various conditions, helping validate that requirements will work in real-world scenarios."
+    },
+    {
+        question: "What does forward traceability in an RTM track?",
+        options: [
+            "From code back to requirements",
+            "From requirements forward to design and implementation",
+            "Project timeline progression",
+            "Budget allocations"
+        ],
+        correct: 1,
+        explanation: "Forward traceability tracks from requirements forward through design, implementation, and testing to ensure complete coverage."
+    },
+    {
+        question: "Why is impact assessment crucial before approving requirement changes?",
+        options: [
+            "To reduce documentation",
+            "To understand effects on timeline, budget, and other requirements",
+            "To speed up development",
+            "To eliminate testing"
+        ],
+        correct: 1,
+        explanation: "Impact assessment evaluates how changes affect timeline, budget, resources, and other requirements before making approval decisions."
+    },
+    {
+        question: "What is the primary purpose of documenting current requirements before changes?",
+        options: [
+            "To increase paperwork",
+            "To establish baseline for measuring change impact",
+            "To slow down the process",
+            "To satisfy management"
+        ],
+        correct: 1,
+        explanation: "Documenting current requirements establishes a baseline that helps measure and understand the full impact of proposed changes."
+    },
+    {
+        question: "Which review type requires the most formal structure?",
+        options: [
+            "Informal review",
+            "Walkthrough",
+            "Inspection",
+            "Peer review"
+        ],
+        correct: 2,
+        explanation: "Inspections require the most formal structure with defined roles, procedures, and systematic defect identification processes."
+    },
+    {
+        question: "What do Entity-Relationship Diagrams (ERD) primarily model?",
+        options: [
+            "System processes",
+            "User interactions",
+            "Data relationships and structure",
+            "System states"
+        ],
+        correct: 2,
+        explanation: "ERDs model data relationships and structure, showing how different data entities relate to each other in the system."
+    },
+    {
+        question: "Which diagram type best shows functional system processes?",
+        options: [
+            "State Diagrams",
+            "Entity-Relationship Diagrams",
+            "Data Flow Diagrams (DFD)",
+            "Use Case Diagrams"
+        ],
+        correct: 2,
+        explanation: "Data Flow Diagrams show functional system processes, illustrating how data flows through the system and is transformed."
+    },
+    {
+        question: "What makes Use Case Diagrams valuable for requirements modeling?",
+        options: [
+            "They show data structure",
+            "They illustrate user interactions with the system",
+            "They display system performance",
+            "They show technical architecture"
+        ],
+        correct: 1,
+        explanation: "Use Case Diagrams illustrate user interactions with the system, helping stakeholders understand functional requirements from user perspective."
+    },
+    {
+        question: "In Agile, what drives the continuous refinement of requirements?",
+        options: [
+            "Management directives",
+            "Technical constraints",
+            "Backlog grooming and stakeholder feedback",
+            "Budget limitations"
+        ],
+        correct: 2,
+        explanation: "Continuous refinement is driven by regular backlog grooming sessions and ongoing stakeholder feedback throughout development cycles."
+    },
+    {
+        question: "How do Agile user stories differ from traditional requirements documents?",
+        options: [
+            "They are more technical",
+            "They are shorter and focus on user value",
+            "They are more detailed",
+            "They are written by developers only"
+        ],
+        correct: 1,
+        explanation: "User stories are shorter and focus on user value, emphasizing the user's perspective and desired outcomes rather than technical specifications."
+    },
+    {
+        question: "What role does collaboration play in Agile requirements engineering?",
+        options: [
+            "It slows down the process",
+            "It's optional for small projects",
+            "It's central to ensuring requirements meet actual user needs",
+            "It only involves developers"
+        ],
+        correct: 2,
+        explanation: "Collaboration is central to Agile requirements engineering, ensuring requirements truly meet user needs through continuous stakeholder engagement."
+    },
+    {
+        question: "Why might requirements change more frequently in Agile projects?",
+        options: [
+            "Poor initial planning",
+            "Continuous learning and adaptation based on feedback",
+            "Lack of documentation",
+            "Team inexperience"
+        ],
+        correct: 1,
+        explanation: "Requirements change frequently in Agile due to continuous learning and adaptation based on user feedback and changing business needs."
+    },
+    {
+        question: "What is the 'Definition of Done' in Agile requirements?",
+        options: [
+            "When coding is complete",
+            "When testing passes",
+            "Shared understanding of what constitutes completed work",
+            "When documentation is finished"
+        ],
+        correct: 2,
+        explanation: "Definition of Done is a shared understanding among team members of what constitutes completed work, including all necessary activities."
+    },
+    {
+        question: "Which factor makes legacy software particularly challenging to maintain?",
+        options: [
+            "Too much documentation",
+            "Modern technology stack",
+            "Original developers often gone and poor documentation",
+            "Simple architecture"
+        ],
+        correct: 2,
+        explanation: "Legacy software is challenging because original developers are often gone and documentation is typically poor, creating knowledge gaps."
+    },
+    {
+        question: "Why do organizations continue using legacy software despite challenges?",
+        options: [
+            "It's cheaper to maintain",
+            "It supports mission-critical operations",
+            "It has better features",
+            "It's easier to modify"
+        ],
+        correct: 1,
+        explanation: "Organizations continue using legacy software because it often supports mission-critical operations that are essential for business continuity."
+    },
+    {
+        question: "What makes cloud-based applications different in terms of maintenance?",
+        options: [
+            "They require more documentation",
+            "Live system monitoring and quick patches without user device updates",
+            "They need more testing",
+            "They are more expensive to maintain"
+        ],
+        correct: 1,
+        explanation: "Cloud-based applications enable live system monitoring and quick patches without needing to update software on user devices."
+    },
+    {
+        question: "Which deployment advantage is unique to cloud-based applications?",
+        options: [
+            "Lower development costs",
+            "Instantaneous global rollout",
+            "Simpler programming",
+            "Less testing required"
+        ],
+        correct: 1,
+        explanation: "Cloud-based applications can achieve instantaneous global rollout, reaching users worldwide immediately upon deployment."
+    },
+    {
+        question: "What characterizes the final project timeline in this course?",
+        options: [
+            "Individual work only",
+            "Team-based project spanning 13 weeks",
+            "Multiple small assignments",
+            "Theoretical study only"
+        ],
+        correct: 1,
+        explanation: "The final project is a team-based software development project spanning 13 weeks, culminating in documentation and defense presentation."
+    },
+    {
+        question: "What documentation standard must the final project follow?",
+        options: [
+            "IEEE 830",
+            "ISO 12207",
+            "APA 7th Edition",
+            "MLA format"
+        ],
+        correct: 2,
+        explanation: "The final project documentation must follow APA 7th Edition formatting standards for the formal report submission."
+    },
+    {
+        question: "Which week involves the final project defense presentation?",
+        options: [
+            "Week 10",
+            "Week 11",
+            "Week 12",
+            "Week 13"
+        ],
+        correct: 2,
+        explanation: "Week 12 is scheduled for the project defense, which includes both presentation and demonstration of the developed solution."
+    }
+];
+
+        let currentQuestion = 0;
+        let score = 0;
+        let userAnswers = [];
+        let quizCompleted = false;
+
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        // Shuffle questions on initial load
+        shuffle(questions);
+
+        function initializeQuiz() {
+            showQuestion();
+            updateProgress();
+            updateScore();
+        }
+
+        function showQuestion() {
+            const questionData = questions[currentQuestion];
+            document.getElementById('questionText').innerHTML = `<span style="color: #ad1457; font-weight: bold;">Question ${currentQuestion + 1}:</span> ${questionData.question}`;
+            
+            const optionsContainer = document.getElementById('optionsContainer');
+            optionsContainer.innerHTML = '';
+            
+            questionData.options.forEach((option, index) => {
+                const optionElement = document.createElement('div');
+                optionElement.className = 'option';
+                optionElement.innerHTML = `<strong>${String.fromCharCode(65 + index)}.</strong> ${option}`;
+                optionElement.onclick = () => selectOption(index);
+                optionElement.dataset.index = index;
+                optionsContainer.appendChild(optionElement);
+            });
+            
+            document.getElementById('feedback').classList.remove('show');
+            document.getElementById('prevBtn').disabled = currentQuestion === 0;
+            document.getElementById('nextBtn').disabled = true;
+            document.getElementById('nextBtn').textContent = currentQuestion === questions.length - 1 ? 'Finish Quiz' : 'Next';
+        }
+
+        function selectOption(selectedIndex) {
+            const questionData = questions[currentQuestion];
+            const options = document.querySelectorAll('.option');
+            
+            // Disable all options
+            options.forEach(option => {
+                option.classList.add('disabled');
+                option.onclick = null;
+            });
+            
+            // Mark selected option
+            options[selectedIndex].classList.add('selected');
+            
+            // Show correct answer (green)
+            options[questionData.correct].classList.add('correct');
+            
+            // Mark incorrect if wrong selection (red)
+            if (selectedIndex !== questionData.correct) {
+                options[selectedIndex].classList.add('incorrect');
+            }
+            
+            // Store answer
+            userAnswers[currentQuestion] = selectedIndex;
+            
+            // Show feedback
+            const feedback = document.getElementById('feedback');
+            feedback.className = `feedback show ${selectedIndex === questionData.correct ? 'correct' : 'incorrect'}`;
+            feedback.innerHTML = `
+                <strong>${selectedIndex === questionData.correct ? '✓ Correct!' : '✗ Incorrect'}</strong><br>
+                <strong>Correct Answer:</strong> ${String.fromCharCode(65 + questionData.correct)}. ${questionData.options[questionData.correct]}<br>
+                <strong>Explanation:</strong> ${questionData.explanation}
+            `;
+            
+            document.getElementById('nextBtn').disabled = false;
+            updateScore();
+        }
+
+        function updateScore() {
+            // Calculate score based on all answered questions
+            let calculatedScore = 0;
+            userAnswers.forEach((ans, idx) => {
+                if (ans === questions[idx].correct) calculatedScore++;
+            });
+            document.getElementById('scoreDisplay').textContent = `Score: ${calculatedScore}/${currentQuestion + 1}`;
+            score = calculatedScore;
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++;
+                showQuestion();
+                updateProgress();
+            } else {
+                finishQuiz();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                showQuestion();
+                updateProgress();
+                
+                // If question was already answered, show the previous selection
+                if (userAnswers[currentQuestion] !== undefined) {
+                    setTimeout(() => {
+                        selectOption(userAnswers[currentQuestion]);
+                    }, 100);
+                }
+            }
+        }
+
+        function updateProgress() {
+            const progress = ((currentQuestion) / questions.length) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+            document.getElementById('progressText').textContent = `Question ${currentQuestion + 1} of ${questions.length}`;
+        }
+
+        function finishQuiz() {
+            quizCompleted = true;
+            const percentage = Math.round((score / questions.length) * 100);
+            
+            document.getElementById('questionContainer').style.display = 'none';
+            document.getElementById('finalScore').classList.add('show');
+            document.getElementById('finalScoreCircle').textContent = `${percentage}%`;
+            document.getElementById('finalScoreText').innerHTML = `
+                You scored <strong>${score}</strong> out of <strong>${questions.length}</strong> questions correctly!<br>
+                <span style="font-size: 1.1em; margin-top: 10px; display: block;">
+                    ${percentage >= 120 ? '🏆 Excellent! Outstanding knowledge of Operating Systems!' :
+                      percentage >= 100 ? '🎉 Great job! Very good understanding!' :
+                      percentage >= 80 ? '👍 Good work! Solid foundation!' :
+                      percentage >= 60 ? '📚 Not bad! Keep studying to improve!' :
+                      '💪 Keep learning! Practice makes perfect!'}
+                </span>
+            `;
+            
+            // Update progress to 100%
+            document.getElementById('progressFill').style.width = '100%';
+            document.getElementById('progressText').textContent = 'Quiz Completed!';
+        }
+
+        function restartQuiz() {
+            currentQuestion = 0;
+            score = 0;
+            userAnswers = [];
+            quizCompleted = false;
+
+            // Shuffle questions on restart
+            shuffle(questions);
+
+            document.getElementById('questionContainer').style.display = 'block';
+            document.getElementById('finalScore').classList.remove('show');
+
+            initializeQuiz();
+        }
+
+        // Initialize quiz when page loads
+        window.onload = initializeQuiz;
+    </script>
+</body>
+</html>
