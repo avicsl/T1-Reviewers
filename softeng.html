@@ -310,59 +310,246 @@
     <script>
         const questions = [
     {
-        question: "Which component is NOT typically included in software according to the definition provided?",
-        options: [
-            "Programs (executable code)",
-            "Data structures",
-            "Hardware components",
-            "Documentation"
-        ],
-        correct: 2,
-        explanation: "Software includes programs, data structures, and documentation, but hardware components are separate physical entities that software runs on."
-    },
-    {
-        question: "What does software deliver according to the fundamental definition?",
-        options: [
-            "Just computation",
-            "Only data processing",
-            "Information, not just computation",
-            "Hardware functionality"
-        ],
-        correct: 2,
-        explanation: "Software delivers information, not just computation, emphasizing its role in providing meaningful data and services."
-    },
-    {
-        question: "Which characteristic refers to the software's ability to operate across various platforms?",
+        question: "Which characteristic of software focuses on the ability to operate across various platforms or environments?",
         options: [
             "Reliability",
+            "Maintainability", 
             "Portability",
-            "Maintainability",
             "Efficiency"
         ],
-        correct: 1,
-        explanation: "Portability is the ability to operate across various platforms or environments, including ease of installation and adaptability."
-    },
-    {
-        question: "What does maintainability in software characteristics primarily focus on?",
-        options: [
-            "Speed of execution",
-            "User interface design",
-            "Ease of correcting faults and adapting software",
-            "Memory usage optimization"
-        ],
         correct: 2,
-        explanation: "Maintainability refers to the ease of correcting faults, improving, or adapting software, supporting long-term sustainability."
+        explanation: "Portability refers to the software's ability to operate across various platforms or environments, including ease of installation and adaptability."
     },
     {
-        question: "Which software application domain typically operates in real-time environments?",
+        question: "What type of software is specifically designed to control hardware devices and often operates in real-time?",
         options: [
-            "Application Software",
             "System Software",
+            "Application Software",
             "Embedded Software",
             "Web Applications"
         ],
         correct: 2,
-        explanation: "Embedded software controls hardware devices and often operates in real-time environments, such as in cars, microwaves, and medical devices."
+        explanation: "Embedded software controls hardware devices and often operates in real-time, such as software in cars, microwaves, and medical devices."
+    },
+    {
+        question: "In cloud-based applications, what enables instantaneous global rollout?",
+        options: [
+            "Responsive design",
+            "A/B testing",
+            "Centralized server control",
+            "Multi-platform compatibility"
+        ],
+        correct: 2,
+        explanation: "Centralized server control enables instantaneous global rollout via the cloud in deployment dynamics."
+    },
+    {
+        question: "What is the primary concern with legacy software regarding security?",
+        options: [
+            "High maintenance costs",
+            "Poor documentation",
+            "Known vulnerabilities",
+            "Staff dependency"
+        ],
+        correct: 2,
+        explanation: "Legacy software poses security risks because older systems may have known vulnerabilities that haven't been patched."
+    },
+    {
+        question: "Which umbrella activity in the software process supports all core framework activities?",
+        options: [
+            "Communication",
+            "Planning",
+            "Quality Assurance",
+            "Construction"
+        ],
+        correct: 2,
+        explanation: "Quality Assurance (QA) is an umbrella activity that supports all phases of the software process framework."
+    },
+    {
+        question: "According to software engineering principles, what should be prioritized over excessive documentation in agile development?",
+        options: [
+            "Customer collaboration",
+            "Working software",
+            "Responding to change",
+            "Individual interactions"
+        ],
+        correct: 1,
+        explanation: "The agile principle emphasizes prioritizing working software over excessive documentation."
+    },
+    {
+        question: "Which software myth assumes that no collaboration is needed after writing requirements?",
+        options: [
+            "Management Myths",
+            "Customer Myths", 
+            "Developer Myths",
+            "Process Myths"
+        ],
+        correct: 1,
+        explanation: "Customer myths include the belief that 'All I have to do is write requirements,' which assumes no collaboration is needed afterward."
+    },
+    {
+        question: "In the V-Model, what is the primary emphasis throughout the development process?",
+        options: [
+            "Risk analysis",
+            "Iterative development",
+            "Validation at each step",
+            "Continuous integration"
+        ],
+        correct: 2,
+        explanation: "The V-Model emphasizes validation at each step of the development process."
+    },
+    {
+        question: "Which SDLC model combines iterative development with systematic risk analysis?",
+        options: [
+            "Waterfall",
+            "Incremental",
+            "Spiral",
+            "Agile"
+        ],
+        correct: 2,
+        explanation: "The Spiral model combines iterative development with risk analysis as a key component."
+    },
+    {
+        question: "What is the main characteristic of the Kanban agile methodology?",
+        options: [
+            "Daily standups",
+            "Test-driven development",
+            "Visual task boards",
+            "Sprint planning"
+        ],
+        correct: 2,
+        explanation: "Kanban is characterized by visual task boards and flow control for managing work."
+    },
+    {
+        question: "Which type of standard defines what the outcome of a process should be?",
+        options: [
+            "Process Standards",
+            "Product Standards",
+            "Documentation Standards",
+            "Quality Standards"
+        ],
+        correct: 1,
+        explanation: "Product Standards define what the outcome should be, while Process Standards define how work is done."
+    },
+    {
+        question: "What does ISO 12207 primarily cover in software development?",
+        options: [
+            "Project management only",
+            "Testing procedures only",
+            "Entire software life cycle",
+            "Documentation standards only"
+        ],
+        correct: 2,
+        explanation: "ISO 12207 covers the entire life cycle of software, including primary, supporting, and organizational processes."
+    },
+    {
+        question: "Which IEEE standard specifically addresses Software Requirements Specification?",
+        options: [
+            "IEEE 1016",
+            "IEEE 1058",
+            "IEEE 830",
+            "IEEE 12207"
+        ],
+        correct: 2,
+        explanation: "IEEE 830 is the standard for Software Requirements Specification."
+    },
+    {
+        question: "In requirements engineering, what is the primary focus of a feasibility study?",
+        options: [
+            "Gathering stakeholder requirements",
+            "Creating formal requirement models",
+            "Assessing project viability",
+            "Validating existing requirements"
+        ],
+        correct: 2,
+        explanation: "The feasibility study concentrates on assessing the viability of the project across technical, operational, economic, legal, and schedule aspects."
+    },
+    {
+        question: "Which requirements elicitation technique involves creating a working model of the system?",
+        options: [
+            "Interviews",
+            "Surveys",
+            "Prototyping",
+            "Focus Groups"
+        ],
+        correct: 2,
+        explanation: "Prototyping involves creating a working model of the system as a technique for requirements elicitation."
+    },
+    {
+        question: "What type of requirement specifies 'the system shall generate an invoice within 5 seconds'?",
+        options: [
+            "Functional Requirement",
+            "Non-Functional Requirement",
+            "Extended Requirement",
+            "Constraint Requirement"
+        ],
+        correct: 1,
+        explanation: "This is a non-functional requirement as it defines performance and quality constraints rather than what the system must do."
+    },
+    {
+        question: "In requirement validation, what does 'verification' specifically refer to?",
+        options: [
+            "Ensuring requirements are traceable to customer needs",
+            "Checking that software correctly implements a specific function",
+            "Confirming requirements are complete",
+            "Validating requirements are achievable"
+        ],
+        correct: 1,
+        explanation: "Verification refers to the set of tasks that ensures the software correctly implements a specific function."
+    },
+    {
+        question: "What is the primary purpose of a Requirements Traceability Matrix (RTM)?",
+        options: [
+            "Managing changing requirements",
+            "Tracking requirements from origin to implementation",
+            "Validating requirement completeness",
+            "Documenting stakeholder feedback"
+        ],
+        correct: 1,
+        explanation: "RTM tracks requirements from origin to implementation, helping ensure coverage and identify impacts of change."
+    },
+    {
+        question: "Which type of review is characterized as a formal, structured defect-finding session?",
+        options: [
+            "Review",
+            "Walkthrough",
+            "Inspection",
+            "Audit"
+        ],
+        correct: 2,
+        explanation: "Inspection is defined as a formal, structured defect-finding session, while reviews are informal and walkthroughs are semi-formal."
+    },
+    {
+        question: "In agile requirement engineering, how are requirements typically expressed?",
+        options: [
+            "Use case diagrams",
+            "Formal specifications",
+            "User stories with acceptance criteria",
+            "Data flow diagrams"
+        ],
+        correct: 2,
+        explanation: "In agile, requirements are expressed as user stories with acceptance criteria, allowing for continuous refinement."
+    },
+    {
+        question: "What distinguishes software as both a product and a vehicle?",
+        options: [
+            "It contains programs and data structures",
+            "It delivers functionality and enables data/service delivery",
+            "It includes documentation and executable code",
+            "It requires systematic development processes"
+        ],
+        correct: 1,
+        explanation: "Software is both a product (delivers functionality and value) and a vehicle (enables delivery of data and services)."
+    },
+    {
+        question: "Which software characteristic ensures the system performs consistently and correctly over time?",
+        options: [
+            "Functionality",
+            "Reliability",
+            "Maintainability",
+            "Usability"
+        ],
+        correct: 1,
+        explanation: "Reliability ensures software performs consistently and correctly over time, including fault tolerance and recovery from failure."
     },
     {
         question: "What type of software would MATLAB and CAD tools be classified as?",
@@ -376,271 +563,425 @@
         explanation: "MATLAB and CAD tools are examples of Engineering & Scientific Software used in R&D and technical computation."
     },
     {
-        question: "Which development dynamic is characteristic of cloud-based applications?",
+        question: "In cloud-based applications, what enables 'Infrastructure as Code'?",
         options: [
-            "Annual software updates",
-            "Continuous delivery & integration (CI/CD)",
-            "Manual deployment processes",
-            "Single-platform design"
-        ],
-        correct: 1,
-        explanation: "Cloud-based applications feature continuous delivery & integration (CI/CD) with frequent updates and A/B testing."
-    },
-    {
-        question: "What is a primary concern with legacy software systems?",
-        options: [
-            "They are too fast",
-            "They have too much documentation",
-            "They may have known security vulnerabilities",
-            "They are too easy to maintain"
+            "Continuous integration",
+            "A/B testing",
+            "AWS and Azure DevOps",
+            "Responsive design"
         ],
         correct: 2,
-        explanation: "Legacy software often has known security vulnerabilities due to being built with older tools and practices."
+        explanation: "Infrastructure as Code is enabled by cloud platforms like AWS and Azure DevOps in deployment dynamics."
     },
     {
-        question: "Why is legacy software often expensive to replace?",
+        question: "What makes legacy software particularly challenging to maintain?",
         options: [
-            "It's too simple",
-            "Rewriting can be risky, costly, and time-consuming",
-            "It has too many features",
-            "It's too well documented"
-        ],
-        correct: 1,
-        explanation: "Legacy software is expensive to replace because rewriting can be risky, costly, and time-consuming, especially for mission-critical systems."
-    },
-    {
-        question: "What is the primary goal of software engineering?",
-        options: [
-            "Fast development only",
-            "Cheap software production",
-            "High-quality, timely, cost-effective software",
-            "Maximum feature implementation"
+            "High operational costs",
+            "Poor integration capabilities",
+            "Knowledge gap from original developers",
+            "Limited scalability"
         ],
         correct: 2,
-        explanation: "The goal of software engineering is to produce high-quality, timely, cost-effective software through structured approaches."
+        explanation: "Legacy software has a knowledge gap because original developers are often gone and the code may be difficult to maintain."
     },
     {
-        question: "Which is NOT a framework activity in the software process?",
+        question: "Which framework activity involves analyzing and designing the system?",
         options: [
             "Communication",
             "Planning",
-            "Marketing",
+            "Modelling",
             "Construction"
         ],
         correct: 2,
-        explanation: "The five framework activities are Communication, Planning, Modeling, Construction, and Deployment. Marketing is not a core software engineering activity."
+        explanation: "Modelling is the framework activity that involves analyzing and designing the system."
     },
     {
-        question: "What type of activity is Quality Assurance (QA) in the software process?",
+        question: "What is the essence of 'Focus on Simplicity' in software engineering practice?",
         options: [
-            "Framework Activity",
-            "Umbrella Activity",
-            "Construction Activity",
-            "Deployment Activity"
+            "Use minimal documentation",
+            "Design systems that are easy to understand, modify, and test",
+            "Implement basic functionality only",
+            "Avoid advanced programming techniques"
         ],
         correct: 1,
-        explanation: "Quality Assurance (QA) is an umbrella activity that supports all phases of the software process."
+        explanation: "Focus on Simplicity means designing systems that are easy to understand, modify, and test while avoiding unnecessary complexity."
     },
     {
-        question: "According to software engineering practice, what should be prioritized in design?",
+        question: "Which principle ensures accountability and helps manage change in software engineering?",
         options: [
-            "Complex algorithms",
-            "Maximum features",
-            "Simplicity and ease of understanding",
-            "Advanced technology use"
-        ],
-        correct: 2,
-        explanation: "Good practice focuses on simplicity, designing systems that are easy to understand, modify, and test while avoiding unnecessary complexity."
-    },
-    {
-        question: "What does the principle 'Be Agile' emphasize?",
-        options: [
-            "Extensive documentation",
-            "Fixed requirements",
-            "Working software over excessive documentation",
-            "Waterfall methodology"
-        ],
-        correct: 2,
-        explanation: "Being agile means prioritizing working software over excessive documentation and embracing change with incremental value delivery."
-    },
-    {
-        question: "What does requirement traceability help achieve?",
-        options: [
-            "Faster development",
-            "Link requirements to design, code, and tests",
-            "Reduced documentation",
-            "Lower costs"
+            "Be Agile",
+            "Maintain Traceability",
+            "Encourage Quality",
+            "Use Iterative Processes"
         ],
         correct: 1,
-        explanation: "Maintaining traceability links requirements to design, code, and tests, ensuring accountability and helping manage change."
+        explanation: "Maintain Traceability links requirements to design, code, and tests, ensuring accountability and helping manage change."
     },
     {
-        question: "Which software myth assumes that existing processes are always adequate?",
+        question: "What assumption does the developer myth 'Once we write the program and get it to work, the job is done' ignore?",
         options: [
-            "Customer Myth",
-            "Developer Myth",
-            "Management Myth",
-            "User Myth"
-        ],
-        correct: 2,
-        explanation: "The management myth 'We already have standards and procedures' assumes existing processes are adequate and ignores continuous improvement needs."
-    },
-    {
-        question: "What does the customer myth 'All I have to do is write requirements' ignore?",
-        options: [
-            "Testing phases",
-            "The need for collaboration afterward",
-            "Documentation needs",
-            "Budget constraints"
-        ],
-        correct: 1,
-        explanation: "This customer myth ignores the need for collaboration after writing requirements, leading to unclear expectations and missed functionality."
-    },
-    {
-        question: "What does the developer myth about completed programs ignore?",
-        options: [
-            "Coding standards",
-            "Programming languages",
+            "Requirements gathering",
+            "System architecture",
             "Testing, documentation, maintenance, and evolution",
-            "User requirements"
+            "User training and support"
         ],
         correct: 2,
-        explanation: "The developer myth ignores testing, documentation, maintenance, and evolution, leading to fragile, short-lived software."
+        explanation: "This developer myth ignores testing, documentation, maintenance, and evolution, leading to fragile, short-lived software."
     },
     {
-        question: "What typically initiates a software project?",
+        question: "In the iterative SDLC model, what is the primary advantage over the waterfall model?",
         options: [
-            "Available budget",
-            "Technology trends",
-            "A need, problem, or opportunity",
-            "Team availability"
+            "Faster initial development",
+            "Lower development costs",
+            "Early feedback incorporation",
+            "Simplified project management"
         ],
         correct: 2,
-        explanation: "Software projects start with an initial idea or requirement based on a need, problem, or opportunity identified through users, management, or market analysis."
+        explanation: "The iterative model allows for early feedback incorporation through repeated cycles, unlike the linear waterfall approach."
     },
     {
-        question: "Which SDLC model follows a linear and sequential approach?",
+        question: "What is the main focus of DevOps SDLC model?",
         options: [
-            "Spiral",
-            "Agile",
-            "Waterfall",
-            "DevOps"
-        ],
-        correct: 2,
-        explanation: "The Waterfall model is characterized by its linear and sequential approach to software development."
-    },
-    {
-        question: "What does the V-Model emphasize compared to other traditional models?",
-        options: [
-            "Rapid development",
-            "Validation at each step",
-            "Continuous deployment",
-            "User feedback loops"
-        ],
-        correct: 1,
-        explanation: "The V-Model emphasizes validation at each step, ensuring verification and validation activities parallel development phases."
-    },
-    {
-        question: "Which SDLC model combines iterative development with risk analysis?",
-        options: [
-            "Waterfall",
-            "V-Model",
-            "Spiral",
-            "Incremental"
-        ],
-        correct: 2,
-        explanation: "The Spiral model combines iterative development with systematic risk analysis throughout the development process."
-    },
-    {
-        question: "What does DevOps SDLC emphasize most strongly?",
-        options: [
-            "Individual productivity",
+            "Risk management",
             "Team empowerment and cross-team collaboration",
-            "Documentation standards",
-            "Sequential phases"
+            "Sequential development phases",
+            "Formal documentation"
         ],
         correct: 1,
         explanation: "DevOps emphasizes team empowerment, cross-team communication and collaboration, and technology automation."
     },
     {
-        question: "How does Agile SDLC break down projects?",
-        options: [
-            "Into sequential phases",
-            "Into smaller, manageable phases called iterations or sprints",
-            "Into independent modules",
-            "Into documentation sections"
-        ],
-        correct: 1,
-        explanation: "Agile emphasizes breaking projects into smaller, manageable phases called iterations or sprints for better adaptability."
-    },
-    {
-        question: "What is the primary purpose of prototyping as an alternative technique?",
-        options: [
-            "Final product delivery",
-            "Early validation and feedback",
-            "Complete system documentation",
-            "Performance optimization"
-        ],
-        correct: 1,
-        explanation: "Prototyping allows for early validation and feedback, helping stakeholders visualize and refine requirements before full development."
-    },
-    {
-        question: "What does RAD (Rapid Application Development) prioritize?",
+        question: "In Rapid Application Development (RAD), what is prioritized to accelerate development?",
         options: [
             "Comprehensive documentation",
-            "Sequential development phases",
-            "Speed of development and user involvement",
-            "Risk analysis"
+            "Extensive testing phases",
+            "Rapid prototyping and iterative development",
+            "Formal requirement specification"
         ],
         correct: 2,
-        explanation: "RAD prioritizes rapid development speed and active user involvement throughout the development process."
+        explanation: "RAD prioritizes rapid prototyping and iterative development to accelerate the overall development process."
     },
     {
-        question: "What is the foundation of Component-Based Development (CBD)?",
+        question: "What is the key characteristic of Component-Based Development (CBD)?",
         options: [
-            "Writing all code from scratch",
-            "Using pre-existing, reusable components",
-            "Following waterfall methodology",
-            "Avoiding third-party libraries"
+            "Linear development progression",
+            "Reuse of pre-built software components",
+            "Focus on individual module development",
+            "Emphasis on custom code creation"
         ],
         correct: 1,
-        explanation: "Component-Based Development focuses on using pre-existing, reusable components to build software systems efficiently."
+        explanation: "CBD focuses on the reuse of pre-built software components to accelerate development and improve quality."
     },
     {
-        question: "Which Agile methodology uses visual task boards for flow control?",
+        question: "In Extreme Programming (XP), what development practice is emphasized?",
         options: [
-            "Scrum",
-            "XP (Extreme Programming)",
-            "Kanban",
-            "Crystal"
+            "Extensive upfront planning",
+            "Test-driven development and continuous integration",
+            "Formal documentation requirements",
+            "Sequential milestone delivery"
+        ],
+        correct: 1,
+        explanation: "XP emphasizes test-driven development and continuous integration as key practices."
+    },
+    {
+        question: "What do organizational processes in ISO 12207 primarily address?",
+        options: [
+            "Software development methodologies",
+            "Testing and quality assurance",
+            "Training and audits",
+            "Requirements specification"
         ],
         correct: 2,
-        explanation: "Kanban uses visual task boards and focuses on flow control to manage work in progress and optimize throughput."
+        explanation: "Organizational processes in ISO 12207 include training, audits, and other organizational activities."
     },
     {
-        question: "What distinguishes XP (Extreme Programming) from other Agile methodologies?",
+        question: "Which IEEE standard addresses Software Design Descriptions?",
+        options: [
+            "IEEE 830",
+            "IEEE 1016",
+            "IEEE 1058",
+            "IEEE 12207"
+        ],
+        correct: 1,
+        explanation: "IEEE 1016 is the standard for Software Design Descriptions."
+    },
+    {
+        question: "In requirements engineering, which feasibility area is considered most important?",
+        options: [
+            "Technical Feasibility",
+            "Operational Feasibility",
+            "Economic Feasibility",
+            "Legal Feasibility"
+        ],
+        correct: 2,
+        explanation: "Economic Feasibility Study is the most important part of the feasibility analysis."
+    },
+    {
+        question: "What is the primary goal of requirements specification activity?",
+        options: [
+            "Gather stakeholder input",
+            "Produce formal software requirement models",
+            "Validate existing requirements",
+            "Manage requirement changes"
+        ],
+        correct: 1,
+        explanation: "Requirements specification is used to produce formal software requirement models for all requirements and constraints."
+    },
+    {
+        question: "Which activity ensures that software requirements are traceable to customer needs?",
+        options: [
+            "Verification",
+            "Validation",
+            "Specification",
+            "Elicitation"
+        ],
+        correct: 1,
+        explanation: "Validation ensures that the software that has been built is traceable to customer requirements."
+    },
+    {
+        question: "In requirements management, what is the purpose of version control?",
+        options: [
+            "Track requirement changes over time",
+            "Prioritize requirements",
+            "Validate requirement completeness",
+            "Communicate with stakeholders"
+        ],
+        correct: 0,
+        explanation: "Version control in requirements management tracks and controls changes to requirements over time."
+    },
+    {
+        question: "What technique involves assuming different roles to understand various stakeholder perspectives?",
+        options: [
+            "Mind mapping",
+            "Roleplaying",
+            "Prototyping",
+            "Use cases"
+        ],
+        correct: 1,
+        explanation: "Roleplaying is a technique where participants assume different roles to understand various stakeholder perspectives."
+    },
+    {
+        question: "Which type of requirements are described as 'nice to have' and might be out of scope?",
+        options: [
+            "Functional Requirements",
+            "Non-Functional Requirements",
+            "Extended Requirements",
+            "Constraint Requirements"
+        ],
+        correct: 2,
+        explanation: "Extended requirements are basically 'nice to have' requirements that might be out of the scope of the system."
+    },
+    {
+        question: "In the food delivery app example, what type of requirement is 'Users can browse the menu and place an order'?",
+        options: [
+            "Non-Functional Requirement",
+            "Functional Requirement",
+            "Extended Requirement",
+            "Performance Requirement"
+        ],
+        correct: 1,
+        explanation: "This is a functional requirement as it describes what the system must do - allowing users to browse and place orders."
+    },
+    {
+        question: "What technique combines customer needs with technical capabilities in requirements elicitation?",
+        options: [
+            "Facilitated Application Specification Technique",
+            "Quality Function Deployment",
+            "Use Case Approach",
+            "Interview workshops"
+        ],
+        correct: 1,
+        explanation: "Quality Function Deployment is a technique that combines customer needs with technical capabilities in requirements elicitation."
+    },
+    {
+        question: "What should be included in a User Requirements Specification (URS) to help readers understand technical terms?",
+        options: [
+            "Supporting Documents",
+            "Glossary",
+            "Indexing",
+            "Stakeholder list"
+        ],
+        correct: 1,
+        explanation: "A Glossary should be included in URS to help readers understand technical terms and definitions."
+    },
+    {
+        question: "Which requirements validation technique involves creating test scenarios before implementation?",
+        options: [
+            "Prototyping",
+            "Requirements Reviews",
+            "Test Case Generation",
+            "Walk-through"
+        ],
+        correct: 2,
+        explanation: "Test Case Generation involves creating test scenarios to validate requirements before implementation."
+    },
+    {
+        question: "What is the first step in managing changing requirements?",
+        options: [
+            "Assess impact",
+            "Setting and documenting current requirements",
+            "Create project schedule",
+            "Clarify consequences"
+        ],
+        correct: 1,
+        explanation: "The first step in managing changing requirements is setting and documenting current requirements."
+    },
+    {
+        question: "Which modeling technique is used to show system behavior in response to events?",
+        options: [
+            "Use Case Diagrams",
+            "Data Flow Diagrams",
+            "Entity-Relationship Diagrams",
+            "State Diagrams"
+        ],
+        correct: 3,
+        explanation: "State Diagrams are used to model system behavior in response to events and state transitions."
+    },
+    {
+        question: "In agile requirement engineering, what process involves continuously refining the product backlog?",
         options: [
             "Sprint planning",
-            "Visual boards",
-            "Test-driven development and continuous integration",
-            "Daily meetings"
-        ],
-        correct: 2,
-        explanation: "XP is distinguished by its emphasis on test-driven development and continuous integration practices."
-    },
-    {
-        question: "What do process standards primarily define?",
-        options: [
-            "What the outcome should be",
-            "How work is done",
-            "Documentation format",
-            "Team structure"
+            "Backlog grooming",
+            "Daily standups",
+            "Sprint retrospectives"
         ],
         correct: 1,
-        explanation: "Process standards define how work is done, providing guidelines for executing development activities."
+        explanation: "Backlog grooming involves continuous refinement of requirements through backlog management in agile development."
     },
     {
-        question: "Which type of standard ensures consistency in communication?",
+        question: "What makes software different from just computation according to the course material?",
+        options: [
+            "It includes executable programs",
+            "It delivers information, not just computation",
+            "It requires data structures",
+            "It needs documentation"
+        ],
+        correct: 1,
+        explanation: "Software delivers information, not just computation, distinguishing it from simple computational processes."
+    },
+    {
+        question: "Which software characteristic directly impacts long-term sustainability?",
+        options: [
+            "Efficiency",
+            "Functionality",
+            "Maintainability",
+            "Portability"
+        ],
+        correct: 2,
+        explanation: "High maintainability supports long-term sustainability by making it easier to correct faults, improve, or adapt software."
+    },
+    {
+        question: "What type of software would autonomous vehicles primarily represent?",
+        options: [
+            "System Software",
+            "Application Software",
+            "Artificial Intelligence Software",
+            "Embedded Software"
+        ],
+        correct: 2,
+        explanation: "Autonomous vehicles are examples of Artificial Intelligence Software that mimics human intelligence and decision-making."
+    },
+    {
+        question: "In cloud-based applications, what capability eliminates the need to update software on user devices?",
+        options: [
+            "Centralized server control",
+            "Live system monitoring",
+            "Infrastructure as Code",
+            "Responsive design"
+        ],
+        correct: 1,
+        explanation: "Live system monitoring and centralized updates eliminate the need to update software on user devices in cloud-based maintenance dynamics."
+    },
+    {
+        question: "What aspect of legacy software creates the highest risk for organizations?",
+        options: [
+            "High maintenance costs",
+            "Mission-critical nature combined with security vulnerabilities",
+            "Poor documentation",
+            "Technology obsolescence"
+        ],
+        correct: 1,
+        explanation: "The combination of being mission-critical (supporting banking, healthcare, government) while having security vulnerabilities creates the highest risk."
+    },
+    {
+        question: "Which umbrella activity focuses on measuring project progress and software quality?",
+        options: [
+            "Quality Assurance",
+            "Software Configuration Management",
+            "Measurement & Metrics",
+            "Risk Management"
+        ],
+        correct: 2,
+        explanation: "Measurement & Metrics is the umbrella activity that focuses on measuring project progress and software quality."
+    },
+    {
+        question: "What is the core principle behind 'Use Iterative Processes' in software engineering?",
+        options: [
+            "Develop quickly with minimal testing",
+            "Complete each phase before moving to next",
+            "Develop in cycles with gradual improvement through feedback",
+            "Focus on documentation over working software"
+        ],
+        correct: 2,
+        explanation: "Iterative processes involve developing in cycles to refine through feedback and testing, enabling gradual improvement and early error detection."
+    },
+    {
+        question: "What assumption underlies the management myth 'We already have standards and procedures'?",
+        options: [
+            "Standards are universal",
+            "Existing processes are adequate without improvement",
+            "Procedures guarantee success",
+            "Standards eliminate all risks"
+        ],
+        correct: 1,
+        explanation: "This myth assumes existing processes are adequate and ignores the need for continuous improvement and adaptation."
+    },
+    {
+        question: "In the waterfall model, what is the primary disadvantage regarding requirement changes?",
+        options: [
+            "High development costs",
+            "Long development time",
+            "Difficulty accommodating changes once phases are complete",
+            "Complex project management"
+        ],
+        correct: 2,
+        explanation: "The waterfall model's linear and sequential nature makes it difficult to accommodate changes once phases are completed."
+    },
+    {
+        question: "What distinguishes the incremental model from other SDLC approaches?",
+        options: [
+            "Risk-focused development",
+            "Building software in functional modules",
+            "Emphasis on validation",
+            "Continuous deployment"
+        ],
+        correct: 1,
+        explanation: "The incremental model builds software in modules, delivering working portions of the system incrementally."
+    },
+    {
+        question: "In the prototype model, what is the main purpose of creating early prototypes?",
+        options: [
+            "Reduce development costs",
+            "Speed up development",
+            "Validate requirements and design concepts",
+            "Simplify testing procedures"
+        ],
+        correct: 2,
+        explanation: "Prototypes are created to validate requirements and design concepts early in the development process."
+    },
+    {
+        question: "What role does the Product Owner play in Scrum methodology?",
+        options: [
+            "Manages daily standups",
+            "Defines and prioritizes product backlog",
+            "Facilitates sprint retrospectives",
+            "Coordinates development team activities"
+        ],
+        correct: 1,
+        explanation: "The Product Owner in Scrum is responsible for defining and prioritizing the product backlog based on business value."
+    },
+    {
+        question: "Which type of standard would define the format and content of a software requirements document?",
         options: [
             "Process Standards",
             "Product Standards",
@@ -648,65 +989,32 @@
             "Quality Standards"
         ],
         correct: 2,
-        explanation: "Documentation standards ensure consistency in communication across teams and projects."
+        explanation: "Documentation Standards ensure consistency in communication and would define the format and content of documents."
     },
     {
-        question: "What does ISO 12207 primarily cover?",
+        question: "What do supporting processes in ISO 12207 primarily encompass?",
         options: [
-            "Only software development",
-            "Hardware specifications",
-            "Entire life cycle of software",
-            "Testing procedures only"
+            "Development and maintenance",
+            "Training and audits",
+            "Testing, QA, and documentation",
+            "Project management"
         ],
         correct: 2,
-        explanation: "ISO 12207 covers the entire life cycle of software, defining primary, supporting, and organizational processes."
+        explanation: "Supporting processes in ISO 12207 include testing, QA, documentation, and other supporting activities."
     },
     {
-        question: "Which IEEE standard focuses on Software Requirements Specification?",
+        question: "Which IEEE standard specifically addresses Software Project Management Plans?",
         options: [
             "IEEE 830",
             "IEEE 1016",
             "IEEE 1058",
-            "IEEE 729"
-        ],
-        correct: 0,
-        explanation: "IEEE 830 is the standard for Software Requirements Specification, providing guidelines for documenting requirements."
-    },
-    {
-        question: "What is IEEE 1058 specifically designed for?",
-        options: [
-            "Software design descriptions",
-            "Requirements specification",
-            "Software Project Management Plans",
-            "Testing procedures"
+            "IEEE 12207"
         ],
         correct: 2,
-        explanation: "IEEE 1058 provides standards for Software Project Management Plans, helping structure project planning documentation."
+        explanation: "IEEE 1058 is the standard for Software Project Management Plans."
     },
     {
-        question: "Which approach to requirements varies between Waterfall and Agile methodologies?",
-        options: [
-            "Requirements gathering techniques",
-            "Fixed requirements early vs. evolving requirements",
-            "Stakeholder identification",
-            "Documentation standards"
-        ],
-        correct: 1,
-        explanation: "Waterfall uses fixed requirements early in the process, while Agile allows for evolving requirements throughout development."
-    },
-    {
-        question: "What is the most important part of a feasibility study?",
-        options: [
-            "Technical Feasibility",
-            "Legal Feasibility",
-            "Economic Feasibility",
-            "Schedule Feasibility"
-        ],
-        correct: 2,
-        explanation: "Economic Feasibility Study is the most important part of feasibility analysis, while Legal Feasibility is less considered."
-    },
-    {
-        question: "Which feasibility type is least considered in feasibility analysis?",
+        question: "In requirements engineering, which feasibility area is least considered in analysis?",
         options: [
             "Technical Feasibility",
             "Operational Feasibility",
@@ -714,405 +1022,526 @@
             "Legal Feasibility"
         ],
         correct: 3,
-        explanation: "Legal Feasibility Study is less considered compared to other types of feasibility analysis."
+        explanation: "Legal Feasibility Study is less considered in feasibility analysis compared to other areas like economic feasibility."
     },
     {
-        question: "What is requirements elicitation primarily concerned with?",
+        question: "What is the primary purpose of requirements elicitation?",
         options: [
-            "Writing code specifications",
-            "Gaining knowledge about project domain and requirements",
-            "Testing system functionality",
-            "Designing user interfaces"
+            "Document formal requirements",
+            "Gain knowledge about project domain and requirements",
+            "Validate requirement accuracy",
+            "Manage requirement changes"
         ],
         correct: 1,
-        explanation: "Requirements elicitation focuses on gaining knowledge about the project domain and requirements through various sources and techniques."
+        explanation: "Requirements elicitation is related to gaining knowledge about the project domain and requirements from various sources."
     },
     {
-        question: "Which technique is NOT commonly used for requirements elicitation?",
+        question: "Which constraint type would 'system must comply with GDPR regulations' represent?",
         options: [
-            "Interviews",
+            "Technical constraint",
+            "Business constraint",
+            "Legal constraint",
+            "Performance constraint"
+        ],
+        correct: 2,
+        explanation: "Compliance with GDPR regulations represents a legal constraint that the system must satisfy."
+    },
+    {
+        question: "In the online banking system example, what type of requirement is 'All transactions must be encrypted'?",
+        options: [
+            "Functional Requirement",
+            "Non-Functional Requirement",
+            "Extended Requirement",
+            "Business Requirement"
+        ],
+        correct: 1,
+        explanation: "Encryption is a non-functional requirement as it defines a quality and security constraint rather than system functionality."
+    },
+    {
+        question: "What is the key benefit of the Facilitated Application Specification Technique (FAST)?",
+        options: [
+            "Reduces development time",
+            "Structured collaborative requirement gathering",
+            "Eliminates requirement validation",
+            "Simplifies documentation"
+        ],
+        correct: 1,
+        explanation: "FAST provides a structured approach for collaborative requirement gathering among stakeholders."
+    },
+    {
+        question: "In User Requirements Specification, what should the Introduction section primarily contain?",
+        options: [
+            "Technical specifications",
+            "Project scope and context",
+            "Detailed requirements",
+            "Implementation guidelines"
+        ],
+        correct: 1,
+        explanation: "The Introduction section should provide project scope and context to set the foundation for understanding the requirements."
+    },
+    {
+        question: "Which validation technique uses computer tools to check requirement consistency automatically?",
+        options: [
             "Prototyping",
-            "Code reviews",
-            "Focus Groups"
+            "Requirements Reviews",
+            "Automated Consistency Analysis",
+            "Simulation"
         ],
         correct: 2,
-        explanation: "Code reviews are not used for requirements elicitation. Common techniques include interviews, surveys, focus groups, observation, and prototyping."
+        explanation: "Automated Consistency Analysis uses computer tools to automatically check for consistency among requirements."
     },
     {
-        question: "What does requirements specification primarily produce?",
+        question: "What is the second step in the five-step process for managing changing requirements?",
         options: [
-            "Source code",
-            "Test cases",
-            "Formal software requirement models",
-            "User manuals"
-        ],
-        correct: 2,
-        explanation: "Requirements specification produces formal software requirement models that specify all functional, non-functional requirements and constraints."
-    },
-    {
-        question: "What is the key difference between verification and validation in requirements?",
-        options: [
-            "Verification is faster than validation",
-            "Verification ensures correct function implementation, validation ensures traceability to customer requirements",
-            "Verification is optional, validation is mandatory",
-            "Verification focuses on non-functional requirements only"
+            "Creating a project schedule",
+            "Clarifying the consequences of the changes",
+            "Specifying change control procedure",
+            "Communicating with the team"
         ],
         correct: 1,
-        explanation: "Verification ensures software correctly implements specific functions, while validation ensures built software is traceable to customer requirements."
+        explanation: "The second step is clarifying the consequences of the changes after documenting current requirements."
     },
     {
-        question: "What happens if requirements are not validated properly?",
+        question: "Which diagram type is most appropriate for modeling data relationships in a system?",
         options: [
-            "Development proceeds faster",
-            "Costs are reduced",
-            "Errors propagate to successive stages causing modification and rework",
-            "Testing becomes easier"
+            "Use Case Diagrams",
+            "Data Flow Diagrams",
+            "Entity-Relationship Diagrams",
+            "State Diagrams"
         ],
         correct: 2,
-        explanation: "If requirements aren't validated, errors in requirement definitions propagate to successive stages, resulting in extensive modification and rework."
+        explanation: "Entity-Relationship Diagrams (ERD) are specifically designed to model data relationships in a system."
     },
     {
-        question: "Which activity is NOT part of requirements management?",
+        question: "In the user story format, what does the 'so that' clause typically represent?",
+        options: [
+            "User role",
+            "System functionality",
+            "Business value or benefit",
+            "Acceptance criteria"
+        ],
+        correct: 2,
+        explanation: "The 'so that' clause in user stories represents the business value or benefit that the user expects to gain."
+    },
+    {
+        question: "What aspect of software engineering emphasizes delivering value incrementally?",
+        options: [
+            "Quality focus",
+            "Agility",
+            "Traceability",
+            "Process iteration"
+        ],
+        correct: 1,
+        explanation: "Being Agile emphasizes embracing change and delivering value incrementally rather than waiting for complete solutions."
+    },
+    {
+        question: "Which software domain would weather simulation software belong to?",
+        options: [
+            "System Software",
+            "Application Software",
+            "Engineering & Scientific Software",
+            "Artificial Intelligence Software"
+        ],
+        correct: 2,
+        explanation: "Weather simulation software is an example of Engineering & Scientific Software used for technical computation and research."
+    },
+    {
+        question: "In cloud development dynamics, what enables A/B testing capabilities?",
+        options: [
+            "Centralized server control",
+            "Continuous delivery & integration",
+            "Responsive design",
+            "Infrastructure as Code"
+        ],
+        correct: 1,
+        explanation: "Continuous delivery & integration (CI/CD) enables A/B testing capabilities in cloud development dynamics."
+    },
+    {
+        question: "What makes legacy software expensive to replace beyond just technical considerations?",
+        options: [
+            "Complex architecture",
+            "High dependency from staff, processes, and other systems",
+            "Outdated programming languages",
+            "Large codebase size"
+        ],
+        correct: 1,
+        explanation: "Legacy software has high dependency where staff, processes, and other systems rely on it, making replacement expensive and risky."
+    },
+    {
+        question: "Which framework activity in software engineering involves delivering and supporting the software?",
+        options: [
+            "Construction",
+            "Modelling",
+            "Deployment",
+            "Planning"
+        ],
+        correct: 2,
+        explanation: "Deployment is the framework activity that involves delivering, installing, and supporting the software."
+    },
+    {
+        question: "What is the primary goal of 'Maintain Quality Throughout' practice?",
+        options: [
+            "Reduce development costs",
+            "Speed up development process",
+            "Integrate testing, reviews, and documentation at every stage",
+            "Simplify project management"
+        ],
+        correct: 2,
+        explanation: "Maintain Quality Throughout aims to integrate testing, reviews, and documentation at every stage for continuous improvement."
+    },
+    {
+        question: "Which principle enables early error detection and gradual improvement in software development?",
+        options: [
+            "Be Agile",
+            "Maintain Traceability",
+            "Encourage Quality at Every Step",
+            "Use Iterative Processes"
+        ],
+        correct: 3,
+        explanation: "Use Iterative Processes enables gradual improvement and early error detection through development cycles with feedback."
+    },
+    {
+        question: "What consequence does the developer myth about completed programming typically lead to?",
+        options: [
+            "Increased development speed",
+            "Fragile, short-lived software",
+            "Higher customer satisfaction",
+            "Reduced maintenance costs"
+        ],
+        correct: 1,
+        explanation: "Ignoring testing, documentation, maintenance, and evolution leads to fragile, short-lived software."
+    },
+    {
+        question: "In Scrum, what is the typical duration of a sprint?",
+        options: [
+            "1-2 weeks",
+            "2-4 weeks",
+            "4-6 weeks",
+            "6-8 weeks"
+        ],
+        correct: 1,
+        explanation: "Scrum sprints typically last 2-4 weeks, allowing for manageable development cycles with regular feedback."
+    },
+    {
+        question: "What is the main advantage of using visual task boards in Kanban?",
+        options: [
+            "Reduces development time",
+            "Improves flow control and work visibility",
+            "Eliminates need for meetings",
+            "Automates task assignment"
+        ],
+        correct: 1,
+        explanation: "Visual task boards in Kanban improve flow control and provide visibility into work progress and bottlenecks."
+    },
+    {
+        question: "Which component of ISO 12207 would cover software installation and acceptance?",
+        options: [
+            "Primary processes",
+            "Supporting processes",
+            "Organizational processes",
+            "Life cycle processes"
+        ],
+        correct: 0,
+        explanation: "Primary processes in ISO 12207 include development and maintenance activities, which would cover installation and acceptance."
+    },
+    {
+        question: "What is the primary benefit of following IEEE software engineering standards?",
+        options: [
+            "Faster development cycles",
+            "Lower development costs",
+            "Structuring documentation and ensuring project visibility",
+            "Reduced testing requirements"
+        ],
+        correct: 2,
+        explanation: "IEEE standards help in structuring documentation, managing requirements, and ensuring project visibility."
+    },
+    {
+        question: "In requirements engineering, which activity comes after requirements specification?",
+        options: [
+            "Requirements elicitation",
+            "Feasibility study",
+            "Requirements verification and validation",
+            "Requirements management"
+        ],
+        correct: 2,
+        explanation: "Requirements verification and validation comes after requirements specification in the requirements engineering process."
+    },
+    {
+        question: "What is the primary purpose of acceptance criteria in requirements?",
+        options: [
+            "Define system architecture",
+            "Specify how functionality will be verified",
+            "Identify project stakeholders",
+            "Estimate development effort"
+        ],
+        correct: 1,
+        explanation: "Acceptance criteria specify how the functionality will be verified and what conditions must be met for acceptance."
+    },
+    {
+        question: "Which requirements management activity involves prioritizing and agreeing on requirements?",
         options: [
             "Tracking and controlling changes",
             "Version control",
-            "Code optimization",
-            "Communication with stakeholders"
+            "Requirement analysis and documentation",
+            "Communication"
         ],
         correct: 2,
-        explanation: "Requirements management includes tracking changes, version control, traceability, communication, and monitoring - but not code optimization."
+        explanation: "Requirements management involves analyzing, documenting, tracking, prioritizing, and agreeing on requirements."
     },
     {
-        question: "What type of requirement describes what the system must do?",
+        question: "What technique combines visualization with brainstorming for requirements elicitation?",
         options: [
-            "Non-functional requirements",
-            "Functional requirements",
-            "Extended requirements",
-            "System requirements"
+            "Use cases",
+            "Mind mapping",
+            "Prototyping",
+            "Roleplaying"
         ],
         correct: 1,
-        explanation: "Functional requirements describe what the system must do, specifying the required behaviors and functions."
+        explanation: "Mind mapping combines visualization with brainstorming to explore and organize requirements concepts."
     },
     {
-        question: "Which example represents a non-functional requirement?",
+        question: "In the online banking example, what makes 'system should handle 100 million users' a non-functional requirement?",
         options: [
-            "System shall generate an invoice after checkout",
-            "Users can browse the menu and place an order",
-            "System shall generate the invoice within 5 seconds",
-            "Users should receive notifications after making a transaction"
-        ],
-        correct: 2,
-        explanation: "Time performance constraints like 'within 5 seconds' are non-functional requirements defining quality and performance standards."
-    },
-    {
-        question: "What characterizes extended requirements?",
-        options: [
-            "Mandatory system functions",
-            "Performance specifications",
-            "'Nice to have' requirements that might be out of scope",
-            "Security requirements"
-        ],
-        correct: 2,
-        explanation: "Extended requirements are basically 'nice to have' requirements that might be out of the scope of the system."
-    },
-    {
-        question: "Which technique combines user needs assessment with technical capabilities?",
-        options: [
-            "Quality Function Deployment",
-            "Simple interviews",
-            "Code review",
-            "Performance testing"
-        ],
-        correct: 0,
-        explanation: "Quality Function Deployment is a technique that systematically combines user needs assessment with technical capabilities for requirements elicitation."
-    },
-    {
-        question: "What is the primary focus when defining User Requirements Specification (URS)?",
-        options: [
-            "Technical implementation details",
-            "What users need, not just what they request",
-            "System architecture",
-            "Database design"
+            "It involves user interaction",
+            "It specifies performance and scalability constraints",
+            "It requires database design",
+            "It involves security measures"
         ],
         correct: 1,
-        explanation: "URS focuses on what users need, not just what they request, ensuring the real underlying needs are addressed."
+        explanation: "This requirement specifies performance and scalability constraints rather than describing what the system does functionally."
     },
     {
-        question: "Which representation method is commonly used in URS?",
+        question: "Which elicitation technique would be most appropriate for understanding user workflow?",
         options: [
-            "Technical specifications",
-            "User stories and use cases",
-            "Code documentation",
-            "System logs"
-        ],
-        correct: 1,
-        explanation: "URS is commonly represented using user stories, use cases, and scenarios to capture user needs effectively."
-    },
-    {
-        question: "What should NOT be included in a User Requirements Specification?",
-        options: [
-            "Stakeholder identification",
-            "Requirements documentation",
-            "Implementation code",
-            "Supporting documents"
+            "Interviews",
+            "Surveys",
+            "Observation",
+            "Focus Groups"
         ],
         correct: 2,
-        explanation: "URS should include stakeholders, objectives, requirements, and supporting documents, but not implementation code which comes later."
+        explanation: "Observation allows direct study of user workflow and behavior in their natural working environment."
     },
     {
-        question: "Which validation technique involves creating test scenarios from requirements?",
+        question: "What is the main purpose of stakeholder identification in URS development?",
+        options: [
+            "Assign project responsibilities",
+            "Estimate project costs",
+            "Understand different perspectives and needs",
+            "Create project timeline"
+        ],
+        correct: 2,
+        explanation: "Stakeholder identification helps understand different perspectives and needs that must be addressed in the requirements."
+    },
+    {
+        question: "Which validation technique involves executing the requirements through simulated scenarios?",
         options: [
             "Prototyping",
-            "Test Case Generation",
-            "Walk-through",
-            "Requirements Reviews"
+            "Requirements Reviews",
+            "Simulation",
+            "Test Case Generation"
+        ],
+        correct: 2,
+        explanation: "Simulation involves executing requirements through simulated scenarios to validate system behavior."
+    },
+    {
+        question: "What is the third step in managing changing requirements?",
+        options: [
+            "Creating a project schedule",
+            "Specifying change control procedure",
+            "Communicating with the team",
+            "Documenting impact analysis"
         ],
         correct: 1,
-        explanation: "Test Case Generation involves creating test scenarios directly from requirements to validate their completeness and clarity."
+        explanation: "The third step is specifying change control procedure after clarifying consequences of changes."
     },
     {
-        question: "What is the primary purpose of a Requirements Traceability Matrix (RTM)?",
-        options: [
-            "Track project costs",
-            "Monitor team performance",
-            "Track requirements from origin to implementation",
-            "Manage project schedules"
-        ],
-        correct: 2,
-        explanation: "RTM tracks requirements from their origin through to implementation, ensuring coverage and helping identify impacts of changes."
-    },
-    {
-        question: "Why is requirements change considered inevitable?",
-        options: [
-            "Poor initial planning",
-            "Lack of stakeholder involvement",
-            "Market changes, regulatory updates, and feedback",
-            "Technical limitations"
-        ],
-        correct: 2,
-        explanation: "Requirements change is inevitable due to market changes, regulatory updates, user feedback, and evolving business needs."
-    },
-    {
-        question: "What is the correct sequence for managing requirement changes?",
-        options: [
-            "Approve → Log → Assess → Update",
-            "Log request → Assess impact → Approve/reject → Update docs",
-            "Update → Assess → Log → Approve",
-            "Assess → Update → Log → Approve"
-        ],
-        correct: 1,
-        explanation: "The proper sequence is: Log request → Assess impact → Approve/reject → Update documentation."
-    },
-    {
-        question: "What distinguishes an inspection from a review in requirements validation?",
-        options: [
-            "Inspections are informal, reviews are formal",
-            "Inspections are faster than reviews",
-            "Inspections are formal structured defect-finding sessions, reviews are informal peer checks",
-            "Inspections focus on code, reviews focus on requirements"
-        ],
-        correct: 2,
-        explanation: "Inspections are formal, structured defect-finding sessions, while reviews are informal peer checks for requirements validation."
-    },
-    {
-        question: "Which modeling technique is best for showing system behavior over time?",
+        question: "Which modeling technique best represents the flow of information through a system?",
         options: [
             "Use Case Diagrams",
-            "Data Flow Diagrams (DFD)",
-            "Entity-Relationship Diagrams (ERD)",
+            "Data Flow Diagrams",
+            "Entity-Relationship Diagrams",
             "State Diagrams"
         ],
-        correct: 3,
-        explanation: "State Diagrams are best for showing system behavior changes over time and different system states."
+        correct: 1,
+        explanation: "Data Flow Diagrams (DFD) are specifically designed to represent the flow of information through a system."
     },
     {
-        question: "What characterizes requirements in Agile methodology?",
+        question: "In agile development, what drives the continuous refinement of requirements?",
         options: [
-            "Fixed detailed specifications",
-            "User stories with acceptance criteria",
-            "Complete upfront documentation",
-            "Technical design documents"
+            "Customer feedback only",
+            "Developer preferences",
+            "Backlog grooming and collaboration",
+            "Management directives"
+        ],
+        correct: 2,
+        explanation: "Backlog grooming and collaboration with stakeholders drive continuous refinement of requirements in agile development."
+    },
+    {
+        question: "What distinguishes software from hardware in terms of failure patterns?",
+        options: [
+            "Software failures are more predictable",
+            "Software doesn't wear out but can have logical errors",
+            "Hardware failures are easier to fix",
+            "Software requires physical replacement"
         ],
         correct: 1,
-        explanation: "Agile expresses requirements as user stories with acceptance criteria, allowing for flexibility and continuous refinement."
+        explanation: "Unlike hardware that can wear out physically, software doesn't deteriorate but can have logical errors or bugs."
     },
     {
-        question: "What is backlog grooming in Agile requirements engineering?",
+        question: "Which characteristic would be most important for software running on multiple operating systems?",
         options: [
-            "Removing old requirements",
-            "Continuous refinement of requirements",
-            "Writing technical specifications",
-            "Testing requirement implementation"
-        ],
-        correct: 1,
-        explanation: "Backlog grooming involves continuous refinement of requirements through regular review and prioritization of user stories."
-    },
-    {
-        question: "Which component of a user story describes the desired outcome?",
-        options: [
-            "User role identification",
-            "Feature description",
-            "Acceptance criteria",
-            "Priority level"
-        ],
-        correct: 2,
-        explanation: "Acceptance criteria in user stories describe the desired outcome and conditions that must be met for the story to be complete."
-    },
-    {
-        question: "In the context of software engineering, what does 'agile' primarily mean?",
-        options: [
-            "Fast coding",
-            "Minimal documentation",
-            "Embracing change and delivering value incrementally",
-            "Working alone"
-        ],
-        correct: 2,
-        explanation: "Being agile means embracing change and delivering value incrementally while prioritizing working software and customer collaboration."
-    },
-    {
-        question: "What is the main risk of not following structured requirements engineering?",
-        options: [
-            "Slower development",
-            "Higher costs",
-            "Project failure due to unclear expectations and missed functionality",
-            "Too much documentation"
-        ],
-        correct: 2,
-        explanation: "Without structured requirements engineering, projects risk failure due to unclear expectations, missed functionality, and communication breakdowns."
-    },
-    {
-        question: "Which process model would be most suitable for a project with well-defined, stable requirements?",
-        options: [
-            "Agile",
-            "Spiral",
-            "Waterfall",
-            "Prototyping"
-        ],
-        correct: 2,
-        explanation: "Waterfall model is most suitable for projects with well-defined, stable requirements due to its sequential, structured approach."
-    },
-    {
-        question: "When would you choose Spiral model over other SDLC models?",
-        options: [
-            "When requirements are stable",
-            "For small, simple projects",
-            "When risk analysis is crucial and requirements may evolve",
-            "When documentation is minimal"
-        ],
-        correct: 2,
-        explanation: "Spiral model is chosen when risk analysis is crucial and requirements may evolve, as it combines iterative development with systematic risk assessment."
-    },
-    {
-        question: "What makes embedded software different from other application domains?",
-        options: [
-            "It's always connected to internet",
-            "It controls hardware devices and often operates in real-time",
-            "It requires more documentation",
-            "It's easier to maintain"
-        ],
-        correct: 1,
-        explanation: "Embedded software is unique because it controls hardware devices directly and often must operate in real-time environments with strict timing constraints."
-    },
-    {
-        question: "Why might cloud-based applications favor DevOps methodology?",
-        options: [
-            "Cheaper development costs",
-            "Less complex requirements",
-            "Need for continuous deployment and infrastructure automation",
-            "Simpler user interfaces"
-        ],
-        correct: 2,
-        explanation: "Cloud-based applications benefit from DevOps due to the need for continuous deployment, automated infrastructure management, and seamless integration."
-    },
-    {
-        question: "What is a key advantage of incremental SDLC model?",
-        options: [
-            "Fastest development time",
-            "Lowest cost",
-            "Early delivery of working software modules",
-            "Least documentation required"
-        ],
-        correct: 2,
-        explanation: "Incremental model allows early delivery of working software modules, providing value to users while development continues on remaining features."
-    },
-    {
-        question: "In Scrum methodology, what is the typical duration of a sprint?",
-        options: [
-            "1 day to 1 week",
-            "1-4 weeks",
-            "2-6 months",
-            "6 months to 1 year"
-        ],
-        correct: 1,
-        explanation: "Scrum sprints typically last 1-4 weeks, allowing teams to deliver working software incrementally while maintaining agility."
-    },
-    {
-        question: "What distinguishes system software from application software?",
-        options: [
-            "System software is more expensive",
-            "System software supports other software, application software solves specific tasks",
-            "System software is easier to use",
-            "System software requires less testing"
-        ],
-        correct: 1,
-        explanation: "System software provides core support for other software (like operating systems), while application software solves specific business or personal tasks."
-    },
-    {
-        question: "Which characteristic of software is most critical for financial applications?",
-        options: [
-            "Usability",
-            "Portability",
+            "Efficiency",
             "Reliability",
-            "Efficiency"
+            "Portability",
+            "Usability"
         ],
         correct: 2,
-        explanation: "Reliability is most critical for financial applications as they must perform consistently and correctly, with fault tolerance and recovery capabilities."
+        explanation: "Portability is crucial for software that needs to run on multiple operating systems and platforms."
     },
     {
-        question: "What makes AI software distinct from other software domains?",
+        question: "What type of software would a recommendation engine for e-commerce be classified as?",
         options: [
-            "It requires more memory",
-            "It mimics human intelligence and decision-making",
-            "It's always web-based",
-            "It needs special hardware"
-        ],
-        correct: 1,
-        explanation: "AI software is distinct because it mimics human intelligence and decision-making processes, like chatbots, recommendation engines, and autonomous vehicles."
-    },
-    {
-        question: "Why is knowledge gap a major concern with legacy software?",
-        options: [
-            "The software is too advanced",
-            "Original developers often gone and code may be difficult to maintain",
-            "The software is too simple",
-            "Documentation is too detailed"
-        ],
-        correct: 1,
-        explanation: "Knowledge gap occurs because original developers are often gone and the code may be difficult to maintain, creating risks for ongoing support."
-    },
-    {
-        question: "What is the primary benefit of Infrastructure as Code in cloud applications?",
-        options: [
-            "Reduced development time",
-            "Lower licensing costs",
-            "Automated, repeatable infrastructure deployment",
-            "Simplified user interfaces"
+            "Application Software",
+            "Embedded Software",
+            "Artificial Intelligence Software",
+            "Web Applications"
         ],
         correct: 2,
-        explanation: "Infrastructure as Code enables automated, repeatable infrastructure deployment, making cloud applications more reliable and scalable."
+        explanation: "A recommendation engine uses artificial intelligence to mimic human decision-making for product suggestions."
     },
     {
-        question: "Which framework activity involves understanding objectives and gathering requirements?",
+        question: "In cloud maintenance dynamics, what capability allows quick problem resolution?",
         options: [
-            "Planning",
-            "Communication",
-            "Modeling",
-            "Construction"
+            "Centralized server control",
+            "Live system monitoring and quick patches",
+            "Infrastructure as Code",
+            "Version management"
         ],
         correct: 1,
-        explanation: "Communication is the framework activity focused on understanding objectives and gathering requirements from stakeholders."
+        explanation: "Live system monitoring combined with quick patches allows rapid problem resolution in cloud-based systems."
     },
     {
+        question: "What creates the knowledge gap problem in legacy software maintenance?",
+        options: [
+            "Poor system documentation",
+            "Outdated technology stack",
+            "Original developers often gone and code difficulty",
+            "High system complexity"
+        ],
+        correct: 2,
+        explanation: "The knowledge gap occurs because original developers are often gone and the code may be difficult to maintain."
+    },
+    {
+        question: "Which umbrella activity would be responsible for tracking software versions and changes?",
+        options: [
+            "Quality Assurance",
+            "Software Configuration Management",
+            "Measurement & Metrics",
+            "Risk Management"
+        ],
+        correct: 1,
+        explanation: "Software Configuration Management (SCM) is responsible for tracking software versions, changes, and configurations."
+    },
+    {
+        question: "What is the essence of 'Plan Before Designing' in software engineering practice?",
+        options: [
+            "Create detailed documentation",
+            "Allocate resources, set milestones, and anticipate risks",
+            "Define system architecture",
+            "Establish coding standards"
+        ],
+        correct: 1,
+        explanation: "Plan Before Designing involves allocating resources, setting milestones, and anticipating risks and dependencies."
+    },
+    {
+        question: "Which principle helps ensure that requirements can be tracked to implementation and testing?",
+        options: [
+            "Be Agile",
+            "Maintain Traceability",
+            "Encourage Quality at Every Step",
+            "Use Iterative Processes"
+        ],
+        correct: 1,
+        explanation: "Maintain Traceability links requirements to design, code, and tests, ensuring coverage and change impact assessment."
+    },
+    {
+        question: "What leads to 'unrealistic expectations, poor communication, and project failure' according to the course?",
+        options: [
+            "Inadequate planning",
+            "Insufficient resources",
+            "Unchallenged software myths",
+            "Poor technical skills"
+        ],
+        correct: 2,
+        explanation: "Unchallenged software myths lead to unrealistic expectations, poor communication, and project failure."
+    },
+    {
+        question: "What is the primary characteristic that makes the spiral model suitable for high-risk projects?",
+        options: [
+            "Iterative development",
+            "Sequential phases",
+            "Risk analysis at each iteration",
+            "Rapid prototyping"
+        ],
+        correct: 2,
+        explanation: "The spiral model systematically addresses risk analysis at each iteration, making it suitable for high-risk projects."
+    },
+    {
+        question: "In the incremental model, what is delivered at the end of each increment?",
+        options: [
+            "Complete system documentation",
+            "Working subset of system functionality",
+            "System architecture design",
+            "Test cases and scenarios"
+        ],
+        correct: 1,
+        explanation: "The incremental model delivers a working subset of system functionality at the end of each increment."
+    },
+    {
+        question: "What is the main benefit of the prototype model in requirements validation?",
+        options: [
+            "Reduces development costs",
+            "Speeds up coding phase",
+            "Allows early user feedback on requirements and design",
+            "Eliminates need for testing"
+        ],
+        correct: 2,
+        explanation: "Prototypes allow early user feedback on requirements and design, helping validate concepts before full development."
+    },
+    {
+        question: "In Extreme Programming, what practice ensures code quality through early detection of defects?",
+        options: [
+            "Pair programming",
+            "Test-driven development",
+            "Continuous refactoring",
+            "Small releases"
+        ],
+        correct: 1,
+        explanation: "Test-driven development in XP ensures code quality by writing tests before code, enabling early defect detection."
+    },
+    {
+        question: "Which type of standard would specify the methodology for conducting software inspections?",
+        options: [
+            "Process Standards",
+            "Product Standards",
+            "Documentation Standards",
+            "Interface Standards"
+        ],
+        correct: 0,
+        explanation: "Process Standards define how work is done, including methodologies for conducting activities like software inspections."
+    },
+    {
+        question: "What do primary processes in ISO 12207 specifically address?",
+        options: [
+            "Training and organizational improvement",
+            "Development and maintenance activities",
+            "Quality assurance and testing",
+            "Configuration management"
+        ],
+        correct: 1,
+        explanation: "Primary processes in ISO 12207 specifically address development and maintenance activities."
+    },
+        {
         question: "What is the relationship between umbrella activities and framework activities?",
         options: [
             "They are the same thing",
@@ -1146,17 +1575,6 @@
         explanation: "Iterative processes enable gradual improvement and early error detection through cycles of development, feedback, and refinement."
     },
     {
-        question: "Why do software myths lead to project failure?",
-        options: [
-            "They make development too fast",
-            "They create unrealistic expectations and poor communication",
-            "They require too much documentation",
-            "They make testing unnecessary"
-        ],
-        correct: 1,
-        explanation: "Software myths create unrealistic expectations and poor communication between stakeholders, leading to project failures and unmet objectives."
-    },
-    {
         question: "What typically happens after initial idea generation in software projects?",
         options: [
             "Immediate coding begins",
@@ -1178,39 +1596,7 @@
         correct: 1,
         explanation: "Stakeholder communication identifies users, sponsors, technical team roles, and other parties involved in or affected by the project."
     },
-    {
-        question: "What follows planning and analysis in the project initiation process?",
-        options: [
-            "Immediate deployment",
-            "Team formation",
-            "Defining scope, risks, and feasibility",
-            "User training"
-        ],
-        correct: 2,
-        explanation: "Planning and analysis involve defining scope, identifying risks, assessing feasibility, and documenting functional and non-functional requirements."
-    },
-    {
-        question: "Why is Component-Based Development considered efficient?",
-        options: [
-            "It requires less planning",
-            "It uses pre-existing, tested components reducing development time",
-            "It needs fewer developers",
-            "It eliminates testing needs"
-        ],
-        correct: 1,
-        explanation: "CBD is efficient because it leverages pre-existing, tested components, reducing development time and increasing reliability through reuse."
-    },
-    {
-        question: "What is the main advantage of RAD over traditional waterfall model?",
-        options: [
-            "Better documentation",
-            "Lower costs",
-            "Faster development with active user involvement",
-            "More comprehensive testing"
-        ],
-        correct: 2,
-        explanation: "RAD's main advantage is faster development cycles with active user involvement throughout the process, enabling quicker feedback and iteration."
-    },
+
     {
         question: "What makes prototyping particularly valuable in requirements engineering?",
         options: [
@@ -1243,391 +1629,6 @@
         ],
         correct: 1,
         explanation: "IEEE 1016 provides standards for Software Design Descriptions, ensuring consistent documentation of software design decisions."
-    },
-    {
-        question: "In technical feasibility assessment, what is primarily evaluated?",
-        options: [
-            "Project costs",
-            "Legal constraints",
-            "Whether the technology can support the proposed solution",
-            "Market demand"
-        ],
-        correct: 2,
-        explanation: "Technical feasibility evaluates whether the available or proposed technology can adequately support the solution requirements."
-    },
-    {
-        question: "What does operational feasibility assess?",
-        options: [
-            "Technology capabilities",
-            "Budget constraints",
-            "How well the solution will work within the organization",
-            "Legal compliance"
-        ],
-        correct: 2,
-        explanation: "Operational feasibility assesses how well the proposed solution will work within the existing organizational structure and processes."
-    },
-    {
-        question: "Which elicitation technique involves direct user observation?",
-        options: [
-            "Interviews",
-            "Surveys",
-            "Observation",
-            "Focus Groups"
-        ],
-        correct: 2,
-        explanation: "Observation technique involves directly watching users perform their tasks to understand actual work processes and identify requirements."
-    },
-    {
-        question: "What distinguishes surveys from interviews in requirements elicitation?",
-        options: [
-            "Surveys are more detailed",
-            "Interviews allow for deeper, interactive questioning",
-            "Surveys are more expensive",
-            "Interviews reach more people"
-        ],
-        correct: 1,
-        explanation: "Interviews allow for deeper, interactive questioning and follow-up, while surveys gather broader but less detailed information from more participants."
-    },
-    {
-        question: "What should requirements be according to good specification practices?",
-        options: [
-            "Complex and comprehensive",
-            "Clear, measurable, and testable",
-            "Technical and detailed",
-            "Flexible and ambiguous"
-        ],
-        correct: 1,
-        explanation: "Requirements should be clear, measurable, and testable to ensure they can be properly implemented and verified."
-    },
-    {
-        question: "Which requirement type defines quality, performance, and constraints?",
-        options: [
-            "Functional requirements",
-            "Non-functional requirements",
-            "Extended requirements",
-            "System requirements"
-        ],
-        correct: 1,
-        explanation: "Non-functional requirements define quality attributes, performance criteria, and system constraints rather than specific behaviors."
-    },
-    {
-        question: "What makes acceptance criteria important in requirements?",
-        options: [
-            "They speed up development",
-            "They reduce costs",
-            "They define when a requirement is considered complete",
-            "They eliminate testing needs"
-        ],
-        correct: 2,
-        explanation: "Acceptance criteria define the specific conditions that must be met for a requirement to be considered complete and acceptable."
-    },
-    {
-        question: "Why might a food delivery app need to handle 50,000 concurrent orders?",
-        options: [
-            "This is a functional requirement",
-            "This addresses peak-hour scalability as a non-functional requirement",
-            "This is for testing purposes only",
-            "This is an extended requirement"
-        ],
-        correct: 1,
-        explanation: "Handling concurrent users is a non-functional requirement addressing scalability and performance during peak usage periods."
-    },
-    {
-        question: "What characterizes 'nice to have' requirements?",
-        options: [
-            "They are mandatory for system operation",
-            "They are performance requirements",
-            "They might be out of scope but add value",
-            "They are security requirements"
-        ],
-        correct: 2,
-        explanation: "Extended or 'nice to have' requirements might be out of scope of core functionality but could add value if resources permit."
-    },
-    {
-        question: "Which technique systematically maps user needs to technical features?",
-        options: [
-            "Simple interviews",
-            "Quality Function Deployment",
-            "Observation",
-            "Prototyping"
-        ],
-        correct: 1,
-        explanation: "Quality Function Deployment systematically maps user needs to technical features, ensuring customer requirements drive technical decisions."
-    },
-    {
-        question: "What is the Facilitated Application Specification Technique (FAST) designed to do?",
-        options: [
-            "Speed up coding",
-            "Facilitate structured requirements workshops",
-            "Automate testing",
-            "Manage project budgets"
-        ],
-        correct: 1,
-        explanation: "FAST facilitates structured requirements workshops where stakeholders collaborate to define and prioritize system requirements."
-    },
-    {
-        question: "Why do User Requirements Specifications focus on 'what' rather than 'how'?",
-        options: [
-            "To reduce documentation",
-            "To keep requirements independent of implementation details",
-            "To speed up development",
-            "To reduce costs"
-        ],
-        correct: 1,
-        explanation: "URS focuses on 'what' to keep requirements independent of implementation details, allowing flexibility in technical solutions."
-    },
-    {
-        question: "What should be included in a URS glossary?",
-        options: [
-            "Code snippets",
-            "Technical specifications",
-            "Definitions of domain-specific terms",
-            "Project timelines"
-        ],
-        correct: 2,
-        explanation: "A URS glossary should include definitions of domain-specific terms to ensure all stakeholders understand terminology consistently."
-    },
-    {
-        question: "Which validation technique creates working models to test concepts?",
-        options: [
-            "Requirements Reviews",
-            "Prototyping",
-            "Walk-through",
-            "Checklists"
-        ],
-        correct: 1,
-        explanation: "Prototyping creates working models that stakeholders can interact with to validate concepts and provide concrete feedback."
-    },
-    {
-        question: "What does automated consistency analysis help identify?",
-        options: [
-            "Performance issues",
-            "Conflicting or contradictory requirements",
-            "User interface problems",
-            "Security vulnerabilities"
-        ],
-        correct: 1,
-        explanation: "Automated consistency analysis helps identify conflicting or contradictory requirements that could cause implementation problems."
-    },
-    {
-        question: "Why is simulation used in requirements validation?",
-        options: [
-            "To reduce documentation",
-            "To model system behavior under various conditions",
-            "To speed up development",
-            "To eliminate testing"
-        ],
-        correct: 1,
-        explanation: "Simulation models system behavior under various conditions, helping validate that requirements will work in real-world scenarios."
-    },
-    {
-        question: "What does forward traceability in an RTM track?",
-        options: [
-            "From code back to requirements",
-            "From requirements forward to design and implementation",
-            "Project timeline progression",
-            "Budget allocations"
-        ],
-        correct: 1,
-        explanation: "Forward traceability tracks from requirements forward through design, implementation, and testing to ensure complete coverage."
-    },
-    {
-        question: "Why is impact assessment crucial before approving requirement changes?",
-        options: [
-            "To reduce documentation",
-            "To understand effects on timeline, budget, and other requirements",
-            "To speed up development",
-            "To eliminate testing"
-        ],
-        correct: 1,
-        explanation: "Impact assessment evaluates how changes affect timeline, budget, resources, and other requirements before making approval decisions."
-    },
-    {
-        question: "What is the primary purpose of documenting current requirements before changes?",
-        options: [
-            "To increase paperwork",
-            "To establish baseline for measuring change impact",
-            "To slow down the process",
-            "To satisfy management"
-        ],
-        correct: 1,
-        explanation: "Documenting current requirements establishes a baseline that helps measure and understand the full impact of proposed changes."
-    },
-    {
-        question: "Which review type requires the most formal structure?",
-        options: [
-            "Informal review",
-            "Walkthrough",
-            "Inspection",
-            "Peer review"
-        ],
-        correct: 2,
-        explanation: "Inspections require the most formal structure with defined roles, procedures, and systematic defect identification processes."
-    },
-    {
-        question: "What do Entity-Relationship Diagrams (ERD) primarily model?",
-        options: [
-            "System processes",
-            "User interactions",
-            "Data relationships and structure",
-            "System states"
-        ],
-        correct: 2,
-        explanation: "ERDs model data relationships and structure, showing how different data entities relate to each other in the system."
-    },
-    {
-        question: "Which diagram type best shows functional system processes?",
-        options: [
-            "State Diagrams",
-            "Entity-Relationship Diagrams",
-            "Data Flow Diagrams (DFD)",
-            "Use Case Diagrams"
-        ],
-        correct: 2,
-        explanation: "Data Flow Diagrams show functional system processes, illustrating how data flows through the system and is transformed."
-    },
-    {
-        question: "What makes Use Case Diagrams valuable for requirements modeling?",
-        options: [
-            "They show data structure",
-            "They illustrate user interactions with the system",
-            "They display system performance",
-            "They show technical architecture"
-        ],
-        correct: 1,
-        explanation: "Use Case Diagrams illustrate user interactions with the system, helping stakeholders understand functional requirements from user perspective."
-    },
-    {
-        question: "In Agile, what drives the continuous refinement of requirements?",
-        options: [
-            "Management directives",
-            "Technical constraints",
-            "Backlog grooming and stakeholder feedback",
-            "Budget limitations"
-        ],
-        correct: 2,
-        explanation: "Continuous refinement is driven by regular backlog grooming sessions and ongoing stakeholder feedback throughout development cycles."
-    },
-    {
-        question: "How do Agile user stories differ from traditional requirements documents?",
-        options: [
-            "They are more technical",
-            "They are shorter and focus on user value",
-            "They are more detailed",
-            "They are written by developers only"
-        ],
-        correct: 1,
-        explanation: "User stories are shorter and focus on user value, emphasizing the user's perspective and desired outcomes rather than technical specifications."
-    },
-    {
-        question: "What role does collaboration play in Agile requirements engineering?",
-        options: [
-            "It slows down the process",
-            "It's optional for small projects",
-            "It's central to ensuring requirements meet actual user needs",
-            "It only involves developers"
-        ],
-        correct: 2,
-        explanation: "Collaboration is central to Agile requirements engineering, ensuring requirements truly meet user needs through continuous stakeholder engagement."
-    },
-    {
-        question: "Why might requirements change more frequently in Agile projects?",
-        options: [
-            "Poor initial planning",
-            "Continuous learning and adaptation based on feedback",
-            "Lack of documentation",
-            "Team inexperience"
-        ],
-        correct: 1,
-        explanation: "Requirements change frequently in Agile due to continuous learning and adaptation based on user feedback and changing business needs."
-    },
-    {
-        question: "What is the 'Definition of Done' in Agile requirements?",
-        options: [
-            "When coding is complete",
-            "When testing passes",
-            "Shared understanding of what constitutes completed work",
-            "When documentation is finished"
-        ],
-        correct: 2,
-        explanation: "Definition of Done is a shared understanding among team members of what constitutes completed work, including all necessary activities."
-    },
-    {
-        question: "Which factor makes legacy software particularly challenging to maintain?",
-        options: [
-            "Too much documentation",
-            "Modern technology stack",
-            "Original developers often gone and poor documentation",
-            "Simple architecture"
-        ],
-        correct: 2,
-        explanation: "Legacy software is challenging because original developers are often gone and documentation is typically poor, creating knowledge gaps."
-    },
-    {
-        question: "Why do organizations continue using legacy software despite challenges?",
-        options: [
-            "It's cheaper to maintain",
-            "It supports mission-critical operations",
-            "It has better features",
-            "It's easier to modify"
-        ],
-        correct: 1,
-        explanation: "Organizations continue using legacy software because it often supports mission-critical operations that are essential for business continuity."
-    },
-    {
-        question: "What makes cloud-based applications different in terms of maintenance?",
-        options: [
-            "They require more documentation",
-            "Live system monitoring and quick patches without user device updates",
-            "They need more testing",
-            "They are more expensive to maintain"
-        ],
-        correct: 1,
-        explanation: "Cloud-based applications enable live system monitoring and quick patches without needing to update software on user devices."
-    },
-    {
-        question: "Which deployment advantage is unique to cloud-based applications?",
-        options: [
-            "Lower development costs",
-            "Instantaneous global rollout",
-            "Simpler programming",
-            "Less testing required"
-        ],
-        correct: 1,
-        explanation: "Cloud-based applications can achieve instantaneous global rollout, reaching users worldwide immediately upon deployment."
-    },
-    {
-        question: "What characterizes the final project timeline in this course?",
-        options: [
-            "Individual work only",
-            "Team-based project spanning 13 weeks",
-            "Multiple small assignments",
-            "Theoretical study only"
-        ],
-        correct: 1,
-        explanation: "The final project is a team-based software development project spanning 13 weeks, culminating in documentation and defense presentation."
-    },
-    {
-        question: "What documentation standard must the final project follow?",
-        options: [
-            "IEEE 830",
-            "ISO 12207",
-            "APA 7th Edition",
-            "MLA format"
-        ],
-        correct: 2,
-        explanation: "The final project documentation must follow APA 7th Edition formatting standards for the formal report submission."
-    },
-    {
-        question: "Which week involves the final project defense presentation?",
-        options: [
-            "Week 10",
-            "Week 11",
-            "Week 12",
-            "Week 13"
-        ],
-        correct: 2,
-        explanation: "Week 12 is scheduled for the project defense, which includes both presentation and demonstration of the developed solution."
     }
 ];
 
