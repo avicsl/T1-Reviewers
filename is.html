@@ -309,1657 +309,908 @@
 
     <script>
         const questions = [
-        {
-        question: "What is the primary purpose of Intelligence Systems according to the document?",
-        options: [
-        "To collect, analyze, and interpret data to generate actionable insights",
-        "To replace human decision-making in all organizational processes",
-        "To store large amounts of data in centralized repositories",
-        "To automate all business operations without human intervention"
-        ],
+    {
+        question: "In Python, what does the 'print()' function do?",
+        options: ["Outputs text to the screen", "Creates variables", "Performs math only", "Imports libraries"],
         correct: 0,
-        explanation: "Intelligence systems are automated or semi-automated systems that collect, analyze, and interpret data to generate actionable insights or support decision-making processes."
-        },
-        {
-        question: "Which component of Intelligence Systems involves presenting analyzed data in reports and dashboards?",
-        options: [
-        "Data Collection",
-        "Data Processing",
-        "Data Analysis",
-        "Information Dissemination"
-        ],
+        explanation: "The print() function outputs text or data to the screen."
+    },
+    {
+        question: "Which library is primarily used in Python for analyzing memory dumps in digital forensics?",
+        options: ["Pandas", "Volatility", "Scapy", "NumPy"],
+        correct: 1,
+        explanation: "Volatility is a memory forensics framework for analyzing RAM dumps."
+    },
+    {
+        question: "Scapy in Python is mainly used for what purpose?",
+        options: ["Image analysis", "Packet manipulation", "Disk imaging", "File system parsing"],
+        correct: 1,
+        explanation: "Scapy is used for crafting, sending, capturing, and analyzing network packets."
+    },
+    {
+        question: "What is the main purpose of Intelligence Systems?",
+        options: ["To automate all human decisions", "To generate insights from data", "To replace hardware systems", "To encrypt all data"],
+        correct: 1,
+        explanation: "Intelligence Systems collect, analyze, and interpret data to support decision-making."
+    },
+    {
+        question: "Which Python data type is immutable?",
+        options: ["List", "Dictionary", "Tuple", "Set"],
+        correct: 2,
+        explanation: "Tuples are immutable, meaning their elements cannot be changed after creation."
+    },
+    {
+        question: "Which function in Python is used to take user input?",
+        options: ["scan()", "input()", "read()", "get()"],
+        correct: 1,
+        explanation: "The input() function allows the user to provide input as a string."
+    },
+    {
+        question: "What is a key feature of the Pandas library?",
+        options: ["Handling images", "Tabular data analysis", "Low-level networking", "GUI design"],
+        correct: 1,
+        explanation: "Pandas is mainly used for analyzing and manipulating tabular data using DataFrames."
+    },
+    {
+        question: "Which component of Intelligence Systems ensures continuous improvement?",
+        options: ["Data collection", "Feedback mechanism", "Data processing", "Information dissemination"],
+        correct: 1,
+        explanation: "The feedback mechanism allows intelligent systems to adapt and improve."
+    },
+    {
+        question: "Which Python module is used for interacting with the operating system?",
+        options: ["sys", "os", "re", "math"],
+        correct: 1,
+        explanation: "The os module provides functions to interact with the operating system, such as listing directories."
+    },
+    {
+        question: "Which Python function is commonly used to read the contents of a file?",
+        options: ["read()", "print()", "scan()", "input()"],
+        correct: 0,
+        explanation: "The read() method reads the contents of a file."
+    },
+    {
+        question: "In Python, what does the '%' operator do?",
+        options: ["Division", "Exponentiation", "Modulus", "Concatenation"],
+        correct: 2,
+        explanation: "The modulus operator '%' returns the remainder of a division."
+    },
+    {
+        question: "Which Python library provides efficient numerical array operations?",
+        options: ["Pandas", "NumPy", "Scapy", "Volatility"],
+        correct: 1,
+        explanation: "NumPy provides efficient numerical operations on arrays."
+    },
+    {
+        question: "Which stage of an Intelligence System involves turning raw data into usable format?",
+        options: ["Data Collection", "Data Processing", "Analysis", "Dissemination"],
+        correct: 1,
+        explanation: "Data processing prepares raw data into usable formats."
+    },
+    {
+        question: "Which Python data structure is a key-value store?",
+        options: ["List", "Tuple", "Set", "Dictionary"],
         correct: 3,
-        explanation: "Information Dissemination is the final step that involves presenting the analyzed data in a comprehensible format, such as reports, dashboards, or visualizations."
-        },
-        {
-        question: "What does the acronym 'BI' stand for in the context of Intelligence Systems?",
-        options: [
-        "Binary Intelligence",
-        "Business Intelligence",
-        "Behavioral Intelligence",
-        "Baseline Intelligence"
-        ],
+        explanation: "A dictionary stores data in key-value pairs."
+    },
+    {
+        question: "Which library is commonly used to parse logs and manipulate tabular data?",
+        options: ["NumPy", "Pandas", "Scapy", "os"],
         correct: 1,
-        explanation: "BI stands for Business Intelligence, which utilizes data analytics to provide insights for business operations and strategy."
-        },
-        {
-        question: "In Python programming, what does the print() function primarily do?",
-        options: [
-        "Creates new variables in memory",
-        "Outputs text or data to the screen",
-        "Performs mathematical calculations",
-        "Imports external libraries"
-        ],
-        correct: 1,
-        explanation: "The print() function is a built-in function in Python that outputs text or data to the screen."
-        },
-        {
-        question: "What is the correct formula for calculating BMI mentioned in the Python activity?",
-        options: [
-        "BMI = weight * height²",
-        "BMI = weight / height²",
-        "BMI = height / weight²",
-        "BMI = (weight + height) / 2"
-        ],
-        correct: 1,
-        explanation: "BMI is calculated using the formula: BMI = weight (in kg) / height (in meters)²"
-        },
-        {
-        question: "Which Python library is specifically mentioned for network packet manipulation in digital forensics?",
-        options: [
-        "Pandas",
-        "NumPy",
-        "Scapy",
-        "Volatility"
-        ],
+        explanation: "Pandas is widely used for parsing logs and analyzing tabular data."
+    },
+    {
+        question: "Which component of Intelligence Systems presents results in reports or dashboards?",
+        options: ["Data collection", "Feedback", "Information dissemination", "Processing"],
         correct: 2,
-        explanation: "Scapy is a powerful Python-based network packet manipulation tool used for creating, sending, capturing, and analyzing network packets."
-        },
-        {
-        question: "What does the acronym 'MSE' represent in machine learning evaluation metrics?",
-        options: [
-        "Mean Standard Error",
-        "Maximum Statistical Estimate",
-        "Mean Squared Error",
-        "Minimum Sample Estimate"
-        ],
-        correct: 2,
-        explanation: "MSE stands for Mean Squared Error, which measures the average of the squared differences between predicted values and actual values in regression models."
-        },
-        {
-        question: "In the context of log parsing, what does CSV stand for?",
-        options: [
-        "Computer System Variables",
-        "Comma-Separated Values",
-        "Central Storage Vault",
-        "Code Structure Validation"
-        ],
-        correct: 1,
-        explanation: "CSV stands for Comma-Separated Values, which is a file format used to store tabular data where values are separated by commas."
-        },
-        {
-        question: "Which machine learning algorithm is described as using the exponentially weighted moving average of squared gradients?",
-        options: [
-        "Adam",
-        "RMSprop",
-        "Adagrad",
-        "SGD"
-        ],
-        correct: 1,
-        explanation: "RMSprop uses the exponentially weighted moving average of the squared gradients to adapt the learning rate for each parameter."
-        },
-        {
-        question: "In Python, what does the modulus operator '%' return?",
-        options: [
-        "The quotient of division",
-        "The remainder after division",
-        "The absolute difference",
-        "The percentage value"
-        ],
-        correct: 1,
-        explanation: "The modulus operator '%' returns the remainder after division of two numbers."
-        },
-        {
-        question: "What does 'DBSCAN' stand for in clustering algorithms?",
-        options: [
-        "Database Scanning Clustering Algorithm",
-        "Density-Based Spatial Clustering of Applications with Noise",
-        "Dynamic Binary Search Clustering Analysis Network",
-        "Distributed Bayesian Statistical Clustering Analysis"
-        ],
-        correct: 1,
-        explanation: "DBSCAN stands for Density-Based Spatial Clustering of Applications with Noise, a clustering algorithm mentioned in the document."
-        },
-        {
-        question: "Which component of Intelligence Systems transforms data into a suitable format for analysis?",
-        options: [
-        "Data Collection",
-        "Data Processing",
-        "Data Analysis",
-        "Feedback Mechanism"
-        ],
-        correct: 1,
-        explanation: "Data Processing is the component that transforms collected data into a format suitable for analysis."
-        },
-        {
-        question: "In machine learning, what does 'bias' typically refer to in the context of model fairness?",
-        options: [
-        "The model's prediction accuracy",
-        "Unfair treatment of certain groups in data",
-        "The speed of model training",
-        "The complexity of the algorithm"
-        ],
-        correct: 1,
-        explanation: "Bias in machine learning refers to unfair treatment or discrimination against certain groups, often learned from biased training data."
-        },
-        {
-        question: "What does the 'shape' attribute return in Pandas DataFrames?",
-        options: [
-        "The column names",
-        "The data types of columns",
-        "The dimensions (rows, columns) of the DataFrame",
-        "The memory usage of the DataFrame"
-        ],
-        correct: 2,
-        explanation: "The 'shape' attribute returns the dimensions of the DataFrame as a tuple of (number of rows, number of columns)."
-        },
-        {
-        question: "Which machine learning technique is specifically mentioned for spam email filtering?",
-        options: [
-        "Linear Regression",
-        "Naive Bayes",
-        "K-Means Clustering",
-        "Principal Component Analysis"
-        ],
-        correct: 1,
-        explanation: "Naive Bayes is mentioned as being widely used for text classification and spam filtering tasks."
-        },
-        {
-        question: "In digital forensics, what does 'chain of custody' refer to?",
-        options: [
-        "The encryption method used",
-        "The documented handling of evidence",
-        "The type of storage device",
-        "The analysis software used"
-        ],
-        correct: 1,
-        explanation: "Chain of custody refers to the documented process of handling digital evidence to maintain its integrity and legal admissibility."
-        },
-        {
-        question: "What does 'ETL' commonly stand for in data processing?",
-        options: [
-        "Extract, Transform, Load",
-        "Evaluate, Test, Learn",
-        "Encode, Transmit, Log",
-        "Execute, Track, Locate"
-        ],
+        explanation: "Information dissemination delivers analysis results through reports or dashboards."
+    },
+    {
+        question: "Which digital forensic tool creates disk images?",
+        options: ["FTK Imager", "Scapy", "NumPy", "Volatility"],
         correct: 0,
-        explanation: "ETL stands for Extract, Transform, Load - a common data processing workflow for moving data between systems."
-        },
-        {
-        question: "Which Python library is mentioned for processing CSVs in the forensics context?",
-        options: [
-        "NumPy",
-        "Matplotlib",
-        "Papaparse",
-        "Scikit-learn"
-        ],
+        explanation: "FTK Imager is commonly used for creating disk images."
+    },
+    {
+        question: "What is the main role of Data Analysis in Intelligence Systems?",
+        options: ["Collecting raw information", "Transforming raw data", "Finding patterns and insights", "Sharing reports"],
         correct: 2,
-        explanation: "Papaparse is mentioned as a library for processing CSVs, with options like dynamicTyping and skipEmptyLines for robust parsing."
-        },
-        {
-        question: "In machine learning, what does 'regularization' primarily help prevent?",
-        options: [
-        "Slow training speed",
-        "Overfitting",
-        "Data corruption",
-        "Memory overflow"
-        ],
+        explanation: "Data Analysis identifies patterns and insights from processed data."
+    },
+    {
+        question: "Which Python method writes data to a file?",
+        options: ["print()", "input()", "write()", "append()"],
+        correct: 2,
+        explanation: "The write() method writes data to an opened file."
+    },
+    {
+        question: "In Intelligence Systems, what can bias in data interpretation cause?",
+        options: ["Accurate results", "Efficient systems", "Misleading conclusions", "Faster algorithms"],
+        correct: 2,
+        explanation: "Bias in data interpretation can lead to misleading conclusions."
+    },
+    {
+        question: "Which Python function closes an open file?",
+        options: ["end()", "close()", "finish()", "stop()"],
         correct: 1,
-        explanation: "Regularization techniques like Ridge and Lasso help prevent overfitting by adding penalty terms to the model."
-        },
-        {
-        question: "What does the '.decode()' method do in Python when working with bytes?",
-        options: [
-        "Encrypts the data",
-        "Converts bytes to string",
-        "Compresses the data",
-        "Validates the format"
-        ],
+        explanation: "The close() function closes an open file."
+    },
+    {
+        question: "Which intelligence system application involves predicting disease outbreaks?",
+        options: ["Finance", "Healthcare", "Education", "Transportation"],
         correct: 1,
-        explanation: "The .decode() method converts bytes data to string format, often used in forensics to reveal readable content from binary data."
-        },
-        {
-        question: "Which intelligence system application involves personalized learning and adaptive tutoring?",
-        options: [
-        "Healthcare",
-        "Education",
-        "Finance",
-        "Manufacturing"
-        ],
+        explanation: "Healthcare intelligence systems predict disease outbreaks and aid in diagnosis."
+    },
+    {
+        question: "Which library is used in Python for packet crafting and analysis?",
+        options: ["NumPy", "Scapy", "Pandas", "os"],
         correct: 1,
-        explanation: "Education applications use intelligent systems for personalized learning, student assessment, adaptive tutoring, and content recommendation."
-        },
-        {
-        question: "What does 'L-BFGS' stand for in optimization algorithms?",
-        options: [
-        "Limited-memory Broyden-Fletcher-Goldfarb-Shanno",
-        "Linear-Bounded Fast Gradient Search",
-        "Large-Batch Feature Gradient System",
-        "Localized-Binary Fast Gradient Solver"
-        ],
+        explanation: "Scapy is used for packet crafting and network analysis."
+    },
+    {
+        question: "Which Python data type is ordered and mutable?",
+        options: ["List", "Tuple", "Set", "Dictionary"],
         correct: 0,
-        explanation: "L-BFGS stands for Limited-memory Broyden-Fletcher-Goldfarb-Shanno, a limited-memory algorithm for large-scale optimization."
-        },
-        {
-        question: "In Python file operations, what does the 'w' mode do when opening a file?",
-        options: [
-        "Reads the file",
-        "Writes to the file (overwrites existing content)",
-        "Appends to the file",
-        "Creates a backup of the file"
-        ],
-        correct: 1,
-        explanation: "The 'w' mode opens a file for writing and overwrites any existing content in the file."
-        },
-        {
-        question: "Which machine learning evaluation metric is described as the harmonic mean of precision and recall?",
-        options: [
-        "Accuracy",
-        "F1 Score",
-        "ROC-AUC",
-        "R-squared"
-        ],
-        correct: 1,
-        explanation: "F1 Score is specifically described as the harmonic mean of precision and recall, providing a balance between the two metrics."
-        },
-        {
-        question: "What does 'UTF-8' represent in character encoding?",
-        options: [
-        "Universal Text Format 8-bit",
-        "Unicode Transformation Format 8-bit",
-        "Unified Type Framework 8",
-        "Universal Transfer Format 8"
-        ],
-        correct: 1,
-        explanation: "UTF-8 stands for Unicode Transformation Format 8-bit, a character encoding standard mentioned in the forensics context."
-        },
-        {
-        question: "In the context of parsing logs, what does 'dynamicTyping' option in Papaparse do?",
-        options: [
-        "Changes the file format",
-        "Automatically converts data types",
-        "Validates the CSV structure",
-        "Encrypts sensitive data"
-        ],
-        correct: 1,
-        explanation: "The dynamicTyping option in Papaparse automatically converts string data to appropriate data types (numbers, booleans) during CSV parsing."
-        },
-        {
-        question: "Which machine learning algorithm is mentioned as being inspired by the human brain structure?",
-        options: [
-        "Decision Trees",
-        "Support Vector Machines",
-        "Neural Networks",
-        "K-Nearest Neighbors"
-        ],
+        explanation: "Lists are ordered collections of items and are mutable."
+    },
+    {
+        question: "What is the future trend in Intelligence Systems?",
+        options: ["Weaker AI integration", "Ignoring ethics", "Greater AI/ML integration with ethics", "Less automation"],
         correct: 2,
-        explanation: "Neural Networks are described as being inspired by the structure and function of the human brain, consisting of interconnected layers of nodes."
-        },
-        {
-        question: "What does 'IoC' commonly stand for in cybersecurity context?",
-        options: [
-        "Internet of Computers",
-        "Indicators of Compromise",
-        "Internal Operations Control",
-        "Integrated Operational Center"
-        ],
-        correct: 1,
-        explanation: "IoC stands for Indicators of Compromise, which are artifacts that suggest a security incident or breach has occurred."
-        },
-        {
-        question: "In Python, what does the 'pd.to_datetime()' function do?",
-        options: [
-        "Creates a new date",
-        "Converts strings to datetime objects",
-        "Formats datetime for display",
-        "Calculates time differences"
-        ],
-        correct: 1,
-        explanation: "The pd.to_datetime() function converts string representations of dates and times to pandas datetime objects for analysis."
-        },
-        {
-        question: "Which challenge in machine learning involves dealing with inconsistent data?",
-        options: [
-        "Overfitting",
-        "Data Quality",
-        "Computational Complexity",
-        "Interpretability"
-        ],
-        correct: 1,
-        explanation: "Data Quality is mentioned as a challenge involving dealing with inconsistent or inaccurate data that can affect the reliability of insights."
-        },
-        {
-        question: "What does 'API endpoint' typically refer to?",
-        options: [
-        "The end of a program",
-        "A specific URL where API requests are sent",
-        "The final output of an algorithm",
-        "A type of database connection"
-        ],
-        correct: 1,
-        explanation: "An API endpoint is a specific URL where API requests are sent to access particular functions or data from a service."
-        },
-        {
-        question: "In machine learning, what does 'gradient descent' aim to minimize?",
-        options: [
-        "Training time",
-        "Model complexity",
-        "The loss function",
-        "Memory usage"
-        ],
+        explanation: "Future intelligence systems will integrate AI/ML with strong focus on ethics."
+    },
+    {
+        question: "Which Python keyword defines a function?",
+        options: ["function", "define", "def", "func"],
         correct: 2,
-        explanation: "Gradient descent is an optimization algorithm that aims to minimize a function (typically the loss function) by iteratively moving in the direction of steepest descent."
-        },
-        {
-        question: "Which Python data structure is described as storing key-value pairs?",
-        options: [
-        "List",
-        "Tuple",
-        "Dictionary",
-        "Set"
-        ],
-        correct: 2,
-        explanation: "Dictionaries in Python store key-value pairs, as shown in the example {\"name\": \"Alice\", \"age\": 25}."
-        },
-        {
-        question: "What does 'malware' stand for?",
-        options: [
-        "Malicious Software",
-        "Machine Learning Ware",
-        "Managed Local Ware",
-        "Multiple Access Ware"
-        ],
+        explanation: "Functions in Python are defined using the 'def' keyword."
+    },
+    {
+        question: "Which Python library is used for efficient mathematical computations on arrays?",
+        options: ["NumPy", "Scapy", "Pandas", "Volatility"],
         correct: 0,
-        explanation: "Malware stands for Malicious Software, referring to software designed to harm or exploit computer systems."
-        },
-        {
-        question: "In the BMI calculator, what does a BMI of 30.0 and above indicate?",
-        options: [
-        "Underweight",
-        "Normal weight",
-        "Overweight",
-        "Obesity"
-        ],
+        explanation: "NumPy provides efficient mathematical computations on arrays."
+    },
+    {
+        question: "In log parsing, what does regex stand for?",
+        options: ["Regular Execution", "Regular Expression", "Regional Exchange", "Random Extraction"],
+        correct: 1,
+        explanation: "Regex stands for Regular Expression, used for text pattern matching in logs."
+    },
+    {
+        question: "Which file system is developed by Microsoft with features like encryption and permissions?",
+        options: ["FAT32", "NTFS", "HFS+", "APFS"],
+        correct: 1,
+        explanation: "NTFS (New Technology File System) includes permissions, compression, and encryption."
+    },
+    {
+        question: "What do forensic investigators commonly filter in Apache logs to detect suspicious activity?",
+        options: ["200 and 301", "404 and 500", "201 and 401", "302 and 403"],
+        correct: 1,
+        explanation: "Status codes 404 and 500 may indicate probing or exploitation attempts."
+    },
+    {
+        question: "Which Python function is used to convert log timestamp strings into datetime objects?",
+        options: ["datetime.parse()", "pd.to_datetime()", "time.convert()", "date.cast()"],
+        correct: 1,
+        explanation: "pd.to_datetime() converts string representations of dates into datetime objects."
+    },
+    {
+        question: "What does APFS stand for in Apple systems?",
+        options: ["Apple Partition File System", "Advanced Protected File System", "Apple File System", "Adaptive Processing File System"],
+        correct: 2,
+        explanation: "APFS stands for Apple File System, optimized for flash storage with snapshots."
+    },
+    {
+        question: "Which log parsing technique is best for unstructured text?",
+        options: ["Splitting", "Regex", "JSON parsing", "XML parsing"],
+        correct: 1,
+        explanation: "Regex is best suited for unstructured text pattern matching."
+    },
+    {
+        question: "Which file system is common on USB drives and offers wide compatibility?",
+        options: ["NTFS", "HFS+", "FAT32", "APFS"],
+        correct: 2,
+        explanation: "FAT32 is commonly used for USB drives due to its wide compatibility."
+    },
+    {
+        question: "Which command-line tool is often used to create raw disk images in forensics?",
+        options: ["dd", "ls", "cat", "mv"],
+        correct: 0,
+        explanation: "The 'dd' tool is used to create raw disk images in forensic investigations."
+    },
+    {
+        question: "Which Python library is often used with CSV log files for parsing?",
+        options: ["NumPy", "pandas", "Scapy", "math"],
+        correct: 1,
+        explanation: "Pandas can easily load and manipulate CSV-formatted logs."
+    },
+    {
+        question: "Which forensic artifact might reveal user browsing history?",
+        options: ["RAM dump", "Web browser cache", "System logs", "File system metadata"],
+        correct: 1,
+        explanation: "Browser cache and history files contain records of user browsing activity."
+    },
+    {
+        question: "What is the main advantage of NTFS over FAT32?",
+        options: ["Speed", "File size and permission support", "Better compression", "Compatibility"],
+        correct: 1,
+        explanation: "NTFS supports larger file sizes and granular file permissions."
+    },
+    {
+        question: "What is the purpose of hashing in forensic imaging?",
+        options: ["To encrypt data", "To compress files", "To verify integrity", "To parse logs"],
+        correct: 2,
+        explanation: "Hashing ensures integrity of forensic images by verifying they haven’t changed."
+    },
+    {
+        question: "Which Linux command displays file metadata such as last access time?",
+        options: ["ls -l", "stat", "df -h", "ps"],
+        correct: 1,
+        explanation: "The 'stat' command shows detailed file metadata including access times."
+    },
+    {
+        question: "In forensic investigations, what does chain of custody ensure?",
+        options: ["Data encryption", "Integrity and legal admissibility", "Faster analysis", "File recovery"],
+        correct: 1,
+        explanation: "Chain of custody ensures evidence integrity and admissibility in court."
+    },
+    {
+        question: "Which pandas function removes duplicate entries in log data?",
+        options: ["dropna()", "drop_duplicates()", "remove()", "unique()"],
+        correct: 1,
+        explanation: "drop_duplicates() removes duplicate rows in a pandas DataFrame."
+    },
+    {
+        question: "Which type of parsing is used for JSON logs?",
+        options: ["XML parsing", "Structured parsing", "Text splitting", "Regex"],
+        correct: 1,
+        explanation: "Structured parsing with JSON libraries is used for JSON logs."
+    },
+    {
+        question: "Which file system feature helps recover from crashes by journaling changes?",
+        options: ["APFS snapshots", "FAT32 simplicity", "NTFS journaling", "RAM recovery"],
+        correct: 2,
+        explanation: "NTFS journaling helps recover from crashes by recording pending changes."
+    },
+    {
+        question: "Which forensic imaging tool is widely used to preview and capture data?",
+        options: ["FTK Imager", "Wireshark", "Volatility", "tcpdump"],
+        correct: 0,
+        explanation: "FTK Imager is a popular tool for capturing forensic images."
+    },
+    {
+        question: "What is log normalization in forensics?",
+        options: ["Standardizing log formats", "Deleting logs", "Encrypting logs", "Visualizing logs"],
+        correct: 0,
+        explanation: "Log normalization standardizes log formats for easier comparison and analysis."
+    },
+    {
+        question: "Which Python library is best for numerical computation on logs?",
+        options: ["pandas", "NumPy", "scikit-learn", "os"],
+        correct: 1,
+        explanation: "NumPy is efficient for numerical computation on large datasets like logs."
+    },
+    {
+        question: "Which tool is commonly used for network packet capture in forensic analysis?",
+        options: ["Volatility", "Wireshark", "FTK Imager", "Scapy"],
+        correct: 1,
+        explanation: "Wireshark captures and analyzes network packets for forensic purposes."
+    },
+    {
+        question: "What does base64 decoding help with in forensic log analysis?",
+        options: ["Encrypt data", "Obfuscate traffic", "Convert encoded data to readable form", "Group logs"],
+        correct: 2,
+        explanation: "Base64 decoding converts encoded text back into readable form."
+    },
+    {
+        question: "Which Python module is used for working with operating system paths in log analysis?",
+        options: ["math", "os", "sys", "pandas"],
+        correct: 1,
+        explanation: "The os module is used for file and directory path manipulations."
+    },
+    {
+        question: "Why is time synchronization important in forensic log analysis?",
+        options: ["To compress data", "To correlate events across systems", "To speed up parsing", "To secure logs"],
+        correct: 1,
+        explanation: "Time synchronization ensures accurate correlation of events across systems."
+    },
+    {
+        question: "Which file system replaced HFS+ in modern macOS?",
+        options: ["FAT32", "NTFS", "APFS", "ext4"],
+        correct: 2,
+        explanation: "APFS replaced HFS+ as the modern macOS file system."
+    },
+    {
+        question: "Which forensic process involves extracting human-readable data from binary?",
+        options: ["Imaging", "Decoding", "Hashing", "Filtering"],
+        correct: 1,
+        explanation: "Decoding extracts human-readable information from binary data."
+    },
+    {
+        question: "Which pandas function provides statistical summaries of log data?",
+        options: ["info()", "head()", "describe()", "tail()"],
+        correct: 2,
+        explanation: "describe() provides statistical summaries such as mean and std."
+    },
+    {
+        question: "Which forensic artifact can reveal installed programs on a system?",
+        options: ["Registry", "Browser cache", "RAM dump", "Auth log"],
+        correct: 0,
+        explanation: "The Windows Registry reveals installed software and configurations."
+    },
+    {
+        question: "Which log parsing technique is best for structured CSV logs?",
+        options: ["Regex", "Splitting", "pandas CSV parser", "Hex decoding"],
+        correct: 2,
+        explanation: "Pandas CSV parser efficiently loads structured CSV logs."
+    },
+    {
+        question: "Which type of log may contain HTTP requests and responses?",
+        options: ["Application logs", "Web server logs", "System logs", "Registry logs"],
+        correct: 1,
+        explanation: "Web server logs contain HTTP requests and responses."
+    },
+    {
+        question: "Which forensic process ensures logs are preserved in original form?",
+        options: ["Copying", "Hashing", "Preservation", "Normalization"],
+        correct: 2,
+        explanation: "Preservation ensures logs remain unchanged for admissibility."
+    },
+    {
+        question: "Which file system is most common on Linux systems?",
+        options: ["FAT32", "ext4", "NTFS", "APFS"],
+        correct: 1,
+        explanation: "ext4 is the most common Linux file system."
+    },
+    {
+        question: "Which Python regex method finds all matches in a log string?",
+        options: ["search()", "findall()", "match()", "group()"],
+        correct: 1,
+        explanation: "findall() returns all matches of a regex pattern in a string."
+    },
+    {
+        question: "Which forensic analysis focuses on volatile data in RAM?",
+        options: ["Disk forensics", "Network forensics", "Memory forensics", "File system forensics"],
+        correct: 2,
+        explanation: "Memory forensics analyzes volatile data in RAM."
+    },
+    {
+        question: "Which pandas function filters logs based on condition?",
+        options: ["loc[]", "groupby()", "describe()", "dropna()"],
+        correct: 0,
+        explanation: "loc[] filters rows based on condition in pandas."
+    },
+    {
+        question: "Which tool captures live RAM content for analysis?",
+        options: ["dd", "FTK Imager", "WinPMEM", "Scapy"],
+        correct: 2,
+        explanation: "WinPMEM captures live RAM for forensic analysis."
+    },
+    {
+        question: "Which encoding is often found in phishing emails and must be decoded?",
+        options: ["Hex", "Base64", "UTF-8", "ASCII"],
+        correct: 1,
+        explanation: "Base64 encoding is often used in phishing emails to hide payloads."
+    },
+    {
+        question: "Which forensic principle requires documentation of every evidence handler?",
+        options: ["Chain of custody", "Normalization", "Preservation", "Acquisition"],
+        correct: 0,
+        explanation: "Chain of custody documents every handler of the evidence."
+    },
+    {
+        question: "Which forensic analysis examines deleted but recoverable files?",
+        options: ["Registry analysis", "Slack space analysis", "Log analysis", "Network analysis"],
+        correct: 1,
+        explanation: "Slack space analysis can reveal deleted but recoverable files."
+    },
+    {
+        question: "Which file system uses inodes to track files?",
+        options: ["ext4", "NTFS", "APFS", "FAT32"],
+        correct: 0,
+        explanation: "ext4 uses inodes to track files and metadata."
+    },
+    {
+        question: "Which log file type contains messages about hardware and kernel events in Linux?",
+        options: ["auth.log", "dmesg", "syslog", "boot.log"],
+        correct: 1,
+        explanation: "dmesg contains messages related to hardware and kernel events."
+    },
+    {
+        question: "Which forensic analysis technique involves timeline reconstruction?",
+        options: ["Log parsing", "File carving", "Timeline analysis", "Disk imaging"],
+        correct: 2,
+        explanation: "Timeline analysis reconstructs events over time for investigation."
+    },
+    {
+        question: "Which pandas method shows the first few log records?",
+        options: ["tail()", "info()", "describe()", "head()"],
         correct: 3,
-        explanation: "According to the BMI categorization in the document, a BMI of 30.0 and above indicates obesity."
-        },
-        {
-        question: "What does 'NaN' represent in data analysis?",
-        options: [
-        "Name and Number",
-        "Not a Number",
-        "New Array Node",
-        "Null and None"
-        ],
-        correct: 1,
-        explanation: "NaN stands for 'Not a Number', used to represent missing or undefined numerical values in data analysis."
-        },
-        {
-        question: "Which machine learning technique involves building models sequentially where each corrects previous errors?",
-        options: [
-        "Random Forest",
-        "Gradient Boosting",
-        "K-Means",
-        "PCA"
-        ],
-        correct: 1,
-        explanation: "Gradient Boosting builds a series of weak learners in a sequential manner, where each subsequent model corrects the errors made by the previous one."
-        },
-        {
-        question: "In Python, what does the 'import' statement do?",
-        options: [
-        "Creates new variables",
-        "Downloads files from internet",
-        "Makes external code available in the current program",
-        "Exports data to files"
-        ],
+        explanation: "head() shows the first few rows of data in pandas."
+    },
+    {
+        question: "Which forensic analysis captures all network traffic for later review?",
+        options: ["Memory forensics", "Disk forensics", "Full packet capture", "Slack space analysis"],
         correct: 2,
-        explanation: "The 'import' statement makes external modules, libraries, or code available for use in the current Python program."
-        },
-        {
-        question: "What does 'SQL injection' refer to in cybersecurity?",
-        options: [
-        "Adding SQL commands to databases",
-        "A type of database optimization",
-        "Malicious code inserted into SQL queries",
-        "A method of data backup"
-        ],
-        correct: 2,
-        explanation: "SQL injection is a security vulnerability where malicious SQL code is inserted into application queries to manipulate the database."
-        },
-        {
-        question: "Which intelligence system component uses algorithms and statistical methods to uncover patterns?",
-        options: [
-        "Data Collection",
-        "Data Processing",
-        "Data Analysis",
-        "Information Dissemination"
-        ],
-        correct: 2,
-        explanation: "Data Analysis involves analyzing data using algorithms and statistical methods to uncover patterns, trends, and insights."
-        },
-        {
-        question: "What does 'IDE' stand for in programming?",
-        options: [
-        "Internet Development Environment",
-        "Integrated Development Environment",
-        "Interactive Design Editor",
-        "Internal Data Engine"
-        ],
+        explanation: "Full packet capture saves all network traffic for forensic review."
+    },
+    {
+        question: "Which log parsing challenge arises from multiple systems in different time zones?",
+        options: ["Encoding issues", "Time synchronization", "Format diversity", "Hash collisions"],
         correct: 1,
-        explanation: "IDE stands for Integrated Development Environment, a software application providing comprehensive facilities for software development."
-        },
-        {
-        question: "In machine learning, what is the main purpose of train-test split?",
-        options: [
-        "To increase dataset size",
-        "To evaluate model performance on unseen data",
-        "To speed up training",
-        "To reduce memory usage"
-        ],
+        explanation: "Different time zones require synchronization for accurate analysis."
+    },
+    {
+        question: "Which forensic image format compresses and adds metadata?",
+        options: ["Raw (dd)", "E01", "VHD", "ISO"],
         correct: 1,
-        explanation: "Train-test split is used to evaluate how well a model generalizes to unseen data by testing it on data not used during training."
-        },
-        {
-        question: "What does the 'columns' attribute return in Pandas DataFrames?",
-        options: [
-        "The number of columns",
-        "The column labels/names",
-        "The column data types",
-        "The column statistics"
-        ],
+        explanation: "E01 images compress data and include metadata like case details."
+    },
+    {
+        question: "Which file system is default on Windows 10?",
+        options: ["FAT32", "NTFS", "APFS", "ext4"],
         correct: 1,
-        explanation: "The 'columns' attribute returns the column labels/names of the DataFrame."
-        },
-        {
-        question: "Which Python operator is used for exponentiation?",
-        options: [
-        "^",
-        "**",
-        "pow",
-        "exp"
-        ],
-        correct: 1,
-        explanation: "The '**' operator is used for exponentiation in Python (e.g., 2**3 equals 8)."
-        },
-        {
-        question: "What does 'phishing' refer to in cybersecurity?",
-        options: [
-        "A type of network protocol",
-        "Fraudulent attempts to obtain sensitive information",
-        "A method of data encryption",
-        "A database query technique"
-        ],
-        correct: 1,
-        explanation: "Phishing refers to fraudulent attempts to obtain sensitive information like passwords or credit card details by impersonating trustworthy entities."
-        },
-        {
-        question: "In machine learning, what does 'cross-validation' help assess?",
-        options: [
-        "Model complexity",
-        "Model generalization performance",
-        "Training speed",
-        "Memory requirements"
-        ],
-        correct: 1,
-        explanation: "Cross-validation helps assess how well a model generalizes to new data by testing it on multiple different subsets of the available data."
-        },
-        {
-        question: "What does 'regex' stand for in text processing?",
-        options: [
-        "Regular Expression",
-        "Registered Execution",
-        "Recursive Exchange",
-        "Regional Extension"
-        ],
+        explanation: "NTFS is the default file system for Windows 10."
+    },
+    {
+        question: "Which forensic analysis term refers to extracting usable data from damaged files?",
+        options: ["File carving", "Decoding", "Timeline analysis", "Preservation"],
         correct: 0,
-        explanation: "Regex stands for Regular Expression, a sequence of characters that define a search pattern for text processing."
-        },
-        {
-        question: "Which intelligence system application involves fraud detection and risk assessment?",
-        options: [
-        "Healthcare",
-        "Education",
-        "Finance",
-        "Agriculture"
-        ],
-        correct: 2,
-        explanation: "Finance applications use intelligence systems for fraud detection, risk assessment, and investment decisions."
-        },
-        {
-        question: "In Python, what does the 'len()' function return?",
-        options: [
-        "The memory size of an object",
-        "The number of elements in an object",
-        "The data type of an object",
-        "The processing time for an object"
-        ],
-        correct: 1,
-        explanation: "The len() function returns the number of elements (length) in an object like a list, string, or dictionary."
-        },
-        {
-        question: "What does 'DDoS' stand for in cybersecurity?",
-        options: [
-        "Direct Denial of Service",
-        "Distributed Denial of Service",
-        "Dynamic Domain Service",
-        "Data Distribution Service"
-        ],
-        correct: 1,
-        explanation: "DDoS stands for Distributed Denial of Service, an attack that attempts to make a service unavailable by overwhelming it with traffic from multiple sources."
-        },
-        {
-        question: "Which machine learning algorithm is mentioned for handwriting recognition tasks?",
-        options: [
-        "Random Forest",
-        "Linear Discriminant Analysis",
-        "Naive Bayes",
-        "K-Means"
-        ],
-        correct: 1,
-        explanation: "Linear Discriminant Analysis (LDA) is mentioned as being used for handwriting recognition on postal envelopes to classify zip codes."
-        },
-        {
-        question: "What does 'TCP' stand for in networking?",
-        options: [
-        "Total Connection Protocol",
-        "Transmission Control Protocol",
-        "Transfer Communication Protocol",
-        "Terminal Control Process"
-        ],
-        correct: 1,
-        explanation: "TCP stands for Transmission Control Protocol, a core protocol of the Internet Protocol Suite used for reliable data transmission."
-        },
-        {
-        question: "In machine learning, what does 'hyperparameter tuning' involve?",
-        options: [
-        "Adjusting model parameters during training",
-        "Optimizing parameters that control the learning process",
-        "Increasing the dataset size",
-        "Reducing model complexity"
-        ],
-        correct: 1,
-        explanation: "Hyperparameter tuning involves optimizing parameters that control the learning process (like learning rate, regularization strength) rather than parameters learned from data."
-        },
-        {
-        question: "What does the 'info()' method provide in Pandas?",
-        options: [
-        "Statistical summaries",
-        "A concise summary of the DataFrame structure",
-        "Column correlations",
-        "Missing value counts only"
-        ],
-        correct: 1,
-        explanation: "The info() method provides a concise summary of the DataFrame including data types, non-null counts, and memory usage."
-        },
-        {
-        question: "Which Python data type is mutable and allows duplicate values?",
-        options: [
-        "Tuple",
-        "Set",
-        "List",
-        "String"
-        ],
-        correct: 2,
-        explanation: "Lists in Python are mutable (can be changed) and allow duplicate values, unlike tuples (immutable) or sets (no duplicates)."
-        },
-        {
-        question: "What does 'VPN' stand for in network security?",
-        options: [
-        "Virtual Private Network",
-        "Verified Protection Network",
-        "Variable Processing Node",
-        "Visual Programming Network"
-        ],
+        explanation: "File carving extracts usable data from damaged or deleted files."
+    },
+    {
+        question: "Which log analysis step involves focusing only on anomalies?",
+        options: ["Filtering", "Normalization", "Hashing", "Preservation"],
         correct: 0,
-        explanation: "VPN stands for Virtual Private Network, a secure connection method used to provide encrypted communication over public networks."
-        },
-        {
-        question: "In the context of intelligence systems, what does real-time data analysis enable organizations to do?",
-        options: [
-        "Reduce data storage costs",
-        "Stay ahead of competition and adapt quickly",
-        "Eliminate human decision-making",
-        "Simplify data collection processes"
-        ],
-        correct: 1,
-        explanation: "Real-time data analysis enables organizations to stay ahead of competition and adapt to changing market conditions quickly."
-        },
-        {
-        question: "What does 'URL' stand for?",
-        options: [
-        "Universal Resource Locator",
-        "Uniform Resource Locator",
-        "Universal Reference Link",
-        "Unified Resource Library"
-        ],
-        correct: 1,
-        explanation: "URL stands for Uniform Resource Locator, a reference to a web resource that specifies its location on a computer network."
-        },
-        {
-        question: "Which machine learning concept involves the model learning from its mistakes iteratively?",
-        options: [
-        "Supervised Learning",
-        "Unsupervised Learning",
-        "Reinforcement Learning",
-        "Transfer Learning"
-        ],
+        explanation: "Filtering reduces noise by focusing only on relevant anomalies."
+    },
+    {
+        question: "Which forensic method extracts hidden data within slack space?",
+        options: ["Timeline analysis", "File carving", "Slack space analysis", "Log filtering"],
         correct: 2,
-        explanation: "Reinforcement Learning involves the model learning from its mistakes through trial and error, receiving feedback to improve performance iteratively."
-        }, 
-        {
-        question: "It is described as finding the optimal hyperplane to separate data points?",
-        options: [
-        "Decision Trees",
-        "K-Nearest Neighbors",
-        "Support Vector Machines",
-        "Linear Regression"
-        ],
-        correct: 2,
-        explanation: "Support Vector Machines (SVM) work by finding the optimal hyperplane that best separates data points into different classes."
+        explanation: "Slack space analysis examines unused space in file clusters for hidden or residual data."
         },
         {
-        question: "What type of machine learning algorithm is Logistic Regression mainly used for?",
-        options: [
-        "Regression tasks",
-        "Classification tasks",
-        "Clustering tasks",
-        "Dimensionality reduction"
-        ],
+        question: "Which log often records system startup and shutdown events?",
+        options: ["auth.log", "boot.log", "syslog", "kern.log"],
         correct: 1,
-        explanation: "Logistic Regression is commonly used for classification tasks, such as predicting whether an email is spam or not."
+        explanation: "boot.log records startup and shutdown events in many systems."
         },
         {
-        question: "Which type of learning analyzes unlabeled data to find hidden structures?",
-        options: [
-        "Supervised Learning",
-        "Unsupervised Learning",
-        "Reinforcement Learning",
-        "Transfer Learning"
-        ],
+        question: "Which encoding scheme is often found in web server logs for URLs?",
+        options: ["UTF-16", "URL encoding (percent encoding)", "Base64", "Hex"],
         correct: 1,
-        explanation: "Unsupervised learning works with unlabeled data to find patterns, clusters, or groupings without predefined categories."
+        explanation: "URL encoding replaces unsafe ASCII characters with '%' followed by two hex digits."
         },
         {
-        question: "Which optimization technique adjusts weights to minimize a loss function in machine learning models?",
-        options: [
-        "Gradient Descent",
-        "Random Forest",
-        "PCA",
-        "Decision Trees"
-        ],
+        question: "Which forensic imaging principle ensures that analysis is performed on a copy, not the original?",
+        options: ["Write-blocking", "Hashing", "Compression", "Encryption"],
         correct: 0,
-        explanation: "Gradient Descent is an optimization algorithm that updates weights iteratively to minimize a loss function."
+        explanation: "Write-blocking ensures the original evidence is not altered during acquisition."
         },
         {
-        question: "Which machine learning algorithm reduces the dimensionality of datasets while retaining variance?",
-        options: [
-        "Logistic Regression",
-        "Principal Component Analysis",
-        "K-Means Clustering",
-        "Naive Bayes"
-        ],
+        question: "Why do forensic investigators create hash values before and after imaging?",
+        options: ["To compress images", "To verify evidence integrity", "To normalize logs", "To speed up analysis"],
         correct: 1,
-        explanation: "Principal Component Analysis (PCA) reduces dimensionality by transforming data into new variables (principal components)."
+        explanation: "Hash values before and after imaging confirm that evidence has not been altered."
         },
-        {
-        question: "In a KNN algorithm, what does the parameter 'k' represent?",
-        options: [
-        "The learning rate",
-        "The number of clusters",
-        "The number of nearest neighbors to check",
-        "The size of the dataset"
-        ],
-        correct: 2,
-        explanation: "In KNN, 'k' is the number of nearest neighbors considered when predicting a class label."
-        },
-        {
-        question: "Which challenge of intelligence systems refers to human mistakes in interpreting results?",
-        options: [
-        "Data Quality Issues",
-        "Interpretation Bias",
-        "Overfitting",
-        "Data Privacy"
-        ],
-        correct: 1,
-        explanation: "Interpretation Bias occurs when human analysts misinterpret or bring personal bias into analyzing system outputs."
-        },
-        {
-        question: "Which future trend emphasizes combining AI, machine learning, and big data analytics?",
-        options: [
-        "Improved file systems",
-        "Green computing",
-        "Integration of AI and Big Data",
-        "Enhanced memory forensics"
-        ],
-        correct: 2,
-        explanation: "Future intelligence systems will integrate AI, machine learning, and big data for more accurate, real-time insights."
-        },
-        {
-        question: "Which intelligence system application focuses on route optimization and predictive maintenance?",
-        options: [
-        "Transportation",
-        "Finance",
-        "Healthcare",
-        "Marketing"
-        ],
+    {
+        question: "Which machine learning approach requires labeled data?",
+        options: ["Supervised Learning", "Unsupervised Learning", "Reinforcement Learning", "Deep Learning"],
         correct: 0,
-        explanation: "Transportation applies intelligence systems to route optimization, traffic management, autonomous vehicles, and predictive maintenance."
-        },
-        {
-        question: "Which algorithm builds many decision trees and combines their results for stronger predictions?",
-        options: [
-        "Random Forest",
-        "Logistic Regression",
-        "Gradient Boosting",
-        "K-Means"
-        ],
+        explanation: "Supervised learning is trained on labeled datasets with known outcomes."
+    },
+    {
+        question: "K-Means clustering is an example of which type of learning?",
+        options: ["Supervised", "Unsupervised", "Reinforcement", "Semi-supervised"],
+        correct: 1,
+        explanation: "K-Means is an unsupervised algorithm that groups data based on similarity."
+    },
+    {
+        question: "What does overfitting mean in machine learning?",
+        options: ["Model captures noise instead of patterns", "Model fails to train", "Model processes too fast", "Model underuses data"],
         correct: 0,
-        explanation: "Random Forest is an ensemble learning method that aggregates multiple decision trees for improved accuracy and stability."
-        },
-        {
-        question: "Which intelligence system application enhances services through chatbots and virtual assistants?",
-        options: [
-        "Education",
-        "Customer Service",
-        "Cybersecurity",
-        "Smart Homes"
-        ],
+        explanation: "Overfitting means the model fits the training data too closely, failing to generalize."
+    },
+    {
+        question: "Naive Bayes is especially effective for what task?",
+        options: ["Image recognition", "Text classification", "Clustering", "Time series prediction"],
         correct: 1,
-        explanation: "Customer Service applications use chatbots, sentiment analysis, and automation to improve user experience."
-        },
-        {
-        question: "Which metric measures how much variance in a dependent variable is explained by a regression model?",
-        options: [
-        "Accuracy",
-        "F1 Score",
-        "R-squared",
-        "Precision"
-        ],
-        correct: 2,
-        explanation: "R-squared indicates how much of the variance in the dependent variable is explained by the model."
-        },
-        {
-        question: "What is one major concern about handling sensitive data in intelligence systems?",
-        options: [
-        "Data Privacy and Security",
-        "Model Interpretability",
-        "Algorithm Selection",
-        "File Compression"
-        ],
+        explanation: "Naive Bayes is widely used in text classification tasks such as spam filtering."
+    },
+    {
+        question: "Which evaluation metric is the harmonic mean of precision and recall?",
+        options: ["Accuracy", "F1 Score", "ROC-AUC", "R-squared"],
+        correct: 1,
+        explanation: "The F1 score balances precision and recall into one metric."
+    },
+    {
+        question: "Which algorithm finds a maximum-margin hyperplane to separate classes?",
+        options: ["Decision Tree", "Support Vector Machine", "Naive Bayes", "KNN"],
+        correct: 1,
+        explanation: "SVMs classify data by finding the maximum-margin hyperplane."
+    },
+    {
+        question: "Which algorithm uses majority voting among trees?",
+        options: ["Random Forest", "Gradient Boosting", "KNN", "Neural Networks"],
         correct: 0,
-        explanation: "Data Privacy and Security is a critical concern when handling sensitive or confidential information in intelligence systems."
-        },
-        {
-        question: "Which real-world intelligence system provides product suggestions by analyzing customer behavior?",
-        options: [
-        "Amazon Recommendation System",
-        "Google Search Algorithm",
-        "Volatility Framework",
-        "Military Intelligence"
-        ],
+        explanation: "Random Forest builds many trees and uses majority vote to decide."
+    },
+    {
+        question: "Which algorithm groups data based on density and labels outliers?",
+        options: ["K-Means", "DBSCAN", "Linear Regression", "Decision Tree"],
+        correct: 1,
+        explanation: "DBSCAN clusters dense data points and labels outliers separately."
+    },
+    {
+        question: "What is the goal of reinforcement learning?",
+        options: ["To cluster data", "To minimize error", "To maximize cumulative reward", "To classify labeled data"],
+        correct: 2,
+        explanation: "Reinforcement learning aims to maximize cumulative reward over time."
+    },
+    {
+        question: "Which optimization algorithm adjusts learning rates adaptively?",
+        options: ["Adam", "SGD", "Naive Bayes", "Random Forest"],
         correct: 0,
-        explanation: "Amazon's recommendation system analyzes purchase history and customer behavior to suggest relevant products."
-        },
-        {
-        question: "Which clustering algorithm identifies noise points while forming clusters based on density?",
-        options: [
-        "K-Means",
-        "DBSCAN",
-        "Hierarchical Clustering",
-        "Gaussian Mixtures"
-        ],
-        correct: 1,
-        explanation: "DBSCAN groups points based on density and can identify noise points that don’t belong to any cluster."
-        },
-        {
-        question: "Which intelligence system challenge involves inconsistent or inaccurate data affecting results?",
-        options: [
-        "Data Privacy",
-        "Overfitting",
-        "Data Quality Issues",
-        "Interpretation Bias"
-        ],
-        correct: 2,
-        explanation: "Data Quality challenges occur when poor data quality affects the accuracy and reliability of system insights."
-        },
-        {
-        question: "What does the 'k' represent in the K-Nearest Neighbors (KNN) algorithm?",
-        options: [
-        "The kernel function used",
-        "The number of clusters",
-        "The number of nearest neighbors to consider",
-        "The learning rate parameter"
-        ],
-        correct: 2,
-        explanation: "In KNN, 'k' represents the number of nearest neighbors to consider when making predictions for a new data point."
-        },
-        {
-        question: "Which file system is mentioned as being developed by Microsoft with features like file compression and encryption?",
-        options: [
-        "FAT32",
-        "HFS+",
-        "NTFS",
-        "APFS"
-        ],
-        correct: 2,
-        explanation: "NTFS (New Technology File System) is developed by Microsoft and includes features such as file compression, encryption, and permissions management."
-        },
-        {
-        question: "What is the primary difference between supervised and unsupervised learning?",
-        options: [
-        "Supervised learning uses more data than unsupervised learning",
-        "Supervised learning requires labeled data while unsupervised does not",
-        "Supervised learning is faster than unsupervised learning",
-        "Supervised learning only works with numerical data"
-        ],
-        correct: 1,
-        explanation: "Supervised learning involves training on labeled data where the algorithm learns to map inputs to known outputs, while unsupervised learning finds patterns in unlabeled data."
-        },
-        {
-        question: "In Python, which function is used to convert user input from string to integer?",
-        options: [
-        "str()",
-        "float()",
-        "int()",
-        "convert()"
-        ],
-        correct: 2,
-        explanation: "The int() function is used to convert a string to an integer in Python."
-        },
-        {
-        question: "What does the acronym 'ROC-AUC' stand for in machine learning evaluation?",
-        options: [
-        "Receiver Operating Characteristic - Area Under Curve",
-        "Random Output Classification - Accuracy Under Control",
-        "Regression Output Coefficient - Average Uncertainty Control",
-        "Relative Outcome Calculation - Automated Unit Conversion"
-        ],
+        explanation: "Adam is an optimizer that adapts learning rates based on past gradients."
+    },
+    {
+        question: "Which algorithm is commonly used for spam detection?",
+        options: ["Naive Bayes", "KNN", "Decision Tree", "SVM"],
         correct: 0,
-        explanation: "ROC-AUC stands for Receiver Operating Characteristic - Area Under the Curve, used to evaluate binary classification models."
-        },
-        {
-        question: "Which intelligence system application is mentioned for precision agriculture and crop monitoring?",
-        options: [
-        "Transportation",
-        "Healthcare",
-        "Agriculture",
-        "Finance"
-        ],
-        correct: 2,
-        explanation: "Agriculture uses intelligent systems for precision agriculture, crop monitoring, weather forecasting, pest management, and irrigation control."
-        },
-        {
-        question: "In digital forensics, what does the tool Volatility primarily analyze?",
-        options: [
-        "Network traffic packets",
-        "Hard disk file systems",
-        "RAM memory dumps",
-        "System log files"
-        ],
-        correct: 2,
-        explanation: "Volatility is an open-source memory forensics framework that analyzes RAM dumps to extract artifacts like processes, registry entries, and network connections."
-        },
-        {
-        question: "What type of machine learning involves training a model to take actions to maximize rewards?",
-        options: [
-        "Supervised learning",
-        "Unsupervised learning",
-        "Reinforcement learning",
-        "Transfer learning"
-        ],
-        correct: 2,
-        explanation: "Reinforcement learning involves training a model to take actions in an environment to maximize rewards over time through trial and error."
-        },
-        {
-        question: "Which Python library mentioned is built on top of NumPy for data manipulation?",
-        options: [
-        "Matplotlib",
-        "Pandas",
-        "Scikit-learn",
-        "TensorFlow"
-        ],
+        explanation: "Naive Bayes is commonly used for spam filtering due to its efficiency with text data."
+    },
+    {
+        question: "Which learning type discovers hidden patterns in unlabeled data?",
+        options: ["Supervised", "Unsupervised", "Reinforcement", "Semi-supervised"],
         correct: 1,
-        explanation: "Pandas is a powerful data manipulation and analysis library built on top of NumPy that provides DataFrames and Series for working with tabular data."
-        },
-        {
-        question: "What does the acronym 'LASSO' represent in machine learning?",
-        options: [
-        "Linear Algorithm for Systematic Statistical Operations",
-        "Least Absolute Shrinkage and Selection Operator",
-        "Logistic Analysis for Structured Sample Optimization",
-        "Limited Access Statistical Selection Operation"
-        ],
-        correct: 1,
-        explanation: "LASSO stands for Least Absolute Shrinkage and Selection Operator, a regression technique that adds a penalty term forcing some coefficients to be zero."
-        },
-        {
-        question: "In the context of intelligence systems, what is the main purpose of the Feedback Mechanism component?",
-        options: [
-        "To collect data from external sources",
-        "To process raw data into structured formats",
-        "To improve the system's accuracy and efficiency",
-        "To disseminate information to end users"
-        ],
-        correct: 2,
-        explanation: "The Feedback Mechanism incorporates feedback to improve the system's accuracy and efficiency over time."
-        },
-        {
-        question: "Which HTTP status codes are filtered in the Apache log parsing example to identify suspicious activity?",
-        options: [
-        "200 and 301",
-        "404 and 500",
-        "302 and 403",
-        "201 and 401"
-        ],
-        correct: 1,
-        explanation: "The example filters for 404 (Not Found) and 500 (Internal Server Error) status codes as they may indicate probing attacks or system errors."
-        },
-        {
-        question: "What does the acronym 'PCA' stand for in machine learning?",
-        options: [
-        "Predictive Classification Algorithm",
-        "Principal Component Analysis",
-        "Probabilistic Clustering Approach",
-        "Parallel Computing Architecture"
-        ],
-        correct: 1,
-        explanation: "PCA stands for Principal Component Analysis, a dimensionality reduction technique that transforms high-dimensional data into a lower-dimensional space."
-        },
-        {
-        question: "In Python variable naming, which of these is NOT a valid rule?",
-        options: [
-        "Variable names can contain letters and numbers",
-        "Variable names must begin with a letter or underscore",
-        "Variable names are case-sensitive",
-        "Variable names must start with a capital letter"
-        ],
-        correct: 3,
-        explanation: "Variable names do not need to start with a capital letter. They can start with a letter (uppercase or lowercase) or an underscore."
-        },
-        {
-        question: "Which intelligence system example analyzes customer behavior to suggest products?",
-        options: [
-        "Google Search Algorithm",
-        "Amazon Recommendation System",
-        "Security Systems",
-        "Health Monitoring Devices"
-        ],
-        correct: 1,
-        explanation: "Amazon's intelligent recommendation system analyzes customer behavior and purchase history to suggest products that users are likely to buy."
-        },
-        {
-        question: "What does the 'sniff' function in Scapy primarily do?",
-        options: [
-        "Creates new network packets",
-        "Captures live network traffic",
-        "Encrypts network communications",
-        "Analyzes packet headers only"
-        ],
-        correct: 1,
-        explanation: "The sniff() function in Scapy captures live network traffic, allowing you to monitor and analyze packets passing through the network interface."
-        },
-        {
-        question: "In machine learning, what is overfitting?",
-        options: [
-        "When a model performs well on both training and test data",
-        "When a model captures noise rather than underlying patterns",
-        "When a model uses too few features for training",
-        "When a model processes data too quickly"
-        ],
-        correct: 1,
-        explanation: "Overfitting occurs when a model captures noise in the training data rather than the underlying patterns, leading to poor generalization on new data."
-        },
-        {
-        question: "Which file system is mentioned as being optimized for flash storage with features like snapshots?",
-        options: [
-        "FAT32",
-        "NTFS",
-        "HFS+",
-        "APFS"
-        ],
-        correct: 3,
-        explanation: "APFS (Apple File System) is optimized for flash storage and offers features like snapshots and cloning."
-        },
-        {
-        question: "What does the term 'black box' refer to in machine learning?",
-        options: [
-        "Models that only work with binary data",
-        "Models that are difficult to interpret",
-        "Models that have failed training",
-        "Models that use encrypted algorithms"
-        ],
-        correct: 1,
-        explanation: "Black box models, like deep neural networks, are difficult to interpret because it's hard to understand how they make decisions or predictions."
-        },
-        {
-        question: "In the BMI calculator example, what BMI range indicates 'Normal weight'?",
-        options: [
-        "Below 18.5",
-        "18.5 to 24.9",
-        "25.0 to 29.9",
-        "30.0 and above"
-        ],
-        correct: 1,
-        explanation: "According to the BMI categorization in the document, a BMI of 18.5 to 24.9 indicates normal weight."
-        },
-        {
-        question: "Which Python module is mentioned for regular expression-based log parsing?",
-        options: [
-        "os",
-        "re",
-        "sys",
-        "io"
-        ],
-        correct: 1,
-        explanation: "The 're' module is used for regular expression-based parsing in Python, useful for extracting patterns from log files."
-        },
-        {
-        question: "What does 'XML' stand for in the context of data parsing?",
-        options: [
-        "eXtensive Markup Language",
-        "eXtensible Markup Language",
-        "eXternal Management Language",
-        "eXecutable Machine Language"
-        ],
-        correct: 1,
-        explanation: "XML stands for eXtensible Markup Language, used for storing and transporting structured data."
-        },
-        {
-        question: "In machine learning evaluation, what does precision measure?",
-        options: [
-        "The total number of correct predictions",
-        "True positives out of all positive predictions",
-        "True positives out of all actual positives",
-        "The speed of model prediction"
-        ],
-        correct: 1,
-        explanation: "Precision measures the proportion of true positive predictions out of all positive predictions made by the model."
-        },
-        {
-        question: "Which challenge of Intelligence Systems involves ensuring data confidentiality?",
-        options: [
-        "Data Quality",
-        "Interpretation Bias",
-        "Data Privacy and Security",
-        "Processing Speed"
-        ],
-        correct: 2,
-        explanation: "Data Privacy and Security is mentioned as a challenge involving ensuring the confidentiality and integrity of sensitive information."
-        },
-        {
-        question: "What does the acronym 'JSON' represent in data parsing?",
-        options: [
-        "Java System Object Notation",
-        "JavaScript Object Notation",
-        "Joint Standard Object Network",
-        "Java Structured Object Name"
-        ],
-        correct: 1,
-        explanation: "JSON stands for JavaScript Object Notation, a lightweight data-interchange format used for storing and exchanging data."
-        },
-        {
-        question: "In the Celsius to Fahrenheit conversion example, what is the complete formula?",
-        options: [
-        "F = C + 32",
-        "F = C * 1.8",
-        "F = C * 1.8 + 32",
-        "F = (C + 32) * 1.8"
-        ],
-        correct: 2,
-        explanation: "The complete formula for Celsius to Fahrenheit conversion is F = C * 1.8 + 32."
-        },
-        {
-        question: "Which machine learning algorithm is described as using multiple decision trees?",
-        options: [
-        "Support Vector Machines",
-        "Random Forest",
-        "Linear Regression",
-        "K-Means Clustering"
-        ],
-        correct: 1,
-        explanation: "Random Forest is an ensemble learning method that uses multiple decision trees to improve prediction accuracy and reduce overfitting."
-        },
-        {
-        question: "What does the 'os.listdir()' function do in Python?",
-        options: [
-        "Creates a new directory",
-        "Deletes files from a directory",
-        "Lists all files and directories in the current directory",
-        "Changes the current working directory"
-        ],
-        correct: 2,
-        explanation: "The os.listdir() function returns a list of all files and directories present in the current directory."
-        },
-        {
-        question: "In digital forensics, what type of data does WinPMEM primarily capture?",
-        options: [
-        "Hard disk images",
-        "Network traffic",
-        "System memory (RAM)",
-        "Registry entries"
-        ],
-        correct: 2,
-        explanation: "WinPMEM is a memory acquisition tool that captures the contents of system RAM and saves it to a file for forensic analysis."
-        },
-        {
-        question: "What does the acronym 'GBM' stand for in machine learning?",
-        options: [
-        "Gaussian Bayesian Model",
-        "Gradient Boosting Machines",
-        "General Binary Method",
-        "Grouped Bootstrap Modeling"
-        ],
-        correct: 1,
-        explanation: "GBM stands for Gradient Boosting Machines, an ensemble learning technique that combines multiple weak learners sequentially."
-        },
-        {
-        question: "Which intelligence system application involves chatbots and virtual assistants?",
-        options: [
-        "Transportation",
-        "Customer Service",
-        "Agriculture",
-        "Manufacturing"
-        ],
-        correct: 1,
-        explanation: "Customer Service applications use intelligent systems for chatbots, virtual assistants, sentiment analysis, and customer interaction analytics."
-        },
-        {
-        question: "In Python, what does the 'float()' function do?",
-        options: [
-        "Creates floating-point numbers",
-        "Converts data to floating-point format",
-        "Performs floating-point arithmetic",
-        "Formats numbers for display"
-        ],
-        correct: 1,
-        explanation: "The float() function converts data (typically strings or integers) to floating-point format."
-        },
-        {
-        question: "What is the main characteristic of unsupervised learning mentioned in the document?",
-        options: [
-        "It requires labeled training data",
-        "It works only with numerical data",
-        "It finds patterns in unlabeled data",
-        "It is faster than supervised learning"
-        ],
-        correct: 2,
-        explanation: "Unsupervised learning involves training a model on unlabeled data to find patterns and relationships within the data."
-        },
-        {
-        question: "Which Python library is mentioned for processing Excel files?",
-        options: [
-        "Pandas",
-        "NumPy",
-        "SheetJS",
-        "Openpyxl"
-        ],
-        correct: 2,
-        explanation: "SheetJS is mentioned as a library for processing Excel files (XLSX, XLS) in the document."
-        },
-        {
-        question: "What does 'F1 Score' represent in machine learning evaluation?",
-        options: [
-        "The first feature importance score",
-        "The harmonic mean of precision and recall",
-        "The primary accuracy measurement",
-        "The fundamental learning rate"
-        ],
-        correct: 1,
-        explanation: "F1 Score is the harmonic mean of precision and recall, providing a balance between these two metrics."
-        },
-        {
-        question: "In the context of file systems, what does 'FAT32' stand for?",
-        options: [
-        "Fast Access Table 32-bit",
-        "File Allocation Table 32-bit",
-        "Fixed Array Type 32",
-        "File Access Technology 32"
-        ],
-        correct: 1,
-        explanation: "FAT32 stands for File Allocation Table 32-bit, a widely used file system that uses a simple file allocation table to manage file storage."
-        },
-        {
-        question: "Which machine learning concept involves the model learning through trial and error with rewards?",
-        options: [
-        "Supervised learning",
-        "Unsupervised learning",
-        "Reinforcement learning",
-        "Semi-supervised learning"
-        ],
-        correct: 2,
-        explanation: "Reinforcement learning involves a model learning through trial and error, receiving feedback in the form of rewards or penalties based on its actions."
-        },
-        {
-        question: "What does the 'head()' method do in Pandas?",
-        options: [
-        "Sorts the DataFrame by the first column",
-        "Displays the first few rows of the DataFrame",
-        "Returns the column headers only",
-        "Calculates summary statistics"
-        ],
-        correct: 1,
-        explanation: "The head() method in Pandas displays the first few rows of the DataFrame (by default, the first 5 rows)."
-        },
-        {
-        question: "Which intelligence system challenge involves human error in data analysis?",
-        options: [
-        "Data Privacy and Security",
-        "Data Quality",
-        "Interpretation Bias",
-        "System Integration"
-        ],
-        correct: 2,
-        explanation: "Interpretation Bias is the challenge involving human error in analyzing data leading to biased conclusions."
-        },
-        {
-        question: "In Python, what type of error would occur if you try to use a reserved keyword as a variable name?",
-        options: [
-        "Runtime Error",
-        "Syntax Error",
-        "Logic Error",
-        "Memory Error"
-        ],
-        correct: 1,
-        explanation: "Using reserved keywords (such as if, else, while, etc.) as variable names would result in a Syntax Error in Python."
-        },
-        {
-        question: "What does 'RMSE' stand for in machine learning evaluation metrics?",
-        options: [
-        "Random Mean Standard Error",
-        "Root Mean Squared Error",
-        "Relative Maximum System Error",
-        "Recursive Model Selection Evaluation"
-        ],
-        correct: 1,
-        explanation: "RMSE stands for Root Mean Squared Error, which is the square root of MSE and is used to evaluate regression model performance."
-        },
-        {
-        question: "Which type of parsing involves processing Comma-Separated Values files?",
-        options: [
-        "Text Parsing",
-        "XML Parsing",
-        "JSON Parsing",
-        "CSV Parsing"
-        ],
-        correct: 3,
-        explanation: "CSV Parsing involves processing Comma-Separated Values files to extract data and import it into databases or other applications."
-        },
-        {
-        question: "In machine learning, what is the primary goal of feature selection?",
-        options: [
-        "To increase the dataset size",
-        "To identify the most relevant features",
-        "To convert categorical variables",
-        "To normalize data distributions"
-        ],
-        correct: 1,
-        explanation: "Feature selection involves identifying the most important features that will help the model make accurate predictions, improving efficiency and performance."
-        },
-        {
-        question: "What does the 'iloc[]' method do in Pandas?",
-        options: [
-        "Selects rows and columns by labels",
-        "Selects rows and columns by integer position",
-        "Sorts data by column values",
-        "Groups data by categories"
-        ],
-        correct: 1,
-        explanation: "The iloc[] method in Pandas selects rows and columns by integer position (location-based indexing)."
-        },
-        {
-        question: "Which machine learning algorithm uses Bayes' theorem with independence assumptions?",
-        options: [
-        "Support Vector Machines",
-        "Decision Trees",
-        "Naive Bayes",
-        "K-Means Clustering"
-        ],
-        correct: 2,
-        explanation: "Naive Bayes is a probabilistic classifier based on Bayes' theorem with an assumption of independence between features."
-        },
-        {
-        question: "What is the main purpose of data preprocessing in machine learning?",
-        options: [
-        "To increase the amount of training data",
-        "To clean and prepare data for analysis",
-        "To speed up the training process",
-        "To visualize the data patterns"
-        ],
-        correct: 1,
-        explanation: "Data preprocessing involves cleaning, transforming, and organizing raw data into a suitable format for machine learning algorithms."
-        },
-        {
-        question: "Which Python arithmetic operator represents floor division?",
-        options: [
-        "/",
-        "//",
-        "%",
-        "**"
-        ],
-        correct: 1,
-        explanation: "The '//' operator represents floor division in Python, which returns the largest integer less than or equal to the division result."
-        },
-        {
-        question: "What does 'HFS+' stand for in file systems?",
-        options: [
-        "High-Frequency Storage Plus",
-        "Hierarchical File System Plus",
-        "Hybrid File Structure Plus",
-        "Hash File System Plus"
-        ],
-        correct: 1,
-        explanation: "HFS+ stands for Hierarchical File System Plus, developed by Apple for Mac OS with features like journaling and large file support."
-        },
-        {
-        question: "In the context of intelligence systems, what does 'IoT' represent?",
-        options: [
-        "Internet of Technology",
-        "Integration of Tools",
-        "Internet of Things",
-        "Information on Time"
-        ],
-        correct: 2,
-        explanation: "IoT stands for Internet of Things, referring to the ecosystem of interconnected smart devices that can collect and exchange data."
-        },
-        {
-        question: "Which machine learning evaluation technique involves splitting data into multiple subsets?",
-        options: [
-        "Confusion Matrix",
-        "Cross-validation",
-        "ROC Curve",
-        "Feature Selection"
-        ],
-        correct: 1,
-        explanation: "Cross-validation involves splitting the data into multiple subsets and training the model on different subsets while testing on the remaining subset."
-        },
-        {
-        question: "What does the 'groupby()' method do in Pandas?",
-        options: [
-        "Sorts data in ascending order",
-        "Groups data based on specified criteria",
-        "Removes duplicate entries",
-        "Calculates correlation coefficients"
-        ],
-        correct: 1,
-        explanation: "The groupby() method in Pandas groups the data based on specified criteria, allowing for aggregate operations on grouped data."
-        },
-        {
-        question: "Which Python data type represents True or False values?",
-        options: [
-        "Integer",
-        "String",
-        "Boolean",
-        "Float"
-        ],
-        correct: 2,
-        explanation: "Boolean data type represents True or False values in Python."
-        },
-        {
-        question: "In machine learning, what does 'dimensionality reduction' primarily aim to do?",
-        options: [
-        "Increase the number of features",
-        "Reduce the number of features while preserving information",
-        "Improve model accuracy",
-        "Speed up data collection"
-        ],
-        correct: 1,
-        explanation: "Dimensionality reduction techniques like PCA aim to reduce the number of features while preserving as much important information as possible."
-        },
-        {
-        question: "What is the primary function of the 'describe()' method in Pandas?",
-        options: [
-        "To rename column headers",
-        "To generate descriptive statistics",
-        "To sort data values",
-        "To merge multiple DataFrames"
-        ],
-        correct: 1,
-        explanation: "The describe() method generates descriptive statistics of the DataFrame, including count, mean, standard deviation, min, max, and quartiles."
-        },
-        {
-        question: "Which intelligence system application is specifically mentioned for autonomous vehicles?",
-        options: [
-        "Healthcare",
-        "Transportation",
-        "Finance",
-        "Education"
-        ],
-        correct: 1,
-        explanation: "Transportation applications use intelligent systems for route optimization, traffic management, autonomous vehicles, logistics planning, and predictive maintenance."
-        },
-        {
-        question: "What does 'API' typically stand for in the context of software development?",
-        options: [
-        "Advanced Programming Interface",
-        "Application Programming Interface",
-        "Automated Processing Integration",
-        "Applied Program Implementation"
-        ],
-        correct: 1,
-        explanation: "API stands for Application Programming Interface, which allows different software applications to communicate with each other."
-        },
-        {
-        question: "In machine learning, what is the purpose of a confusion matrix?",
-        options: [
-        "To visualize feature importance",
-        "To show training progress",
-        "To display true/false positive and negative predictions",
-        "To calculate processing time"
-        ],
-        correct: 2,
-        explanation: "A confusion matrix provides a visual representation of model performance by showing true positive, true negative, false positive, and false negative predictions."
-        },
-        {
-        question: "Which Python function is used to check the version of Python installed?",
-        options: [
-        "python --check",
-        "python -v",
-        "python --version",
-        "python -info"
-        ],
-        correct: 2,
-        explanation: "The command 'python --version' is used to check the version of Python installed on the system."
-        },
-        {
-        question: "What does 'NLP' stand for in the context of intelligence systems?",
-        options: [
-        "Natural Language Processing",
-        "Network Layer Protocol",
-        "Numeric Linear Programming",
-        "Neural Learning Platform"
-        ],
+        explanation: "Unsupervised learning finds hidden patterns without labeled outcomes."
+    },
+    {
+        question: "Which ML concept refers to splitting data into training and testing sets?",
+        options: ["Cross-validation", "Feature engineering", "Data preprocessing", "Model evaluation"],
         correct: 0,
-        explanation: "NLP stands for Natural Language Processing, which is used by intelligence systems to process and understand human language."
-        },
-        {
-        question: "Which machine learning concept involves combining multiple models for better predictions?",
-        options: [
-        "Feature Engineering",
-        "Ensemble Learning",
-        "Data Preprocessing",
-        "Model Validation"
-        ],
+        explanation: "Cross-validation ensures models are tested on unseen data for accuracy."
+    },
+    {
+        question: "Which metric is best for imbalanced datasets?",
+        options: ["Accuracy", "F1 Score", "Mean Squared Error", "R-squared"],
         correct: 1,
-        explanation: "Ensemble Learning involves combining multiple models (like in Random Forest or Gradient Boosting) to create a stronger predictor than any individual model."
-        },
-        {
-        question: "In Python lists, what data structure is described as 'ordered collection of items'?",
-        options: [
-        "Dictionary",
-        "Set",
-        "List",
-        "Tuple"
-        ],
-        correct: 2,
-        explanation: "Lists in Python are described as ordered collections of items that can store multiple values in a single variable."
-        },
-        {
-        question: "What is the main difference between 'loc[]' and 'iloc[]' in Pandas?",
-        options: [
-        "loc[] is faster than iloc[]",
-        "loc[] uses labels while iloc[] uses integer positions",
-        "loc[] only works with numerical data",
-        "iloc[] can only select single rows"
-        ],
+        explanation: "F1 Score is better for imbalanced datasets since it balances precision and recall."
+    },
+    {
+        question: "Which type of ML algorithm is Linear Regression?",
+        options: ["Classification", "Regression", "Clustering", "Dimensionality Reduction"],
         correct: 1,
-        explanation: "loc[] selects rows and columns by labels, while iloc[] selects rows and columns by integer position."
-        },
-        {
-        question: "Which machine learning algorithm is mentioned as being suitable for both classification and regression?",
-        options: [
-        "Naive Bayes",
-        "K-Means",
-        "Support Vector Machines",
-        "Logistic Regression"
-        ],
-        correct: 2,
-        explanation: "Support Vector Machines (SVM) can be used for both classification and regression tasks by finding optimal hyperplanes."
-        },
-        {
-        question: "What does the term 'overfitting' indicate about a model's performance?",
-        options: [
-        "The model trains too quickly",
-        "The model performs well on training data but poorly on new data",
-        "The model uses too many features",
-        "The model cannot learn from the data"
-        ],
+        explanation: "Linear Regression is a regression algorithm for continuous values."
+    },
+    {
+        question: "Which ML algorithm mimics the human brain using neurons?",
+        options: ["Decision Tree", "Neural Networks", "SVM", "Random Forest"],
         correct: 1,
-        explanation: "Overfitting occurs when a model performs well on training data but fails to generalize to new, unseen data because it has learned noise rather than patterns."
-        },
-        {
-        question: "In the context of digital forensics, what does 'pcap' refer to?",
-        options: [
-        "Packet Capture files",
-        "Program Capability assessment",
-        "Protected Computer Access Protocol",
-        "Primary Cache Application Process"
-        ],
+        explanation: "Neural networks consist of layers of neurons that mimic brain activity."
+    },
+    {
+        question: "Which clustering method requires the number of clusters beforehand?",
+        options: ["K-Means", "DBSCAN", "Hierarchical clustering", "Random Forest"],
         correct: 0,
-        explanation: "Pcap refers to packet capture files that contain network traffic data captured for forensic analysis."
-        },
-        {
-        question: "Which Python library is specifically mentioned for memory analysis in digital forensics?",
-        options: [
-        "Scapy",
-        "Volatility",
-        "Pandas",
-        "NumPy"
-        ],
+        explanation: "K-Means requires specifying the number of clusters in advance."
+    },
+    {
+        question: "Which ML task predicts continuous numeric outcomes?",
+        options: ["Classification", "Regression", "Clustering", "Reinforcement"],
         correct: 1,
-        explanation: "Volatility is mentioned as an open-source memory forensics framework for analyzing RAM dumps."
-        },
-        {
-        question: "What does 'R-squared' measure in machine learning evaluation?",
-        options: [
-        "The speed of model training",
-        "The proportion of variance explained by the model",
-        "The number of features used",
-        "The computational complexity"
-        ],
+        explanation: "Regression tasks predict continuous values like prices or temperatures."
+    },
+    {
+        question: "Which ML concept involves selecting useful features for training?",
+        options: ["Model optimization", "Feature selection", "Cross-validation", "Overfitting"],
         correct: 1,
-        explanation: "R-squared measures the proportion of the variance in the dependent variable that is predictable from the independent variables."
-        },
-        {
-        question: "In Python, what is the correct way to open a file for reading?",
-        options: [
-        "file = open('filename.txt', 'read')",
-        "file = open('filename.txt', 'r')",
-        "file = read('filename.txt')",
-        "file = open('filename.txt', mode='read')"
-        ],
+        explanation: "Feature selection identifies the most useful variables for building models."
+    },
+    {
+        question: "Which algorithm combines many weak learners into a strong learner?",
+        options: ["Random Forest", "Gradient Boosting", "Logistic Regression", "Naive Bayes"],
         correct: 1,
-        explanation: "The correct syntax is file = open('filename.txt', 'r') where 'r' specifies read mode."
-        },
-        {
-        question: "Which intelligence system component is responsible for gathering data from various sources?",
-        options: [
-        "Data Processing",
-        "Data Analysis",
-        "Data Collection",
-        "Information Dissemination"
-        ],
+        explanation: "Gradient Boosting builds models sequentially to improve performance."
+    },
+    {
+        question: "Which supervised ML algorithm is simple but effective for linearly separable data?",
+        options: ["Decision Tree", "Logistic Regression", "KNN", "Neural Networks"],
+        correct: 1,
+        explanation: "Logistic Regression is effective for binary classification on linear data."
+    },
+    {
+        question: "Which metric is used to evaluate regression models?",
+        options: ["Precision", "Recall", "Mean Squared Error", "F1 Score"],
         correct: 2,
-        explanation: "Data Collection is the component responsible for gathering data from various sources such as databases, sensors, and social media."
-        },
-        {
-        question: "What does 'SVM' stand for in machine learning?",
-        options: [
-        "Statistical Variance Model",
-        "Support Vector Machines",
-        "System Validation Method",
-        "Structured Variable Management"
-        ],
-        correct: 1,
-        explanation: "SVM stands for Support Vector Machines, a supervised learning model used for classification and regression tasks."
-        },
-        {
-        question: "In machine learning, what is the primary characteristic of reinforcement learning?",
-        options: [
-        "It requires labeled training data",
-        "It learns through rewards and penalties",
-        "It only works with numerical data",
-        "It uses unsupervised techniques"
-        ],
-        correct: 1,
-        explanation: "Reinforcement learning is characterized by learning through trial and error, receiving feedback in the form of rewards or penalties."
-        },
-        {
-        question: "Which Python data structure is described as 'immutable ordered collection'?",
-        options: [
-        "List",
-        "Dictionary",
-        "Set",
-        "Tuple"
-        ],
-        correct: 3,
-        explanation: "Tuples are described as immutable ordered collections, meaning their contents cannot be changed after creation."
-        },
-        {
-        question: "What is the main advantage of using ensemble methods like Random Forest?",
-        options: [
-        "They train faster than single models",
-        "They reduce overfitting and improve accuracy",
-        "They require less data",
-        "They are easier to interpret"
-        ],
-        correct: 1,
-        explanation: "Ensemble methods like Random Forest combine multiple models to reduce overfitting and improve prediction accuracy compared to single models."
-        },
-        {
-        question: "In digital forensics, what type of analysis does the command 'os.system(\"winpmem.exe -o memdump.raw\")' perform?",
-        options: [
-        "Hard disk imaging",
-        "Network traffic capture",
-        "Memory dump creation",
-        "Log file parsing"
-        ],
+        explanation: "Mean Squared Error measures the average squared difference between predictions and actual values."
+    },
+    {
+        question: "Which ML technique is used for dimensionality reduction?",
+        options: ["PCA", "KNN", "Decision Trees", "Random Forest"],
+        correct: 0,
+        explanation: "Principal Component Analysis (PCA) reduces data dimensionality."
+    },
+    {
+        question: "Which ML approach improves a model using experience over time?",
+        options: ["Supervised", "Unsupervised", "Reinforcement", "Clustering"],
         correct: 2,
-        explanation: "This command uses WinPmem to create a memory dump (memdump.raw) by capturing the contents of system RAM."
+        explanation: "Reinforcement learning improves policies over time by maximizing rewards."
+    },
+    {
+        question: "Which ML issue occurs when a model is too simple?",
+        options: ["Overfitting", "Underfitting", "Bias", "Variance"],
+        correct: 1,
+        explanation: "Underfitting happens when the model is too simple to capture data patterns."
+    },
+    {
+        question: "Which supervised learning algorithm uses entropy and information gain?",
+        options: ["SVM", "Naive Bayes", "Decision Tree", "KNN"],
+        correct: 2,
+        explanation: "Decision Trees split data using entropy and information gain."
+    },
+    {
+        question: "Which type of machine learning is clustering?",
+        options: ["Supervised", "Unsupervised", "Reinforcement", "Semi-supervised"],
+        correct: 1,
+        explanation: "Clustering is an unsupervised method for grouping similar data."
+    },
+    {
+        question: "Which ML algorithm is sensitive to irrelevant features and requires scaling?",
+        options: ["Naive Bayes", "KNN", "Decision Tree", "Random Forest"],
+        correct: 1,
+        explanation: "KNN performance can degrade if features are not scaled properly."
+    },
+    {
+        question: "Which evaluation tool plots true positive rate against false positive rate?",
+        options: ["Confusion Matrix", "ROC Curve", "Precision-Recall Curve", "Histogram"],
+        correct: 1,
+        explanation: "ROC curves plot TPR against FPR across thresholds."
+    },
+    {
+        question: "Which ML model is often called a black box due to low interpretability?",
+        options: ["Decision Tree", "Random Forest", "Neural Networks", "Logistic Regression"],
+        correct: 2,
+        explanation: "Neural Networks are often black boxes with low interpretability."
+    },
+    {
+        question: "Which supervised algorithm outputs probabilities for classification?",
+        options: ["KNN", "Logistic Regression", "Decision Tree", "SVM"],
+        correct: 1,
+        explanation: "Logistic Regression outputs probabilities between 0 and 1."
+    },
+    {
+        question: "Which evaluation metric is crucial in fraud detection (positive minority class)?",
+        options: ["Accuracy", "Recall", "MSE", "R2"],
+        correct: 1,
+        explanation: "Recall is crucial in detecting minority classes like fraud cases."
+    },
+    {
+        question: "Which ensemble algorithm trains models sequentially and corrects errors of the previous model?",
+        options: ["Random Forest", "Gradient Boosting", "KNN", "Naive Bayes"],
+        correct: 1,
+        explanation: "Gradient Boosting builds models sequentially to fix previous errors."
+    },
+    {
+        question: "Which ML concept reduces variance by training on multiple subsets of data?",
+        options: ["Bagging", "Boosting", "Clustering", "Normalization"],
+        correct: 0,
+        explanation: "Bagging reduces variance by training on bootstrapped subsets."
+    },
+    {
+        question: "Which ML concept deals with model bias and variance tradeoff?",
+        options: ["Overfitting", "Underfitting", "Bias-Variance tradeoff", "Cross-validation"],
+        correct: 2,
+        explanation: "Bias-Variance tradeoff balances error from bias and variance."
+    },
+    {
+        question: "Which algorithm is best suited for anomaly detection in logs?",
+        options: ["DBSCAN", "Linear Regression", "Logistic Regression", "Naive Bayes"],
+        correct: 0,
+        explanation: "DBSCAN is effective for detecting anomalies in data."
+    },
+    {
+        question: "Which ML task is predicting whether an email is spam or not?",
+        options: ["Regression", "Classification", "Clustering", "Reinforcement"],
+        correct: 1,
+        explanation: "Spam detection is a binary classification problem."
+    },
+    {
+        question: "Which evaluation tool displays TP, FP, TN, and FN?",
+        options: ["ROC Curve", "Precision-Recall Curve", "Confusion Matrix", "Histogram"],
+        correct: 2,
+        explanation: "Confusion Matrix summarizes TP, FP, TN, and FN."
+    },
+    {
+        question: "Which optimizer is a simple gradient descent variant?",
+        options: ["Adam", "SGD", "RMSprop", "Adagrad"],
+        correct: 1,
+        explanation: "Stochastic Gradient Descent updates weights incrementally using small batches."
+    },
+    {
+        question: "Which algorithm is effective for high-dimensional text data?",
+        options: ["SVM", "KNN", "Decision Tree", "Random Forest"],
+        correct: 0,
+        explanation: "SVMs perform well in high-dimensional spaces such as text features."
+    },
+    {
+        question: "Which algorithm assigns probabilities using Bayes' theorem?",
+        options: ["Decision Tree", "Naive Bayes", "KNN", "SVM"],
+        correct: 1,
+        explanation: "Naive Bayes assigns class probabilities using Bayes' theorem."
+    },
+    {
+        question: "Which ML concept involves tuning hyperparameters for optimal performance?",
+        options: ["Cross-validation", "Grid search", "Feature scaling", "Normalization"],
+        correct: 1,
+        explanation: "Grid search tunes hyperparameters for optimal model performance."
+    },
+    {
+        question: "Which unsupervised learning algorithm is hierarchical?",
+        options: ["DBSCAN", "Agglomerative clustering", "KNN", "Logistic Regression"],
+        correct: 1,
+        explanation: "Agglomerative clustering is a hierarchical unsupervised algorithm."
+    },
+    {
+        question: "Which ML evaluation metric shows area under ROC curve?",
+        options: ["AUC", "F1 Score", "MSE", "R2"],
+        correct: 0,
+        explanation: "AUC measures the area under the ROC curve."
+    },
+    {
+        question: "Which ML algorithm uses layers of interconnected nodes?",
+        options: ["Random Forest", "Neural Network", "SVM", "Decision Tree"],
+        correct: 1,
+        explanation: "Neural networks consist of interconnected layers of nodes."
+    },
+    {
+        question: "Which problem arises when training data and real-world data differ significantly?",
+        options: ["Bias", "Variance", "Data drift", "Overfitting"],
+        correct: 2,
+        explanation: "Data drift occurs when training and real-world data distributions differ."
+    },
+    {
+        question: "Which ML process transforms raw data into usable format?",
+        options: ["Feature scaling", "Data preprocessing", "Hyperparameter tuning", "Cross-validation"],
+        correct: 1,
+        explanation: "Data preprocessing transforms raw data into a format suitable for modeling."
+    },
+    {
+        question: "Which supervised algorithm splits data into nodes and leaves?",
+        options: ["Decision Tree", "SVM", "KNN", "Naive Bayes"],
+        correct: 0,
+        explanation: "Decision Trees split data into nodes and leaves for classification."
+    },
+    {
+        question: "Which evaluation metric is most useful when false positives are costly?",
+        options: ["Precision", "Recall", "Accuracy", "F1 Score"],
+        correct: 0,
+        explanation: "Precision is critical when false positives are costly."
+    },
+    {
+        question: "Which ML algorithm predicts probabilities of binary outcomes with a sigmoid?",
+        options: ["Logistic Regression", "Linear Regression", "Decision Tree", "KNN"],
+        correct: 0,
+        explanation: "Logistic Regression uses the sigmoid function to predict binary outcomes."
+    },
+    {
+        question: "Which ML concept involves reducing model complexity to prevent overfitting?",
+        options: ["Regularization", "Cross-validation", "Feature selection", "Bagging"],
+        correct: 0,
+        explanation: "Regularization reduces model complexity to prevent overfitting."
+    },
+    {
+        question: "Which clustering method does not require number of clusters in advance?",
+        options: ["K-Means", "DBSCAN", "Hierarchical clustering", "Logistic Regression"],
+        correct: 1,
+        explanation: "DBSCAN determines clusters based on density, no k required."
+    },
+    {
+        question: "Which algorithm models the relationship between dependent and independent variables with a straight line?",
+        options: ["Logistic Regression", "Linear Regression", "Decision Tree", "SVM"],
+        correct: 1,
+        explanation: "Linear Regression fits a straight line to model the relationship between variables."
+    },
+    {
+        question: "Which algorithm is primarily used for binary classification using a sigmoid function?",
+        options: ["Linear Regression", "Logistic Regression", "Naive Bayes", "KNN"],
+        correct: 1,
+        explanation: "Logistic Regression uses the sigmoid function to handle binary classification tasks."
+    },
+    {
+        question: "Which supervised algorithm divides feature space with hyperplanes to classify data?",
+        options: ["KNN", "Support Vector Machine", "Decision Tree", "Random Forest"],
+        correct: 1,
+        explanation: "Support Vector Machines (SVM) separate classes using maximum-margin hyperplanes."
+    },
+    {
+        question: "Which algorithm uses tree-like structures to make decisions based on conditions?",
+        options: ["Decision Tree", "Logistic Regression", "Linear Regression", "Naive Bayes"],
+        correct: 0,
+        explanation: "Decision Trees split data into nodes based on conditions to classify or regress."
+    },
+    {
+        question: "Which algorithm uses multiple decision trees and combines results by averaging or voting?",
+        options: ["Random Forest", "Gradient Boosting", "SVM", "PCA"],
+        correct: 0,
+        explanation: "Random Forest is an ensemble algorithm combining multiple decision trees."
+    },
+    {
+        question: "Which algorithm improves classification by fitting models sequentially, each correcting the previous?",
+        options: ["Bagging", "Boosting", "Linear Regression", "KNN"],
+        correct: 1,
+        explanation: "Boosting algorithms like AdaBoost and Gradient Boosting improve performance by sequentially correcting errors."
+    },
+    {
+        question: "What does NTFS stand for in file systems?",
+        options: ["Network Transfer File System", "New Technology File System", "National Text File Structure", "Node Tree File System"],
+        correct: 1,
+        explanation: "NTFS stands for New Technology File System, developed by Microsoft."
         },
         {
-        question: "What does 'AUC' represent in the ROC-AUC evaluation metric?",
-        options: [
-        "Average Uncertainty Calculation",
-        "Area Under the Curve",
-        "Automated Unit Conversion",
-        "Accuracy Under Control"
-        ],
+        question: "What does APFS stand for in Apple systems?",
+        options: ["Apple Partition File System", "Apple Protected File Storage", "Apple File System", "Advanced Processing File Structure"],
+        correct: 2,
+        explanation: "APFS stands for Apple File System, optimized for modern Apple devices."
+        },
+        {
+        question: "What does FAT32 stand for?",
+        options: ["Fast Access Table 32", "File Allocation Table 32", "File Access Type 32", "File Array Tree 32"],
         correct: 1,
-        explanation: "AUC stands for Area Under the Curve, specifically the area under the ROC (Receiver Operating Characteristic) curve."
-        }       
+        explanation: "FAT32 means File Allocation Table with 32-bit addressing."
+        },
+        {
+        question: "In machine learning, what does SVM stand for?",
+        options: ["Simple Vector Method", "Support Vector Machine", "System Variable Model", "Sequential Variable Mapping"],
+        correct: 1,
+        explanation: "SVM stands for Support Vector Machine, a classification algorithm."
+        },
+        {
+        question: "What does PCA stand for in dimensionality reduction?",
+        options: ["Principal Component Analysis", "Partial Cluster Assignment", "Probability Classification Algorithm", "Primary Correlation Analysis"],
+        correct: 0,
+        explanation: "PCA stands for Principal Component Analysis, used for dimensionality reduction."
+        },
+        {
+        question: "In digital forensics, what does RAM stand for?",
+        options: ["Rapid Access Module", "Random Access Memory", "Read Allocation Memory", "Real Application Mode"],
+        correct: 1,
+        explanation: "RAM stands for Random Access Memory, analyzed in memory forensics."
+        },
+        {
+        question: "In cybersecurity, what does IDS stand for?",
+        options: ["Intrusion Detection System", "Internal Data Service", "Input Device Setup", "Information Data System"],
+        correct: 0,
+        explanation: "IDS means Intrusion Detection System, which monitors networks for threats."
+        },
+        {
+        question: "In forensics, what does E01 format stand for?",
+        options: ["Expert Witness Format", "Encoded Object Image", "Encrypted Output 1", "Evidence Order 1"],
+        correct: 0,
+        explanation: "E01 stands for Expert Witness format, used in forensic disk imaging."
+        },
+        {
+        question: "In ML, what does KNN stand for?",
+        options: ["Key Nearest Node", "K-Nearest Neighbors", "Kernel Normalization Network", "Knowledge Net Node"],
+        correct: 1,
+        explanation: "KNN stands for K-Nearest Neighbors, a classification algorithm."
+        },
+        {
+        question: "What does ROC stand for in evaluation metrics?",
+        options: ["Receiver Operating Characteristic", "Rate of Classification", "Regression Output Curve", "Relative Operating Calculation"],
+        correct: 0,
+        explanation: "ROC stands for Receiver Operating Characteristic, used to evaluate classifiers."
+        },
+        {
+        question: "In optimization, what does SGD stand for?",
+        options: ["Stochastic Gradient Descent", "Simple Gradient Division", "Sequential Graph Distribution", "Standard Gradient Data"],
+        correct: 0,
+        explanation: "SGD means Stochastic Gradient Descent, an optimization algorithm for training ML models."
+        }
 ];
+
 
         let currentQuestion = 0;
         let score = 0;
