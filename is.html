@@ -1,0 +1,2127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intelligence System Review</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Barbie', 'Arial', sans-serif;
+            background: #fff0f6; /* Light pink solid background */
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .quiz-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #fff0f6;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            overflow: hidden;
+            border: 3px solid #ff69b4;
+        }
+        
+        .quiz-header {
+            background: #ff69b4; /* Solid Barbie pink for better readability */
+            color: #000;
+            padding: 30px;
+            text-align: center;
+            border-bottom: 3px solid #ff69b4;
+        }
+        
+        .quiz-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-family: 'Barbie', 'Arial', sans-serif;
+            letter-spacing: 2px;
+            color: #fff; /* White text for strong contrast */
+            text-shadow: 2px 2px 0 #ad1457;
+        }
+        
+        .quiz-header p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+            color: #fff; /* White text for strong contrast */
+            text-shadow: 1px 1px 0 #ad1457;
+        }
+        
+        .progress-container {
+            background: #fff0f6;
+            padding: 20px;
+            border-bottom: 1px solid #ff69b4;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background: #ff69b4;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ff69b4, #fff0f6);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        
+        .progress-text {
+            text-align: center;
+            margin-top: 10px;
+            font-weight: bold;
+            color: #000;
+            text-shadow: 1px 1px 0 #fff;
+        }
+        
+        .question-container {
+            padding: 40px;
+            min-height: 400px;
+            background: #fff0f6;
+        }
+        
+        .question {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #ff69b4;
+            margin-bottom: 25px;
+            line-height: 1.6;
+            text-shadow: 1px 1px 0 #fff;
+        }
+        
+        .options {
+            display: grid;
+            gap: 15px;
+        }
+        
+        .option {
+            background: #fff;
+            border: 2px solid #ff69b4;
+            border-radius: 10px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+            position: relative;
+            color: #000;
+            font-weight: bold;
+        }
+        
+        .option:hover {
+            border-color: #ff69b4;
+            background: #ffe4ec;
+            transform: translateY(-2px);
+        }
+        
+        .option.selected {
+            border-color: #ff69b4;
+            background: #ffe4ec;
+        }
+        
+        .option.correct {
+            border-color: #28a745;
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .option.incorrect {
+            border-color: #dc3545;
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        .option.disabled {
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+        
+        .feedback {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 10px;
+            display: none;
+            font-weight: bold;
+            color: #000;
+        }
+        
+        .feedback.show {
+            display: block;
+        }
+        
+        .feedback.correct {
+            background: #d4edda;
+            color: #155724;
+            border: 2px solid #28a745;
+        }
+        
+        .feedback.incorrect {
+            background: #f8d7da;
+            color: #721c24;
+            border: 2px solid #dc3545;
+        }
+        
+        .controls {
+            padding: 30px 40px;
+            background: #fff0f6;
+            text-align: center;
+            border-top: 1px solid #ff69b4;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, #ff69b4 0%, #fff0f6 100%);
+            color: #000;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 0 10px;
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(255, 105, 180, 0.2);
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(255, 105, 180, 0.3);
+            background: linear-gradient(135deg, #ffe4ec 0%, #ff69b4 100%);
+            color: #000;
+        }
+        
+        .btn:disabled {
+            background: #ffb6c1;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+            color: #000;
+        }
+        
+        .score-display {
+            display: inline-block;
+            background: #fff;
+            padding: 10px 20px;
+            border-radius: 25px;
+            margin: 0 15px;
+            font-weight: bold;
+            color: #ff69b4;
+            border: 2px solid #ff69b4;
+        }
+        
+        .final-score {
+            text-align: center;
+            padding: 40px;
+            display: none;
+            background: #fff0f6;
+            color: #000;
+        }
+        
+        .final-score.show {
+            display: block;
+        }
+        
+        .final-score h2 {
+            font-size: 2.5rem;
+            color: #ff69b4;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 0 #fff;
+        }
+        
+        .score-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ff69b4 0%, #fff0f6 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px auto;
+            color: #000;
+            font-size: 2rem;
+            font-weight: bold;
+            border: 3px solid #ff69b4;
+            text-shadow: 2px 2px 0 #fff;
+        }
+        
+        @media (max-width: 768px) {
+            .quiz-header h1 {
+                font-size: 2rem;
+            }
+            
+            .question-container {
+                padding: 20px;
+            }
+            
+            .question {
+                font-size: 1.1rem;
+            }
+            
+            .option {
+                padding: 15px;
+                font-size: 1rem;
+            }
+            
+            .controls {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <div class="quiz-header">
+            <h1>Intelligence System Reviewer</h1>
+            <p>4.0 cutie for everyone</p>
+        </div>
+        
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-text" id="progressText">Question 1 of 100</div>
+        </div>
+        
+        <div class="question-container" id="questionContainer">
+            <div class="question" id="questionText"></div>
+            <div class="options" id="optionsContainer"></div>
+            <div class="feedback" id="feedback"></div>
+        </div>
+        
+        <div class="controls">
+            <button class="btn" id="prevBtn" onclick="previousQuestion()">Previous</button>
+            <span class="score-display" id="scoreDisplay">Score: 0/0</span>
+            <button class="btn" id="nextBtn" onclick="nextQuestion()">Next</button>
+        </div>
+        
+        <div class="final-score" id="finalScore">
+            <h2>Quiz Complete!</h2>
+            <div class="score-circle" id="finalScoreCircle"></div>
+            <p id="finalScoreText"></p>
+            <button class="btn" onclick="restartQuiz()">Restart Quiz</button>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+        {
+        question: "What is the primary purpose of Intelligence Systems according to the document?",
+        options: [
+        "To collect, analyze, and interpret data to generate actionable insights",
+        "To replace human decision-making in all organizational processes",
+        "To store large amounts of data in centralized repositories",
+        "To automate all business operations without human intervention"
+        ],
+        correct: 0,
+        explanation: "Intelligence systems are automated or semi-automated systems that collect, analyze, and interpret data to generate actionable insights or support decision-making processes."
+        },
+        {
+        question: "Which component of Intelligence Systems involves presenting analyzed data in reports and dashboards?",
+        options: [
+        "Data Collection",
+        "Data Processing",
+        "Data Analysis",
+        "Information Dissemination"
+        ],
+        correct: 3,
+        explanation: "Information Dissemination is the final step that involves presenting the analyzed data in a comprehensible format, such as reports, dashboards, or visualizations."
+        },
+        {
+        question: "What does the acronym 'BI' stand for in the context of Intelligence Systems?",
+        options: [
+        "Binary Intelligence",
+        "Business Intelligence",
+        "Behavioral Intelligence",
+        "Baseline Intelligence"
+        ],
+        correct: 1,
+        explanation: "BI stands for Business Intelligence, which utilizes data analytics to provide insights for business operations and strategy."
+        },
+        {
+        question: "In Python programming, what does the print() function primarily do?",
+        options: [
+        "Creates new variables in memory",
+        "Outputs text or data to the screen",
+        "Performs mathematical calculations",
+        "Imports external libraries"
+        ],
+        correct: 1,
+        explanation: "The print() function is a built-in function in Python that outputs text or data to the screen."
+        },
+        {
+        question: "What is the correct formula for calculating BMI mentioned in the Python activity?",
+        options: [
+        "BMI = weight * height²",
+        "BMI = weight / height²",
+        "BMI = height / weight²",
+        "BMI = (weight + height) / 2"
+        ],
+        correct: 1,
+        explanation: "BMI is calculated using the formula: BMI = weight (in kg) / height (in meters)²"
+        },
+        {
+        question: "Which Python library is specifically mentioned for network packet manipulation in digital forensics?",
+        options: [
+        "Pandas",
+        "NumPy",
+        "Scapy",
+        "Volatility"
+        ],
+        correct: 2,
+        explanation: "Scapy is a powerful Python-based network packet manipulation tool used for creating, sending, capturing, and analyzing network packets."
+        },
+        {
+        question: "What does the acronym 'MSE' represent in machine learning evaluation metrics?",
+        options: [
+        "Mean Standard Error",
+        "Maximum Statistical Estimate",
+        "Mean Squared Error",
+        "Minimum Sample Estimate"
+        ],
+        correct: 2,
+        explanation: "MSE stands for Mean Squared Error, which measures the average of the squared differences between predicted values and actual values in regression models."
+        },
+        {
+        question: "In the context of log parsing, what does CSV stand for?",
+        options: [
+        "Computer System Variables",
+        "Comma-Separated Values",
+        "Central Storage Vault",
+        "Code Structure Validation"
+        ],
+        correct: 1,
+        explanation: "CSV stands for Comma-Separated Values, which is a file format used to store tabular data where values are separated by commas."
+        },
+        {
+        question: "Which machine learning algorithm is described as using the exponentially weighted moving average of squared gradients?",
+        options: [
+        "Adam",
+        "RMSprop",
+        "Adagrad",
+        "SGD"
+        ],
+        correct: 1,
+        explanation: "RMSprop uses the exponentially weighted moving average of the squared gradients to adapt the learning rate for each parameter."
+        },
+        {
+        question: "In Python, what does the modulus operator '%' return?",
+        options: [
+        "The quotient of division",
+        "The remainder after division",
+        "The absolute difference",
+        "The percentage value"
+        ],
+        correct: 1,
+        explanation: "The modulus operator '%' returns the remainder after division of two numbers."
+        },
+        {
+        question: "What does 'DBSCAN' stand for in clustering algorithms?",
+        options: [
+        "Database Scanning Clustering Algorithm",
+        "Density-Based Spatial Clustering of Applications with Noise",
+        "Dynamic Binary Search Clustering Analysis Network",
+        "Distributed Bayesian Statistical Clustering Analysis"
+        ],
+        correct: 1,
+        explanation: "DBSCAN stands for Density-Based Spatial Clustering of Applications with Noise, a clustering algorithm mentioned in the document."
+        },
+        {
+        question: "Which component of Intelligence Systems transforms data into a suitable format for analysis?",
+        options: [
+        "Data Collection",
+        "Data Processing",
+        "Data Analysis",
+        "Feedback Mechanism"
+        ],
+        correct: 1,
+        explanation: "Data Processing is the component that transforms collected data into a format suitable for analysis."
+        },
+        {
+        question: "In machine learning, what does 'bias' typically refer to in the context of model fairness?",
+        options: [
+        "The model's prediction accuracy",
+        "Unfair treatment of certain groups in data",
+        "The speed of model training",
+        "The complexity of the algorithm"
+        ],
+        correct: 1,
+        explanation: "Bias in machine learning refers to unfair treatment or discrimination against certain groups, often learned from biased training data."
+        },
+        {
+        question: "What does the 'shape' attribute return in Pandas DataFrames?",
+        options: [
+        "The column names",
+        "The data types of columns",
+        "The dimensions (rows, columns) of the DataFrame",
+        "The memory usage of the DataFrame"
+        ],
+        correct: 2,
+        explanation: "The 'shape' attribute returns the dimensions of the DataFrame as a tuple of (number of rows, number of columns)."
+        },
+        {
+        question: "Which machine learning technique is specifically mentioned for spam email filtering?",
+        options: [
+        "Linear Regression",
+        "Naive Bayes",
+        "K-Means Clustering",
+        "Principal Component Analysis"
+        ],
+        correct: 1,
+        explanation: "Naive Bayes is mentioned as being widely used for text classification and spam filtering tasks."
+        },
+        {
+        question: "In digital forensics, what does 'chain of custody' refer to?",
+        options: [
+        "The encryption method used",
+        "The documented handling of evidence",
+        "The type of storage device",
+        "The analysis software used"
+        ],
+        correct: 1,
+        explanation: "Chain of custody refers to the documented process of handling digital evidence to maintain its integrity and legal admissibility."
+        },
+        {
+        question: "What does 'ETL' commonly stand for in data processing?",
+        options: [
+        "Extract, Transform, Load",
+        "Evaluate, Test, Learn",
+        "Encode, Transmit, Log",
+        "Execute, Track, Locate"
+        ],
+        correct: 0,
+        explanation: "ETL stands for Extract, Transform, Load - a common data processing workflow for moving data between systems."
+        },
+        {
+        question: "Which Python library is mentioned for processing CSVs in the forensics context?",
+        options: [
+        "NumPy",
+        "Matplotlib",
+        "Papaparse",
+        "Scikit-learn"
+        ],
+        correct: 2,
+        explanation: "Papaparse is mentioned as a library for processing CSVs, with options like dynamicTyping and skipEmptyLines for robust parsing."
+        },
+        {
+        question: "In machine learning, what does 'regularization' primarily help prevent?",
+        options: [
+        "Slow training speed",
+        "Overfitting",
+        "Data corruption",
+        "Memory overflow"
+        ],
+        correct: 1,
+        explanation: "Regularization techniques like Ridge and Lasso help prevent overfitting by adding penalty terms to the model."
+        },
+        {
+        question: "What does the '.decode()' method do in Python when working with bytes?",
+        options: [
+        "Encrypts the data",
+        "Converts bytes to string",
+        "Compresses the data",
+        "Validates the format"
+        ],
+        correct: 1,
+        explanation: "The .decode() method converts bytes data to string format, often used in forensics to reveal readable content from binary data."
+        },
+        {
+        question: "Which intelligence system application involves personalized learning and adaptive tutoring?",
+        options: [
+        "Healthcare",
+        "Education",
+        "Finance",
+        "Manufacturing"
+        ],
+        correct: 1,
+        explanation: "Education applications use intelligent systems for personalized learning, student assessment, adaptive tutoring, and content recommendation."
+        },
+        {
+        question: "What does 'L-BFGS' stand for in optimization algorithms?",
+        options: [
+        "Limited-memory Broyden-Fletcher-Goldfarb-Shanno",
+        "Linear-Bounded Fast Gradient Search",
+        "Large-Batch Feature Gradient System",
+        "Localized-Binary Fast Gradient Solver"
+        ],
+        correct: 0,
+        explanation: "L-BFGS stands for Limited-memory Broyden-Fletcher-Goldfarb-Shanno, a limited-memory algorithm for large-scale optimization."
+        },
+        {
+        question: "In Python file operations, what does the 'w' mode do when opening a file?",
+        options: [
+        "Reads the file",
+        "Writes to the file (overwrites existing content)",
+        "Appends to the file",
+        "Creates a backup of the file"
+        ],
+        correct: 1,
+        explanation: "The 'w' mode opens a file for writing and overwrites any existing content in the file."
+        },
+        {
+        question: "Which machine learning evaluation metric is described as the harmonic mean of precision and recall?",
+        options: [
+        "Accuracy",
+        "F1 Score",
+        "ROC-AUC",
+        "R-squared"
+        ],
+        correct: 1,
+        explanation: "F1 Score is specifically described as the harmonic mean of precision and recall, providing a balance between the two metrics."
+        },
+        {
+        question: "What does 'UTF-8' represent in character encoding?",
+        options: [
+        "Universal Text Format 8-bit",
+        "Unicode Transformation Format 8-bit",
+        "Unified Type Framework 8",
+        "Universal Transfer Format 8"
+        ],
+        correct: 1,
+        explanation: "UTF-8 stands for Unicode Transformation Format 8-bit, a character encoding standard mentioned in the forensics context."
+        },
+        {
+        question: "In the context of parsing logs, what does 'dynamicTyping' option in Papaparse do?",
+        options: [
+        "Changes the file format",
+        "Automatically converts data types",
+        "Validates the CSV structure",
+        "Encrypts sensitive data"
+        ],
+        correct: 1,
+        explanation: "The dynamicTyping option in Papaparse automatically converts string data to appropriate data types (numbers, booleans) during CSV parsing."
+        },
+        {
+        question: "Which machine learning algorithm is mentioned as being inspired by the human brain structure?",
+        options: [
+        "Decision Trees",
+        "Support Vector Machines",
+        "Neural Networks",
+        "K-Nearest Neighbors"
+        ],
+        correct: 2,
+        explanation: "Neural Networks are described as being inspired by the structure and function of the human brain, consisting of interconnected layers of nodes."
+        },
+        {
+        question: "What does 'IoC' commonly stand for in cybersecurity context?",
+        options: [
+        "Internet of Computers",
+        "Indicators of Compromise",
+        "Internal Operations Control",
+        "Integrated Operational Center"
+        ],
+        correct: 1,
+        explanation: "IoC stands for Indicators of Compromise, which are artifacts that suggest a security incident or breach has occurred."
+        },
+        {
+        question: "In Python, what does the 'pd.to_datetime()' function do?",
+        options: [
+        "Creates a new date",
+        "Converts strings to datetime objects",
+        "Formats datetime for display",
+        "Calculates time differences"
+        ],
+        correct: 1,
+        explanation: "The pd.to_datetime() function converts string representations of dates and times to pandas datetime objects for analysis."
+        },
+        {
+        question: "Which challenge in machine learning involves dealing with inconsistent data?",
+        options: [
+        "Overfitting",
+        "Data Quality",
+        "Computational Complexity",
+        "Interpretability"
+        ],
+        correct: 1,
+        explanation: "Data Quality is mentioned as a challenge involving dealing with inconsistent or inaccurate data that can affect the reliability of insights."
+        },
+        {
+        question: "What does 'API endpoint' typically refer to?",
+        options: [
+        "The end of a program",
+        "A specific URL where API requests are sent",
+        "The final output of an algorithm",
+        "A type of database connection"
+        ],
+        correct: 1,
+        explanation: "An API endpoint is a specific URL where API requests are sent to access particular functions or data from a service."
+        },
+        {
+        question: "In machine learning, what does 'gradient descent' aim to minimize?",
+        options: [
+        "Training time",
+        "Model complexity",
+        "The loss function",
+        "Memory usage"
+        ],
+        correct: 2,
+        explanation: "Gradient descent is an optimization algorithm that aims to minimize a function (typically the loss function) by iteratively moving in the direction of steepest descent."
+        },
+        {
+        question: "Which Python data structure is described as storing key-value pairs?",
+        options: [
+        "List",
+        "Tuple",
+        "Dictionary",
+        "Set"
+        ],
+        correct: 2,
+        explanation: "Dictionaries in Python store key-value pairs, as shown in the example {\"name\": \"Alice\", \"age\": 25}."
+        },
+        {
+        question: "What does 'malware' stand for?",
+        options: [
+        "Malicious Software",
+        "Machine Learning Ware",
+        "Managed Local Ware",
+        "Multiple Access Ware"
+        ],
+        correct: 0,
+        explanation: "Malware stands for Malicious Software, referring to software designed to harm or exploit computer systems."
+        },
+        {
+        question: "In the BMI calculator, what does a BMI of 30.0 and above indicate?",
+        options: [
+        "Underweight",
+        "Normal weight",
+        "Overweight",
+        "Obesity"
+        ],
+        correct: 3,
+        explanation: "According to the BMI categorization in the document, a BMI of 30.0 and above indicates obesity."
+        },
+        {
+        question: "What does 'NaN' represent in data analysis?",
+        options: [
+        "Name and Number",
+        "Not a Number",
+        "New Array Node",
+        "Null and None"
+        ],
+        correct: 1,
+        explanation: "NaN stands for 'Not a Number', used to represent missing or undefined numerical values in data analysis."
+        },
+        {
+        question: "Which machine learning technique involves building models sequentially where each corrects previous errors?",
+        options: [
+        "Random Forest",
+        "Gradient Boosting",
+        "K-Means",
+        "PCA"
+        ],
+        correct: 1,
+        explanation: "Gradient Boosting builds a series of weak learners in a sequential manner, where each subsequent model corrects the errors made by the previous one."
+        },
+        {
+        question: "In Python, what does the 'import' statement do?",
+        options: [
+        "Creates new variables",
+        "Downloads files from internet",
+        "Makes external code available in the current program",
+        "Exports data to files"
+        ],
+        correct: 2,
+        explanation: "The 'import' statement makes external modules, libraries, or code available for use in the current Python program."
+        },
+        {
+        question: "What does 'SQL injection' refer to in cybersecurity?",
+        options: [
+        "Adding SQL commands to databases",
+        "A type of database optimization",
+        "Malicious code inserted into SQL queries",
+        "A method of data backup"
+        ],
+        correct: 2,
+        explanation: "SQL injection is a security vulnerability where malicious SQL code is inserted into application queries to manipulate the database."
+        },
+        {
+        question: "Which intelligence system component uses algorithms and statistical methods to uncover patterns?",
+        options: [
+        "Data Collection",
+        "Data Processing",
+        "Data Analysis",
+        "Information Dissemination"
+        ],
+        correct: 2,
+        explanation: "Data Analysis involves analyzing data using algorithms and statistical methods to uncover patterns, trends, and insights."
+        },
+        {
+        question: "What does 'IDE' stand for in programming?",
+        options: [
+        "Internet Development Environment",
+        "Integrated Development Environment",
+        "Interactive Design Editor",
+        "Internal Data Engine"
+        ],
+        correct: 1,
+        explanation: "IDE stands for Integrated Development Environment, a software application providing comprehensive facilities for software development."
+        },
+        {
+        question: "In machine learning, what is the main purpose of train-test split?",
+        options: [
+        "To increase dataset size",
+        "To evaluate model performance on unseen data",
+        "To speed up training",
+        "To reduce memory usage"
+        ],
+        correct: 1,
+        explanation: "Train-test split is used to evaluate how well a model generalizes to unseen data by testing it on data not used during training."
+        },
+        {
+        question: "What does the 'columns' attribute return in Pandas DataFrames?",
+        options: [
+        "The number of columns",
+        "The column labels/names",
+        "The column data types",
+        "The column statistics"
+        ],
+        correct: 1,
+        explanation: "The 'columns' attribute returns the column labels/names of the DataFrame."
+        },
+        {
+        question: "Which Python operator is used for exponentiation?",
+        options: [
+        "^",
+        "**",
+        "pow",
+        "exp"
+        ],
+        correct: 1,
+        explanation: "The '**' operator is used for exponentiation in Python (e.g., 2**3 equals 8)."
+        },
+        {
+        question: "What does 'phishing' refer to in cybersecurity?",
+        options: [
+        "A type of network protocol",
+        "Fraudulent attempts to obtain sensitive information",
+        "A method of data encryption",
+        "A database query technique"
+        ],
+        correct: 1,
+        explanation: "Phishing refers to fraudulent attempts to obtain sensitive information like passwords or credit card details by impersonating trustworthy entities."
+        },
+        {
+        question: "In machine learning, what does 'cross-validation' help assess?",
+        options: [
+        "Model complexity",
+        "Model generalization performance",
+        "Training speed",
+        "Memory requirements"
+        ],
+        correct: 1,
+        explanation: "Cross-validation helps assess how well a model generalizes to new data by testing it on multiple different subsets of the available data."
+        },
+        {
+        question: "What does 'regex' stand for in text processing?",
+        options: [
+        "Regular Expression",
+        "Registered Execution",
+        "Recursive Exchange",
+        "Regional Extension"
+        ],
+        correct: 0,
+        explanation: "Regex stands for Regular Expression, a sequence of characters that define a search pattern for text processing."
+        },
+        {
+        question: "Which intelligence system application involves fraud detection and risk assessment?",
+        options: [
+        "Healthcare",
+        "Education",
+        "Finance",
+        "Agriculture"
+        ],
+        correct: 2,
+        explanation: "Finance applications use intelligence systems for fraud detection, risk assessment, and investment decisions."
+        },
+        {
+        question: "In Python, what does the 'len()' function return?",
+        options: [
+        "The memory size of an object",
+        "The number of elements in an object",
+        "The data type of an object",
+        "The processing time for an object"
+        ],
+        correct: 1,
+        explanation: "The len() function returns the number of elements (length) in an object like a list, string, or dictionary."
+        },
+        {
+        question: "What does 'DDoS' stand for in cybersecurity?",
+        options: [
+        "Direct Denial of Service",
+        "Distributed Denial of Service",
+        "Dynamic Domain Service",
+        "Data Distribution Service"
+        ],
+        correct: 1,
+        explanation: "DDoS stands for Distributed Denial of Service, an attack that attempts to make a service unavailable by overwhelming it with traffic from multiple sources."
+        },
+        {
+        question: "Which machine learning algorithm is mentioned for handwriting recognition tasks?",
+        options: [
+        "Random Forest",
+        "Linear Discriminant Analysis",
+        "Naive Bayes",
+        "K-Means"
+        ],
+        correct: 1,
+        explanation: "Linear Discriminant Analysis (LDA) is mentioned as being used for handwriting recognition on postal envelopes to classify zip codes."
+        },
+        {
+        question: "What does 'TCP' stand for in networking?",
+        options: [
+        "Total Connection Protocol",
+        "Transmission Control Protocol",
+        "Transfer Communication Protocol",
+        "Terminal Control Process"
+        ],
+        correct: 1,
+        explanation: "TCP stands for Transmission Control Protocol, a core protocol of the Internet Protocol Suite used for reliable data transmission."
+        },
+        {
+        question: "In machine learning, what does 'hyperparameter tuning' involve?",
+        options: [
+        "Adjusting model parameters during training",
+        "Optimizing parameters that control the learning process",
+        "Increasing the dataset size",
+        "Reducing model complexity"
+        ],
+        correct: 1,
+        explanation: "Hyperparameter tuning involves optimizing parameters that control the learning process (like learning rate, regularization strength) rather than parameters learned from data."
+        },
+        {
+        question: "What does the 'info()' method provide in Pandas?",
+        options: [
+        "Statistical summaries",
+        "A concise summary of the DataFrame structure",
+        "Column correlations",
+        "Missing value counts only"
+        ],
+        correct: 1,
+        explanation: "The info() method provides a concise summary of the DataFrame including data types, non-null counts, and memory usage."
+        },
+        {
+        question: "Which Python data type is mutable and allows duplicate values?",
+        options: [
+        "Tuple",
+        "Set",
+        "List",
+        "String"
+        ],
+        correct: 2,
+        explanation: "Lists in Python are mutable (can be changed) and allow duplicate values, unlike tuples (immutable) or sets (no duplicates)."
+        },
+        {
+        question: "What does 'VPN' stand for in network security?",
+        options: [
+        "Virtual Private Network",
+        "Verified Protection Network",
+        "Variable Processing Node",
+        "Visual Programming Network"
+        ],
+        correct: 0,
+        explanation: "VPN stands for Virtual Private Network, a secure connection method used to provide encrypted communication over public networks."
+        },
+        {
+        question: "In the context of intelligence systems, what does real-time data analysis enable organizations to do?",
+        options: [
+        "Reduce data storage costs",
+        "Stay ahead of competition and adapt quickly",
+        "Eliminate human decision-making",
+        "Simplify data collection processes"
+        ],
+        correct: 1,
+        explanation: "Real-time data analysis enables organizations to stay ahead of competition and adapt to changing market conditions quickly."
+        },
+        {
+        question: "What does 'URL' stand for?",
+        options: [
+        "Universal Resource Locator",
+        "Uniform Resource Locator",
+        "Universal Reference Link",
+        "Unified Resource Library"
+        ],
+        correct: 1,
+        explanation: "URL stands for Uniform Resource Locator, a reference to a web resource that specifies its location on a computer network."
+        },
+        {
+        question: "Which machine learning concept involves the model learning from its mistakes iteratively?",
+        options: [
+        "Supervised Learning",
+        "Unsupervised Learning",
+        "Reinforcement Learning",
+        "Transfer Learning"
+        ],
+        correct: 2,
+        explanation: "Reinforcement Learning involves the model learning from its mistakes through trial and error, receiving feedback to improve performance iteratively."
+        }, 
+        {
+        question: "It is described as finding the optimal hyperplane to separate data points?",
+        options: [
+        "Decision Trees",
+        "K-Nearest Neighbors",
+        "Support Vector Machines",
+        "Linear Regression"
+        ],
+        correct: 2,
+        explanation: "Support Vector Machines (SVM) work by finding the optimal hyperplane that best separates data points into different classes."
+        },
+        {
+        question: "What type of machine learning algorithm is Logistic Regression mainly used for?",
+        options: [
+        "Regression tasks",
+        "Classification tasks",
+        "Clustering tasks",
+        "Dimensionality reduction"
+        ],
+        correct: 1,
+        explanation: "Logistic Regression is commonly used for classification tasks, such as predicting whether an email is spam or not."
+        },
+        {
+        question: "Which type of learning analyzes unlabeled data to find hidden structures?",
+        options: [
+        "Supervised Learning",
+        "Unsupervised Learning",
+        "Reinforcement Learning",
+        "Transfer Learning"
+        ],
+        correct: 1,
+        explanation: "Unsupervised learning works with unlabeled data to find patterns, clusters, or groupings without predefined categories."
+        },
+        {
+        question: "Which optimization technique adjusts weights to minimize a loss function in machine learning models?",
+        options: [
+        "Gradient Descent",
+        "Random Forest",
+        "PCA",
+        "Decision Trees"
+        ],
+        correct: 0,
+        explanation: "Gradient Descent is an optimization algorithm that updates weights iteratively to minimize a loss function."
+        },
+        {
+        question: "Which machine learning algorithm reduces the dimensionality of datasets while retaining variance?",
+        options: [
+        "Logistic Regression",
+        "Principal Component Analysis",
+        "K-Means Clustering",
+        "Naive Bayes"
+        ],
+        correct: 1,
+        explanation: "Principal Component Analysis (PCA) reduces dimensionality by transforming data into new variables (principal components)."
+        },
+        {
+        question: "In a KNN algorithm, what does the parameter 'k' represent?",
+        options: [
+        "The learning rate",
+        "The number of clusters",
+        "The number of nearest neighbors to check",
+        "The size of the dataset"
+        ],
+        correct: 2,
+        explanation: "In KNN, 'k' is the number of nearest neighbors considered when predicting a class label."
+        },
+        {
+        question: "Which challenge of intelligence systems refers to human mistakes in interpreting results?",
+        options: [
+        "Data Quality Issues",
+        "Interpretation Bias",
+        "Overfitting",
+        "Data Privacy"
+        ],
+        correct: 1,
+        explanation: "Interpretation Bias occurs when human analysts misinterpret or bring personal bias into analyzing system outputs."
+        },
+        {
+        question: "Which future trend emphasizes combining AI, machine learning, and big data analytics?",
+        options: [
+        "Improved file systems",
+        "Green computing",
+        "Integration of AI and Big Data",
+        "Enhanced memory forensics"
+        ],
+        correct: 2,
+        explanation: "Future intelligence systems will integrate AI, machine learning, and big data for more accurate, real-time insights."
+        },
+        {
+        question: "Which intelligence system application focuses on route optimization and predictive maintenance?",
+        options: [
+        "Transportation",
+        "Finance",
+        "Healthcare",
+        "Marketing"
+        ],
+        correct: 0,
+        explanation: "Transportation applies intelligence systems to route optimization, traffic management, autonomous vehicles, and predictive maintenance."
+        },
+        {
+        question: "Which algorithm builds many decision trees and combines their results for stronger predictions?",
+        options: [
+        "Random Forest",
+        "Logistic Regression",
+        "Gradient Boosting",
+        "K-Means"
+        ],
+        correct: 0,
+        explanation: "Random Forest is an ensemble learning method that aggregates multiple decision trees for improved accuracy and stability."
+        },
+        {
+        question: "Which intelligence system application enhances services through chatbots and virtual assistants?",
+        options: [
+        "Education",
+        "Customer Service",
+        "Cybersecurity",
+        "Smart Homes"
+        ],
+        correct: 1,
+        explanation: "Customer Service applications use chatbots, sentiment analysis, and automation to improve user experience."
+        },
+        {
+        question: "Which metric measures how much variance in a dependent variable is explained by a regression model?",
+        options: [
+        "Accuracy",
+        "F1 Score",
+        "R-squared",
+        "Precision"
+        ],
+        correct: 2,
+        explanation: "R-squared indicates how much of the variance in the dependent variable is explained by the model."
+        },
+        {
+        question: "What is one major concern about handling sensitive data in intelligence systems?",
+        options: [
+        "Data Privacy and Security",
+        "Model Interpretability",
+        "Algorithm Selection",
+        "File Compression"
+        ],
+        correct: 0,
+        explanation: "Data Privacy and Security is a critical concern when handling sensitive or confidential information in intelligence systems."
+        },
+        {
+        question: "Which real-world intelligence system provides product suggestions by analyzing customer behavior?",
+        options: [
+        "Amazon Recommendation System",
+        "Google Search Algorithm",
+        "Volatility Framework",
+        "Military Intelligence"
+        ],
+        correct: 0,
+        explanation: "Amazon's recommendation system analyzes purchase history and customer behavior to suggest relevant products."
+        },
+        {
+        question: "Which clustering algorithm identifies noise points while forming clusters based on density?",
+        options: [
+        "K-Means",
+        "DBSCAN",
+        "Hierarchical Clustering",
+        "Gaussian Mixtures"
+        ],
+        correct: 1,
+        explanation: "DBSCAN groups points based on density and can identify noise points that don’t belong to any cluster."
+        },
+        {
+        question: "Which intelligence system challenge involves inconsistent or inaccurate data affecting results?",
+        options: [
+        "Data Privacy",
+        "Overfitting",
+        "Data Quality Issues",
+        "Interpretation Bias"
+        ],
+        correct: 2,
+        explanation: "Data Quality challenges occur when poor data quality affects the accuracy and reliability of system insights."
+        },
+        {
+        question: "What does the 'k' represent in the K-Nearest Neighbors (KNN) algorithm?",
+        options: [
+        "The kernel function used",
+        "The number of clusters",
+        "The number of nearest neighbors to consider",
+        "The learning rate parameter"
+        ],
+        correct: 2,
+        explanation: "In KNN, 'k' represents the number of nearest neighbors to consider when making predictions for a new data point."
+        },
+        {
+        question: "Which file system is mentioned as being developed by Microsoft with features like file compression and encryption?",
+        options: [
+        "FAT32",
+        "HFS+",
+        "NTFS",
+        "APFS"
+        ],
+        correct: 2,
+        explanation: "NTFS (New Technology File System) is developed by Microsoft and includes features such as file compression, encryption, and permissions management."
+        },
+        {
+        question: "What is the primary difference between supervised and unsupervised learning?",
+        options: [
+        "Supervised learning uses more data than unsupervised learning",
+        "Supervised learning requires labeled data while unsupervised does not",
+        "Supervised learning is faster than unsupervised learning",
+        "Supervised learning only works with numerical data"
+        ],
+        correct: 1,
+        explanation: "Supervised learning involves training on labeled data where the algorithm learns to map inputs to known outputs, while unsupervised learning finds patterns in unlabeled data."
+        },
+        {
+        question: "In Python, which function is used to convert user input from string to integer?",
+        options: [
+        "str()",
+        "float()",
+        "int()",
+        "convert()"
+        ],
+        correct: 2,
+        explanation: "The int() function is used to convert a string to an integer in Python."
+        },
+        {
+        question: "What does the acronym 'ROC-AUC' stand for in machine learning evaluation?",
+        options: [
+        "Receiver Operating Characteristic - Area Under Curve",
+        "Random Output Classification - Accuracy Under Control",
+        "Regression Output Coefficient - Average Uncertainty Control",
+        "Relative Outcome Calculation - Automated Unit Conversion"
+        ],
+        correct: 0,
+        explanation: "ROC-AUC stands for Receiver Operating Characteristic - Area Under the Curve, used to evaluate binary classification models."
+        },
+        {
+        question: "Which intelligence system application is mentioned for precision agriculture and crop monitoring?",
+        options: [
+        "Transportation",
+        "Healthcare",
+        "Agriculture",
+        "Finance"
+        ],
+        correct: 2,
+        explanation: "Agriculture uses intelligent systems for precision agriculture, crop monitoring, weather forecasting, pest management, and irrigation control."
+        },
+        {
+        question: "In digital forensics, what does the tool Volatility primarily analyze?",
+        options: [
+        "Network traffic packets",
+        "Hard disk file systems",
+        "RAM memory dumps",
+        "System log files"
+        ],
+        correct: 2,
+        explanation: "Volatility is an open-source memory forensics framework that analyzes RAM dumps to extract artifacts like processes, registry entries, and network connections."
+        },
+        {
+        question: "What type of machine learning involves training a model to take actions to maximize rewards?",
+        options: [
+        "Supervised learning",
+        "Unsupervised learning",
+        "Reinforcement learning",
+        "Transfer learning"
+        ],
+        correct: 2,
+        explanation: "Reinforcement learning involves training a model to take actions in an environment to maximize rewards over time through trial and error."
+        },
+        {
+        question: "Which Python library mentioned is built on top of NumPy for data manipulation?",
+        options: [
+        "Matplotlib",
+        "Pandas",
+        "Scikit-learn",
+        "TensorFlow"
+        ],
+        correct: 1,
+        explanation: "Pandas is a powerful data manipulation and analysis library built on top of NumPy that provides DataFrames and Series for working with tabular data."
+        },
+        {
+        question: "What does the acronym 'LASSO' represent in machine learning?",
+        options: [
+        "Linear Algorithm for Systematic Statistical Operations",
+        "Least Absolute Shrinkage and Selection Operator",
+        "Logistic Analysis for Structured Sample Optimization",
+        "Limited Access Statistical Selection Operation"
+        ],
+        correct: 1,
+        explanation: "LASSO stands for Least Absolute Shrinkage and Selection Operator, a regression technique that adds a penalty term forcing some coefficients to be zero."
+        },
+        {
+        question: "In the context of intelligence systems, what is the main purpose of the Feedback Mechanism component?",
+        options: [
+        "To collect data from external sources",
+        "To process raw data into structured formats",
+        "To improve the system's accuracy and efficiency",
+        "To disseminate information to end users"
+        ],
+        correct: 2,
+        explanation: "The Feedback Mechanism incorporates feedback to improve the system's accuracy and efficiency over time."
+        },
+        {
+        question: "Which HTTP status codes are filtered in the Apache log parsing example to identify suspicious activity?",
+        options: [
+        "200 and 301",
+        "404 and 500",
+        "302 and 403",
+        "201 and 401"
+        ],
+        correct: 1,
+        explanation: "The example filters for 404 (Not Found) and 500 (Internal Server Error) status codes as they may indicate probing attacks or system errors."
+        },
+        {
+        question: "What does the acronym 'PCA' stand for in machine learning?",
+        options: [
+        "Predictive Classification Algorithm",
+        "Principal Component Analysis",
+        "Probabilistic Clustering Approach",
+        "Parallel Computing Architecture"
+        ],
+        correct: 1,
+        explanation: "PCA stands for Principal Component Analysis, a dimensionality reduction technique that transforms high-dimensional data into a lower-dimensional space."
+        },
+        {
+        question: "In Python variable naming, which of these is NOT a valid rule?",
+        options: [
+        "Variable names can contain letters and numbers",
+        "Variable names must begin with a letter or underscore",
+        "Variable names are case-sensitive",
+        "Variable names must start with a capital letter"
+        ],
+        correct: 3,
+        explanation: "Variable names do not need to start with a capital letter. They can start with a letter (uppercase or lowercase) or an underscore."
+        },
+        {
+        question: "Which intelligence system example analyzes customer behavior to suggest products?",
+        options: [
+        "Google Search Algorithm",
+        "Amazon Recommendation System",
+        "Security Systems",
+        "Health Monitoring Devices"
+        ],
+        correct: 1,
+        explanation: "Amazon's intelligent recommendation system analyzes customer behavior and purchase history to suggest products that users are likely to buy."
+        },
+        {
+        question: "What does the 'sniff' function in Scapy primarily do?",
+        options: [
+        "Creates new network packets",
+        "Captures live network traffic",
+        "Encrypts network communications",
+        "Analyzes packet headers only"
+        ],
+        correct: 1,
+        explanation: "The sniff() function in Scapy captures live network traffic, allowing you to monitor and analyze packets passing through the network interface."
+        },
+        {
+        question: "In machine learning, what is overfitting?",
+        options: [
+        "When a model performs well on both training and test data",
+        "When a model captures noise rather than underlying patterns",
+        "When a model uses too few features for training",
+        "When a model processes data too quickly"
+        ],
+        correct: 1,
+        explanation: "Overfitting occurs when a model captures noise in the training data rather than the underlying patterns, leading to poor generalization on new data."
+        },
+        {
+        question: "Which file system is mentioned as being optimized for flash storage with features like snapshots?",
+        options: [
+        "FAT32",
+        "NTFS",
+        "HFS+",
+        "APFS"
+        ],
+        correct: 3,
+        explanation: "APFS (Apple File System) is optimized for flash storage and offers features like snapshots and cloning."
+        },
+        {
+        question: "What does the term 'black box' refer to in machine learning?",
+        options: [
+        "Models that only work with binary data",
+        "Models that are difficult to interpret",
+        "Models that have failed training",
+        "Models that use encrypted algorithms"
+        ],
+        correct: 1,
+        explanation: "Black box models, like deep neural networks, are difficult to interpret because it's hard to understand how they make decisions or predictions."
+        },
+        {
+        question: "In the BMI calculator example, what BMI range indicates 'Normal weight'?",
+        options: [
+        "Below 18.5",
+        "18.5 to 24.9",
+        "25.0 to 29.9",
+        "30.0 and above"
+        ],
+        correct: 1,
+        explanation: "According to the BMI categorization in the document, a BMI of 18.5 to 24.9 indicates normal weight."
+        },
+        {
+        question: "Which Python module is mentioned for regular expression-based log parsing?",
+        options: [
+        "os",
+        "re",
+        "sys",
+        "io"
+        ],
+        correct: 1,
+        explanation: "The 're' module is used for regular expression-based parsing in Python, useful for extracting patterns from log files."
+        },
+        {
+        question: "What does 'XML' stand for in the context of data parsing?",
+        options: [
+        "eXtensive Markup Language",
+        "eXtensible Markup Language",
+        "eXternal Management Language",
+        "eXecutable Machine Language"
+        ],
+        correct: 1,
+        explanation: "XML stands for eXtensible Markup Language, used for storing and transporting structured data."
+        },
+        {
+        question: "In machine learning evaluation, what does precision measure?",
+        options: [
+        "The total number of correct predictions",
+        "True positives out of all positive predictions",
+        "True positives out of all actual positives",
+        "The speed of model prediction"
+        ],
+        correct: 1,
+        explanation: "Precision measures the proportion of true positive predictions out of all positive predictions made by the model."
+        },
+        {
+        question: "Which challenge of Intelligence Systems involves ensuring data confidentiality?",
+        options: [
+        "Data Quality",
+        "Interpretation Bias",
+        "Data Privacy and Security",
+        "Processing Speed"
+        ],
+        correct: 2,
+        explanation: "Data Privacy and Security is mentioned as a challenge involving ensuring the confidentiality and integrity of sensitive information."
+        },
+        {
+        question: "What does the acronym 'JSON' represent in data parsing?",
+        options: [
+        "Java System Object Notation",
+        "JavaScript Object Notation",
+        "Joint Standard Object Network",
+        "Java Structured Object Name"
+        ],
+        correct: 1,
+        explanation: "JSON stands for JavaScript Object Notation, a lightweight data-interchange format used for storing and exchanging data."
+        },
+        {
+        question: "In the Celsius to Fahrenheit conversion example, what is the complete formula?",
+        options: [
+        "F = C + 32",
+        "F = C * 1.8",
+        "F = C * 1.8 + 32",
+        "F = (C + 32) * 1.8"
+        ],
+        correct: 2,
+        explanation: "The complete formula for Celsius to Fahrenheit conversion is F = C * 1.8 + 32."
+        },
+        {
+        question: "Which machine learning algorithm is described as using multiple decision trees?",
+        options: [
+        "Support Vector Machines",
+        "Random Forest",
+        "Linear Regression",
+        "K-Means Clustering"
+        ],
+        correct: 1,
+        explanation: "Random Forest is an ensemble learning method that uses multiple decision trees to improve prediction accuracy and reduce overfitting."
+        },
+        {
+        question: "What does the 'os.listdir()' function do in Python?",
+        options: [
+        "Creates a new directory",
+        "Deletes files from a directory",
+        "Lists all files and directories in the current directory",
+        "Changes the current working directory"
+        ],
+        correct: 2,
+        explanation: "The os.listdir() function returns a list of all files and directories present in the current directory."
+        },
+        {
+        question: "In digital forensics, what type of data does WinPMEM primarily capture?",
+        options: [
+        "Hard disk images",
+        "Network traffic",
+        "System memory (RAM)",
+        "Registry entries"
+        ],
+        correct: 2,
+        explanation: "WinPMEM is a memory acquisition tool that captures the contents of system RAM and saves it to a file for forensic analysis."
+        },
+        {
+        question: "What does the acronym 'GBM' stand for in machine learning?",
+        options: [
+        "Gaussian Bayesian Model",
+        "Gradient Boosting Machines",
+        "General Binary Method",
+        "Grouped Bootstrap Modeling"
+        ],
+        correct: 1,
+        explanation: "GBM stands for Gradient Boosting Machines, an ensemble learning technique that combines multiple weak learners sequentially."
+        },
+        {
+        question: "Which intelligence system application involves chatbots and virtual assistants?",
+        options: [
+        "Transportation",
+        "Customer Service",
+        "Agriculture",
+        "Manufacturing"
+        ],
+        correct: 1,
+        explanation: "Customer Service applications use intelligent systems for chatbots, virtual assistants, sentiment analysis, and customer interaction analytics."
+        },
+        {
+        question: "In Python, what does the 'float()' function do?",
+        options: [
+        "Creates floating-point numbers",
+        "Converts data to floating-point format",
+        "Performs floating-point arithmetic",
+        "Formats numbers for display"
+        ],
+        correct: 1,
+        explanation: "The float() function converts data (typically strings or integers) to floating-point format."
+        },
+        {
+        question: "What is the main characteristic of unsupervised learning mentioned in the document?",
+        options: [
+        "It requires labeled training data",
+        "It works only with numerical data",
+        "It finds patterns in unlabeled data",
+        "It is faster than supervised learning"
+        ],
+        correct: 2,
+        explanation: "Unsupervised learning involves training a model on unlabeled data to find patterns and relationships within the data."
+        },
+        {
+        question: "Which Python library is mentioned for processing Excel files?",
+        options: [
+        "Pandas",
+        "NumPy",
+        "SheetJS",
+        "Openpyxl"
+        ],
+        correct: 2,
+        explanation: "SheetJS is mentioned as a library for processing Excel files (XLSX, XLS) in the document."
+        },
+        {
+        question: "What does 'F1 Score' represent in machine learning evaluation?",
+        options: [
+        "The first feature importance score",
+        "The harmonic mean of precision and recall",
+        "The primary accuracy measurement",
+        "The fundamental learning rate"
+        ],
+        correct: 1,
+        explanation: "F1 Score is the harmonic mean of precision and recall, providing a balance between these two metrics."
+        },
+        {
+        question: "In the context of file systems, what does 'FAT32' stand for?",
+        options: [
+        "Fast Access Table 32-bit",
+        "File Allocation Table 32-bit",
+        "Fixed Array Type 32",
+        "File Access Technology 32"
+        ],
+        correct: 1,
+        explanation: "FAT32 stands for File Allocation Table 32-bit, a widely used file system that uses a simple file allocation table to manage file storage."
+        },
+        {
+        question: "Which machine learning concept involves the model learning through trial and error with rewards?",
+        options: [
+        "Supervised learning",
+        "Unsupervised learning",
+        "Reinforcement learning",
+        "Semi-supervised learning"
+        ],
+        correct: 2,
+        explanation: "Reinforcement learning involves a model learning through trial and error, receiving feedback in the form of rewards or penalties based on its actions."
+        },
+        {
+        question: "What does the 'head()' method do in Pandas?",
+        options: [
+        "Sorts the DataFrame by the first column",
+        "Displays the first few rows of the DataFrame",
+        "Returns the column headers only",
+        "Calculates summary statistics"
+        ],
+        correct: 1,
+        explanation: "The head() method in Pandas displays the first few rows of the DataFrame (by default, the first 5 rows)."
+        },
+        {
+        question: "Which intelligence system challenge involves human error in data analysis?",
+        options: [
+        "Data Privacy and Security",
+        "Data Quality",
+        "Interpretation Bias",
+        "System Integration"
+        ],
+        correct: 2,
+        explanation: "Interpretation Bias is the challenge involving human error in analyzing data leading to biased conclusions."
+        },
+        {
+        question: "In Python, what type of error would occur if you try to use a reserved keyword as a variable name?",
+        options: [
+        "Runtime Error",
+        "Syntax Error",
+        "Logic Error",
+        "Memory Error"
+        ],
+        correct: 1,
+        explanation: "Using reserved keywords (such as if, else, while, etc.) as variable names would result in a Syntax Error in Python."
+        },
+        {
+        question: "What does 'RMSE' stand for in machine learning evaluation metrics?",
+        options: [
+        "Random Mean Standard Error",
+        "Root Mean Squared Error",
+        "Relative Maximum System Error",
+        "Recursive Model Selection Evaluation"
+        ],
+        correct: 1,
+        explanation: "RMSE stands for Root Mean Squared Error, which is the square root of MSE and is used to evaluate regression model performance."
+        },
+        {
+        question: "Which type of parsing involves processing Comma-Separated Values files?",
+        options: [
+        "Text Parsing",
+        "XML Parsing",
+        "JSON Parsing",
+        "CSV Parsing"
+        ],
+        correct: 3,
+        explanation: "CSV Parsing involves processing Comma-Separated Values files to extract data and import it into databases or other applications."
+        },
+        {
+        question: "In machine learning, what is the primary goal of feature selection?",
+        options: [
+        "To increase the dataset size",
+        "To identify the most relevant features",
+        "To convert categorical variables",
+        "To normalize data distributions"
+        ],
+        correct: 1,
+        explanation: "Feature selection involves identifying the most important features that will help the model make accurate predictions, improving efficiency and performance."
+        },
+        {
+        question: "What does the 'iloc[]' method do in Pandas?",
+        options: [
+        "Selects rows and columns by labels",
+        "Selects rows and columns by integer position",
+        "Sorts data by column values",
+        "Groups data by categories"
+        ],
+        correct: 1,
+        explanation: "The iloc[] method in Pandas selects rows and columns by integer position (location-based indexing)."
+        },
+        {
+        question: "Which machine learning algorithm uses Bayes' theorem with independence assumptions?",
+        options: [
+        "Support Vector Machines",
+        "Decision Trees",
+        "Naive Bayes",
+        "K-Means Clustering"
+        ],
+        correct: 2,
+        explanation: "Naive Bayes is a probabilistic classifier based on Bayes' theorem with an assumption of independence between features."
+        },
+        {
+        question: "What is the main purpose of data preprocessing in machine learning?",
+        options: [
+        "To increase the amount of training data",
+        "To clean and prepare data for analysis",
+        "To speed up the training process",
+        "To visualize the data patterns"
+        ],
+        correct: 1,
+        explanation: "Data preprocessing involves cleaning, transforming, and organizing raw data into a suitable format for machine learning algorithms."
+        },
+        {
+        question: "Which Python arithmetic operator represents floor division?",
+        options: [
+        "/",
+        "//",
+        "%",
+        "**"
+        ],
+        correct: 1,
+        explanation: "The '//' operator represents floor division in Python, which returns the largest integer less than or equal to the division result."
+        },
+        {
+        question: "What does 'HFS+' stand for in file systems?",
+        options: [
+        "High-Frequency Storage Plus",
+        "Hierarchical File System Plus",
+        "Hybrid File Structure Plus",
+        "Hash File System Plus"
+        ],
+        correct: 1,
+        explanation: "HFS+ stands for Hierarchical File System Plus, developed by Apple for Mac OS with features like journaling and large file support."
+        },
+        {
+        question: "In the context of intelligence systems, what does 'IoT' represent?",
+        options: [
+        "Internet of Technology",
+        "Integration of Tools",
+        "Internet of Things",
+        "Information on Time"
+        ],
+        correct: 2,
+        explanation: "IoT stands for Internet of Things, referring to the ecosystem of interconnected smart devices that can collect and exchange data."
+        },
+        {
+        question: "Which machine learning evaluation technique involves splitting data into multiple subsets?",
+        options: [
+        "Confusion Matrix",
+        "Cross-validation",
+        "ROC Curve",
+        "Feature Selection"
+        ],
+        correct: 1,
+        explanation: "Cross-validation involves splitting the data into multiple subsets and training the model on different subsets while testing on the remaining subset."
+        },
+        {
+        question: "What does the 'groupby()' method do in Pandas?",
+        options: [
+        "Sorts data in ascending order",
+        "Groups data based on specified criteria",
+        "Removes duplicate entries",
+        "Calculates correlation coefficients"
+        ],
+        correct: 1,
+        explanation: "The groupby() method in Pandas groups the data based on specified criteria, allowing for aggregate operations on grouped data."
+        },
+        {
+        question: "Which Python data type represents True or False values?",
+        options: [
+        "Integer",
+        "String",
+        "Boolean",
+        "Float"
+        ],
+        correct: 2,
+        explanation: "Boolean data type represents True or False values in Python."
+        },
+        {
+        question: "In machine learning, what does 'dimensionality reduction' primarily aim to do?",
+        options: [
+        "Increase the number of features",
+        "Reduce the number of features while preserving information",
+        "Improve model accuracy",
+        "Speed up data collection"
+        ],
+        correct: 1,
+        explanation: "Dimensionality reduction techniques like PCA aim to reduce the number of features while preserving as much important information as possible."
+        },
+        {
+        question: "What is the primary function of the 'describe()' method in Pandas?",
+        options: [
+        "To rename column headers",
+        "To generate descriptive statistics",
+        "To sort data values",
+        "To merge multiple DataFrames"
+        ],
+        correct: 1,
+        explanation: "The describe() method generates descriptive statistics of the DataFrame, including count, mean, standard deviation, min, max, and quartiles."
+        },
+        {
+        question: "Which intelligence system application is specifically mentioned for autonomous vehicles?",
+        options: [
+        "Healthcare",
+        "Transportation",
+        "Finance",
+        "Education"
+        ],
+        correct: 1,
+        explanation: "Transportation applications use intelligent systems for route optimization, traffic management, autonomous vehicles, logistics planning, and predictive maintenance."
+        },
+        {
+        question: "What does 'API' typically stand for in the context of software development?",
+        options: [
+        "Advanced Programming Interface",
+        "Application Programming Interface",
+        "Automated Processing Integration",
+        "Applied Program Implementation"
+        ],
+        correct: 1,
+        explanation: "API stands for Application Programming Interface, which allows different software applications to communicate with each other."
+        },
+        {
+        question: "In machine learning, what is the purpose of a confusion matrix?",
+        options: [
+        "To visualize feature importance",
+        "To show training progress",
+        "To display true/false positive and negative predictions",
+        "To calculate processing time"
+        ],
+        correct: 2,
+        explanation: "A confusion matrix provides a visual representation of model performance by showing true positive, true negative, false positive, and false negative predictions."
+        },
+        {
+        question: "Which Python function is used to check the version of Python installed?",
+        options: [
+        "python --check",
+        "python -v",
+        "python --version",
+        "python -info"
+        ],
+        correct: 2,
+        explanation: "The command 'python --version' is used to check the version of Python installed on the system."
+        },
+        {
+        question: "What does 'NLP' stand for in the context of intelligence systems?",
+        options: [
+        "Natural Language Processing",
+        "Network Layer Protocol",
+        "Numeric Linear Programming",
+        "Neural Learning Platform"
+        ],
+        correct: 0,
+        explanation: "NLP stands for Natural Language Processing, which is used by intelligence systems to process and understand human language."
+        },
+        {
+        question: "Which machine learning concept involves combining multiple models for better predictions?",
+        options: [
+        "Feature Engineering",
+        "Ensemble Learning",
+        "Data Preprocessing",
+        "Model Validation"
+        ],
+        correct: 1,
+        explanation: "Ensemble Learning involves combining multiple models (like in Random Forest or Gradient Boosting) to create a stronger predictor than any individual model."
+        },
+        {
+        question: "In Python lists, what data structure is described as 'ordered collection of items'?",
+        options: [
+        "Dictionary",
+        "Set",
+        "List",
+        "Tuple"
+        ],
+        correct: 2,
+        explanation: "Lists in Python are described as ordered collections of items that can store multiple values in a single variable."
+        },
+        {
+        question: "What is the main difference between 'loc[]' and 'iloc[]' in Pandas?",
+        options: [
+        "loc[] is faster than iloc[]",
+        "loc[] uses labels while iloc[] uses integer positions",
+        "loc[] only works with numerical data",
+        "iloc[] can only select single rows"
+        ],
+        correct: 1,
+        explanation: "loc[] selects rows and columns by labels, while iloc[] selects rows and columns by integer position."
+        },
+        {
+        question: "Which machine learning algorithm is mentioned as being suitable for both classification and regression?",
+        options: [
+        "Naive Bayes",
+        "K-Means",
+        "Support Vector Machines",
+        "Logistic Regression"
+        ],
+        correct: 2,
+        explanation: "Support Vector Machines (SVM) can be used for both classification and regression tasks by finding optimal hyperplanes."
+        },
+        {
+        question: "What does the term 'overfitting' indicate about a model's performance?",
+        options: [
+        "The model trains too quickly",
+        "The model performs well on training data but poorly on new data",
+        "The model uses too many features",
+        "The model cannot learn from the data"
+        ],
+        correct: 1,
+        explanation: "Overfitting occurs when a model performs well on training data but fails to generalize to new, unseen data because it has learned noise rather than patterns."
+        },
+        {
+        question: "In the context of digital forensics, what does 'pcap' refer to?",
+        options: [
+        "Packet Capture files",
+        "Program Capability assessment",
+        "Protected Computer Access Protocol",
+        "Primary Cache Application Process"
+        ],
+        correct: 0,
+        explanation: "Pcap refers to packet capture files that contain network traffic data captured for forensic analysis."
+        },
+        {
+        question: "Which Python library is specifically mentioned for memory analysis in digital forensics?",
+        options: [
+        "Scapy",
+        "Volatility",
+        "Pandas",
+        "NumPy"
+        ],
+        correct: 1,
+        explanation: "Volatility is mentioned as an open-source memory forensics framework for analyzing RAM dumps."
+        },
+        {
+        question: "What does 'R-squared' measure in machine learning evaluation?",
+        options: [
+        "The speed of model training",
+        "The proportion of variance explained by the model",
+        "The number of features used",
+        "The computational complexity"
+        ],
+        correct: 1,
+        explanation: "R-squared measures the proportion of the variance in the dependent variable that is predictable from the independent variables."
+        },
+        {
+        question: "In Python, what is the correct way to open a file for reading?",
+        options: [
+        "file = open('filename.txt', 'read')",
+        "file = open('filename.txt', 'r')",
+        "file = read('filename.txt')",
+        "file = open('filename.txt', mode='read')"
+        ],
+        correct: 1,
+        explanation: "The correct syntax is file = open('filename.txt', 'r') where 'r' specifies read mode."
+        },
+        {
+        question: "Which intelligence system component is responsible for gathering data from various sources?",
+        options: [
+        "Data Processing",
+        "Data Analysis",
+        "Data Collection",
+        "Information Dissemination"
+        ],
+        correct: 2,
+        explanation: "Data Collection is the component responsible for gathering data from various sources such as databases, sensors, and social media."
+        },
+        {
+        question: "What does 'SVM' stand for in machine learning?",
+        options: [
+        "Statistical Variance Model",
+        "Support Vector Machines",
+        "System Validation Method",
+        "Structured Variable Management"
+        ],
+        correct: 1,
+        explanation: "SVM stands for Support Vector Machines, a supervised learning model used for classification and regression tasks."
+        },
+        {
+        question: "In machine learning, what is the primary characteristic of reinforcement learning?",
+        options: [
+        "It requires labeled training data",
+        "It learns through rewards and penalties",
+        "It only works with numerical data",
+        "It uses unsupervised techniques"
+        ],
+        correct: 1,
+        explanation: "Reinforcement learning is characterized by learning through trial and error, receiving feedback in the form of rewards or penalties."
+        },
+        {
+        question: "Which Python data structure is described as 'immutable ordered collection'?",
+        options: [
+        "List",
+        "Dictionary",
+        "Set",
+        "Tuple"
+        ],
+        correct: 3,
+        explanation: "Tuples are described as immutable ordered collections, meaning their contents cannot be changed after creation."
+        },
+        {
+        question: "What is the main advantage of using ensemble methods like Random Forest?",
+        options: [
+        "They train faster than single models",
+        "They reduce overfitting and improve accuracy",
+        "They require less data",
+        "They are easier to interpret"
+        ],
+        correct: 1,
+        explanation: "Ensemble methods like Random Forest combine multiple models to reduce overfitting and improve prediction accuracy compared to single models."
+        },
+        {
+        question: "In digital forensics, what type of analysis does the command 'os.system(\"winpmem.exe -o memdump.raw\")' perform?",
+        options: [
+        "Hard disk imaging",
+        "Network traffic capture",
+        "Memory dump creation",
+        "Log file parsing"
+        ],
+        correct: 2,
+        explanation: "This command uses WinPmem to create a memory dump (memdump.raw) by capturing the contents of system RAM."
+        },
+        {
+        question: "What does 'AUC' represent in the ROC-AUC evaluation metric?",
+        options: [
+        "Average Uncertainty Calculation",
+        "Area Under the Curve",
+        "Automated Unit Conversion",
+        "Accuracy Under Control"
+        ],
+        correct: 1,
+        explanation: "AUC stands for Area Under the Curve, specifically the area under the ROC (Receiver Operating Characteristic) curve."
+        }       
+];
+
+        let currentQuestion = 0;
+        let score = 0;
+        let userAnswers = [];
+        let quizCompleted = false;
+
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        // Shuffle questions on initial load
+        shuffle(questions);
+
+        function initializeQuiz() {
+            showQuestion();
+            updateProgress();
+            updateScore();
+        }
+
+        function showQuestion() {
+            const questionData = questions[currentQuestion];
+            document.getElementById('questionText').innerHTML = `<span style="color: #ad1457; font-weight: bold;">Question ${currentQuestion + 1}:</span> ${questionData.question}`;
+            
+            const optionsContainer = document.getElementById('optionsContainer');
+            optionsContainer.innerHTML = '';
+            
+            questionData.options.forEach((option, index) => {
+                const optionElement = document.createElement('div');
+                optionElement.className = 'option';
+                optionElement.innerHTML = `<strong>${String.fromCharCode(65 + index)}.</strong> ${option}`;
+                optionElement.onclick = () => selectOption(index);
+                optionElement.dataset.index = index;
+                optionsContainer.appendChild(optionElement);
+            });
+            
+            document.getElementById('feedback').classList.remove('show');
+            document.getElementById('prevBtn').disabled = currentQuestion === 0;
+            document.getElementById('nextBtn').disabled = true;
+            document.getElementById('nextBtn').textContent = currentQuestion === questions.length - 1 ? 'Finish Quiz' : 'Next';
+        }
+
+        function selectOption(selectedIndex) {
+            const questionData = questions[currentQuestion];
+            const options = document.querySelectorAll('.option');
+            
+            // Disable all options
+            options.forEach(option => {
+                option.classList.add('disabled');
+                option.onclick = null;
+            });
+            
+            // Mark selected option
+            options[selectedIndex].classList.add('selected');
+            
+            // Show correct answer (green)
+            options[questionData.correct].classList.add('correct');
+            
+            // Mark incorrect if wrong selection (red)
+            if (selectedIndex !== questionData.correct) {
+                options[selectedIndex].classList.add('incorrect');
+            }
+            
+            // Store answer
+            userAnswers[currentQuestion] = selectedIndex;
+            
+            // Show feedback
+            const feedback = document.getElementById('feedback');
+            feedback.className = `feedback show ${selectedIndex === questionData.correct ? 'correct' : 'incorrect'}`;
+            feedback.innerHTML = `
+                <strong>${selectedIndex === questionData.correct ? '✓ Correct!' : '✗ Incorrect'}</strong><br>
+                <strong>Correct Answer:</strong> ${String.fromCharCode(65 + questionData.correct)}. ${questionData.options[questionData.correct]}<br>
+                <strong>Explanation:</strong> ${questionData.explanation}
+            `;
+            
+            document.getElementById('nextBtn').disabled = false;
+            updateScore();
+        }
+
+        function updateScore() {
+            // Calculate score based on all answered questions
+            let calculatedScore = 0;
+            userAnswers.forEach((ans, idx) => {
+                if (ans === questions[idx].correct) calculatedScore++;
+            });
+            document.getElementById('scoreDisplay').textContent = `Score: ${calculatedScore}/${currentQuestion + 1}`;
+            score = calculatedScore;
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++;
+                showQuestion();
+                updateProgress();
+            } else {
+                finishQuiz();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                showQuestion();
+                updateProgress();
+                
+                // If question was already answered, show the previous selection
+                if (userAnswers[currentQuestion] !== undefined) {
+                    setTimeout(() => {
+                        selectOption(userAnswers[currentQuestion]);
+                    }, 100);
+                }
+            }
+        }
+
+        function updateProgress() {
+            const progress = ((currentQuestion) / questions.length) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+            document.getElementById('progressText').textContent = `Question ${currentQuestion + 1} of ${questions.length}`;
+        }
+
+        function finishQuiz() {
+            quizCompleted = true;
+            const percentage = Math.round((score / questions.length) * 100);
+            
+            document.getElementById('questionContainer').style.display = 'none';
+            document.getElementById('finalScore').classList.add('show');
+            document.getElementById('finalScoreCircle').textContent = `${percentage}%`;
+            document.getElementById('finalScoreText').innerHTML = `
+                You scored <strong>${score}</strong> out of <strong>${questions.length}</strong> questions correctly!<br>
+                <span style="font-size: 1.1em; margin-top: 10px; display: block;">
+                    ${percentage >= 120 ? '🏆 Excellent! Outstanding knowledge of Operating Systems!' :
+                      percentage >= 100 ? '🎉 Great job! Very good understanding!' :
+                      percentage >= 80 ? '👍 Good work! Solid foundation!' :
+                      percentage >= 60 ? '📚 Not bad! Keep studying to improve!' :
+                      '💪 Keep learning! Practice makes perfect!'}
+                </span>
+            `;
+            
+            // Update progress to 100%
+            document.getElementById('progressFill').style.width = '100%';
+            document.getElementById('progressText').textContent = 'Quiz Completed!';
+        }
+
+        function restartQuiz() {
+            currentQuestion = 0;
+            score = 0;
+            userAnswers = [];
+            quizCompleted = false;
+
+            // Shuffle questions on restart
+            shuffle(questions);
+
+            document.getElementById('questionContainer').style.display = 'block';
+            document.getElementById('finalScore').classList.remove('show');
+
+            initializeQuiz();
+        }
+
+        // Initialize quiz when page loads
+        window.onload = initializeQuiz;
+    </script>
+</body>
+</html>
