@@ -1,0 +1,1522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automata Review</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Barbie', 'Arial', sans-serif;
+            background: #fff0f6; /* Light pink solid background */
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .quiz-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #fff0f6;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            overflow: hidden;
+            border: 3px solid #ff69b4;
+        }
+        
+        .quiz-header {
+            background: #ff69b4; /* Solid Barbie pink for better readability */
+            color: #000;
+            padding: 30px;
+            text-align: center;
+            border-bottom: 3px solid #ff69b4;
+        }
+        
+        .quiz-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-family: 'Barbie', 'Arial', sans-serif;
+            letter-spacing: 2px;
+            color: #fff; /* White text for strong contrast */
+            text-shadow: 2px 2px 0 #ad1457;
+        }
+        
+        .quiz-header p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+            color: #fff; /* White text for strong contrast */
+            text-shadow: 1px 1px 0 #ad1457;
+        }
+        
+        .progress-container {
+            background: #fff0f6;
+            padding: 20px;
+            border-bottom: 1px solid #ff69b4;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background: #ff69b4;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ff69b4, #fff0f6);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        
+        .progress-text {
+            text-align: center;
+            margin-top: 10px;
+            font-weight: bold;
+            color: #000;
+            text-shadow: 1px 1px 0 #fff;
+        }
+        
+        .question-container {
+            padding: 40px;
+            min-height: 400px;
+            background: #fff0f6;
+        }
+        
+        .question {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #ff69b4;
+            margin-bottom: 25px;
+            line-height: 1.6;
+            text-shadow: 1px 1px 0 #fff;
+        }
+        
+        .options {
+            display: grid;
+            gap: 15px;
+        }
+        
+        .option {
+            background: #fff;
+            border: 2px solid #ff69b4;
+            border-radius: 10px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+            position: relative;
+            color: #000;
+            font-weight: bold;
+        }
+        
+        .option:hover {
+            border-color: #ff69b4;
+            background: #ffe4ec;
+            transform: translateY(-2px);
+        }
+        
+        .option.selected {
+            border-color: #ff69b4;
+            background: #ffe4ec;
+        }
+        
+        .option.correct {
+            border-color: #28a745;
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .option.incorrect {
+            border-color: #dc3545;
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        .option.disabled {
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+        
+        .feedback {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 10px;
+            display: none;
+            font-weight: bold;
+            color: #000;
+        }
+        
+        .feedback.show {
+            display: block;
+        }
+        
+        .feedback.correct {
+            background: #d4edda;
+            color: #155724;
+            border: 2px solid #28a745;
+        }
+        
+        .feedback.incorrect {
+            background: #f8d7da;
+            color: #721c24;
+            border: 2px solid #dc3545;
+        }
+        
+        .controls {
+            padding: 30px 40px;
+            background: #fff0f6;
+            text-align: center;
+            border-top: 1px solid #ff69b4;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, #ff69b4 0%, #fff0f6 100%);
+            color: #000;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 0 10px;
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(255, 105, 180, 0.2);
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(255, 105, 180, 0.3);
+            background: linear-gradient(135deg, #ffe4ec 0%, #ff69b4 100%);
+            color: #000;
+        }
+        
+        .btn:disabled {
+            background: #ffb6c1;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+            color: #000;
+        }
+        
+        .score-display {
+            display: inline-block;
+            background: #fff;
+            padding: 10px 20px;
+            border-radius: 25px;
+            margin: 0 15px;
+            font-weight: bold;
+            color: #ff69b4;
+            border: 2px solid #ff69b4;
+        }
+        
+        .final-score {
+            text-align: center;
+            padding: 40px;
+            display: none;
+            background: #fff0f6;
+            color: #000;
+        }
+        
+        .final-score.show {
+            display: block;
+        }
+        
+        .final-score h2 {
+            font-size: 2.5rem;
+            color: #ff69b4;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 0 #fff;
+        }
+        
+        .score-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ff69b4 0%, #fff0f6 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px auto;
+            color: #000;
+            font-size: 2rem;
+            font-weight: bold;
+            border: 3px solid #ff69b4;
+            text-shadow: 2px 2px 0 #fff;
+        }
+        
+        @media (max-width: 768px) {
+            .quiz-header h1 {
+                font-size: 2rem;
+            }
+            
+            .question-container {
+                padding: 20px;
+            }
+            
+            .question {
+                font-size: 1.1rem;
+            }
+            
+            .option {
+                padding: 15px;
+                font-size: 1rem;
+            }
+            
+            .controls {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <div class="quiz-header">
+            <h1>Automata Reviewer</h1>
+            <p>4.0 cutie for everyone</p>
+        </div>
+        
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-text" id="progressText">Question 1 of 100</div>
+        </div>
+        
+        <div class="question-container" id="questionContainer">
+            <div class="question" id="questionText"></div>
+            <div class="options" id="optionsContainer"></div>
+            <div class="feedback" id="feedback"></div>
+        </div>
+        
+        <div class="controls">
+            <button class="btn" id="prevBtn" onclick="previousQuestion()">Previous</button>
+            <span class="score-display" id="scoreDisplay">Score: 0/0</span>
+            <button class="btn" id="nextBtn" onclick="nextQuestion()">Next</button>
+        </div>
+        
+        <div class="final-score" id="finalScore">
+            <h2>Quiz Complete!</h2>
+            <div class="score-circle" id="finalScoreCircle"></div>
+            <p id="finalScoreText"></p>
+            <button class="btn" onclick="restartQuiz()">Restart Quiz</button>
+        </div>
+    </div>
+
+    <script>
+            const questions = [
+    {
+        question: "What does the Greek word 'αὐτόματα' mean?",
+        options: [
+        "self-acting",
+        "self-moving", 
+        "self-working",
+        "self-running"
+        ],
+        correct: 0,
+        explanation: "The term 'Automata' is derived from the Greek word 'αὐτόματα' which means 'self-acting'."
+    },
+    {
+        question: "Which component is NOT part of the formal definition of a finite automaton?",
+        options: [
+        "transition function",
+        "output symbols",
+        "initial state", 
+        "final states"
+        ],
+        correct: 1,
+        explanation: "A finite automaton is defined by (Q, Σ, δ, q0, F) where output symbols are not included in the basic definition."
+    },
+    {
+        question: "What symbol is used to denote the empty string?",
+        options: [
+        "∅ or φ",
+        "λ or ε",
+        "Σ or σ", 
+        "δ or Δ"
+        ],
+        correct: 1,
+        explanation: "The empty string is denoted by λ (lambda) or ε (epsilon)."
+    },
+    {
+        question: "In set theory, what does A ∩ B represent?",
+        options: [
+        "union of sets",
+        "difference of sets",
+        "intersection of sets",
+        "complement of sets"
+        ],
+        correct: 2,
+        explanation: "The symbol ∩ denotes the intersection operation, representing elements that belong to both sets A and B."
+    },
+    {
+        question: "Which law states that (A ∪ B)' = A' ∩ B'?",
+        options: [
+        "Commutative Law",
+        "Associative Law",
+        "Distributive Law",
+        "De Morgan's Law"
+        ],
+        correct: 3,
+        explanation: "De Morgan's Law states that the complement of a union equals the intersection of complements."
+    },
+    {
+        question: "What is the Kleene star of the alphabet Σ = {a, b}?",
+        options: [
+        "{a, b, aa, ab}",
+        "{λ, a, b, aa}",
+        "{λ, a, b, aa, ab, ba, bb, ...}",
+        "{a, b, aa, ab, ba, bb, ...}"
+        ],
+        correct: 2,
+        explanation: "Kleene star Σ* includes all possible strings of all lengths including the empty string λ."
+    },
+    {
+        question: "Who is considered the father of theoretical computer science?",
+        options: [
+        "Jacques de Vaucanson",
+        "Alan Mathison Turing",
+        "John von Neumann",
+        "Charles Babbage"
+        ],
+        correct: 1,
+        explanation: "Alan Turing is widely considered to be the father of theoretical computer science and artificial intelligence."
+    },
+    {
+        question: "What year was The Flute Player automaton created?",
+        options: [
+        "1735",
+        "1736",
+        "1737",
+        "1738"
+        ],
+        correct: 2,
+        explanation: "The Flute Player, the world's first successfully-built biomechanical automaton, was created by Jacques de Vaucanson in 1737."
+    },
+    {
+        question: "In a DFA, how many transitions are allowed from each state for a given input symbol?",
+        options: [
+        "zero transitions",
+        "exactly one transition",
+        "multiple transitions",
+        "infinite transitions"
+        ],
+        correct: 1,
+        explanation: "In a Deterministic Finite Automaton (DFA), there must be exactly one transition for every input symbol from each state."
+    },
+    {
+        question: "What does NFA stand for?",
+        options: [
+        "Non-Finite Automaton",
+        "New Finite Automaton",
+        "Non-deterministic Finite Automaton",
+        "Normal Finite Automaton"
+        ],
+        correct: 2,
+        explanation: "NFA stands for Non-deterministic Finite Automaton, which allows multiple transitions for a given state and input."
+    },
+    {
+        question: "Which notation represents 'x is a member of set A'?",
+        options: [
+        "x ∪ A",
+        "x ∩ A", 
+        "x ∈ A",
+        "x ⊆ A"
+        ],
+        correct: 2,
+        explanation: "The notation x ∈ A means that x is a member (element) of set A."
+    },
+    {
+        question: "What is the cardinality of an empty set?",
+        options: [
+        "undefined",
+        "infinity",
+        "one",
+        "zero"
+        ],
+        correct: 3,
+        explanation: "An empty set contains no elements, so its cardinality (size) is 0."
+    },
+    {
+        question: "Which type of automaton uses stack memory?",
+        options: [
+        "Finite Automaton",
+        "Turing Machine",
+        "Pushdown Automaton",
+        "Linear Bounded Automaton"
+        ],
+        correct: 2,
+        explanation: "A Pushdown Automaton (PDA) contains extra memory in the form of a stack where symbols can be pushed and popped."
+    },
+    {
+        question: "What is the main limitation of finite state machines?",
+        options: [
+        "cannot process input",
+        "cannot handle nested structures",
+        "cannot have multiple states",
+        "cannot use alphabets"
+        ],
+        correct: 1,
+        explanation: "FSMs cannot handle nested structures like balanced parentheses due to their limited memory (no stack or tape)."
+    },
+    {
+        question: "In automata theory, what does Σ+ represent?",
+        options: [
+        "empty string only",
+        "all strings including empty",
+        "all strings excluding empty",
+        "finite strings only"
+        ],
+        correct: 2,
+        explanation: "Σ+ (Kleene Plus) represents all possible strings of all lengths over Σ excluding the empty string λ."
+    },
+    {
+        question: "What is a language in automata theory?",
+        options: [
+        "a set of states",
+        "a subset of Σ*",
+        "a transition function",
+        "an input alphabet"
+        ],
+        correct: 1,
+        explanation: "A language is defined as a subset of Σ* for some alphabet Σ, and it can be finite or infinite."
+    },
+    {
+        question: "Which operation is used in set builder notation?",
+        options: [
+        "{ x ∪ condition }",
+        "{ x ∩ condition }",
+        "{ x | condition }",
+        "{ x ⊆ condition }"
+        ],
+        correct: 2,
+        explanation: "Set builder notation uses the format { x | condition about x } where | means 'such that'."
+    },
+    {
+        question: "What does the transition function δ map?",
+        options: [
+        "Q × Σ → Q",
+        "Q → Σ × Q",
+        "Σ × Q → Σ",
+        "Q × Q → Σ"
+        ],
+        correct: 0,
+        explanation: "The transition function δ maps from Q × Σ to Q, taking a state and input symbol to produce the next state."
+    },
+    {
+        question: "Which property states that A ∪ B = B ∪ A?",
+        options: [
+        "Associative Law",
+        "Commutative Law",
+        "Distributive Law",
+        "Idempotent Law"
+        ],
+        correct: 1,
+        explanation: "The Commutative Law states that the order of operands doesn't matter in union and intersection operations."
+    },
+    {
+        question: "What does F represent in a finite automaton (Q, Σ, δ, q0, F)?",
+        options: [
+        "transition function",
+        "input alphabet",
+        "set of final states",
+        "initial state"
+        ],
+        correct: 2,
+        explanation: "F represents the set of final states (also called accepting states) in a finite automaton."
+    },
+    {
+        question: "Which machine broke German ciphers during WWII?",
+        options: [
+        "Enigma machine",
+        "Bombe machine",
+        "Turing machine",
+        "Colossus machine"
+        ],
+        correct: 1,
+        explanation: "Turing improved the pre-war Polish bombe method, an electromechanical machine that could find settings for the Enigma machine."
+    },
+    {
+        question: "What is the complement of set A denoted by?",
+        options: [
+        "A* or A+",
+        "A' or U - A",
+        "A ∪ B or A ∩ B",
+        "A - B or B - A"
+        ],
+        correct: 1,
+        explanation: "The complement of A is symbolized by A' or U - A, representing all elements in universe U that are not in A."
+    },
+    {
+        question: "In regular expressions, what does ε represent?",
+        options: [
+        "any symbol",
+        "empty string",
+        "union operation",
+        "kleene star"
+        ],
+        correct: 1,
+        explanation: "In regular expressions, ε (epsilon) represents the language {ε} containing only the empty string."
+    },
+    {
+        question: "What type of grammar has production rules where variables appear only on the rightmost position?",
+        options: [
+        "Left-linear Grammar",
+        "Right-linear Grammar",
+        "Context-free Grammar",
+        "Context-sensitive Grammar"
+        ],
+        correct: 1,
+        explanation: "Right-linear Grammar has at most 1 variable on the right-hand side, and that variable is in the rightmost position."
+    },
+    {
+        question: "Which closure property applies to regular languages?",
+        options: [
+        "union only",
+        "intersection only",
+        "concatenation only",
+        "union, intersection, and concatenation"
+        ],
+        correct: 3,
+        explanation: "Regular languages are closed under union, intersection, concatenation, Kleene star, and complement operations."
+    },
+    {
+        question: "What does alternation mean in automata theory?",
+        options: [
+        "single transition path",
+        "multiple copies on same symbol",
+        "no transition possible",
+        "deterministic behavior"
+        ],
+        correct: 1,
+        explanation: "Alternation allows the automaton to run multiple copies on the same next read symbol, creating alternating automata."
+    },
+    {
+        question: "Which symbol denotes set difference?",
+        options: [
+        "∪ (union)",
+        "∩ (intersection)",
+        "- (minus)",
+        "' (complement)"
+        ],
+        correct: 2,
+        explanation: "The minus symbol (-) denotes set difference, where A - B represents elements in A but not in B."
+    },
+    {
+        question: "What is the main application of PDA?",
+        options: [
+        "lexical analysis",
+        "syntax analysis",
+        "semantic analysis",
+        "code optimization"
+        ],
+        correct: 1,
+        explanation: "Push Down Automata (PDA) are primarily used for designing the parsing phase of a compiler (Syntax Analysis)."
+    },
+    {
+        question: "In FSM representation, what does a state diagram show?",
+        options: [
+        "mathematical notation",
+        "tabular representation",
+        "graphical representation",
+        "textual description"
+        ],
+        correct: 2,
+        explanation: "State diagrams provide a graphical representation of FSMs, showing states as circles and transitions as arrows."
+    },
+    {
+        question: "What makes an automaton non-deterministic?",
+        options: [
+        "single state transition",
+        "multiple possible transitions",
+        "no final states",
+        "empty alphabet"
+        ],
+        correct: 1,
+        explanation: "An automaton is non-deterministic when it can jump into multiple states after reading an input symbol."
+    },
+    {
+        question: "Which set operation produces all elements in either A or B?",
+        options: [
+        "A ∩ B",
+        "A - B",
+        "A ∪ B",
+        "A'"
+        ],
+        correct: 2,
+        explanation: "The union operation (∪) produces a set containing all elements that belong to either set A or set B (or both)."
+    },
+    {
+        question: "What is the purpose of lexical analysis in compilers?",
+        options: [
+        "semantic checking",
+        "code generation",
+        "pattern recognition",
+        "optimization"
+        ],
+        correct: 2,
+        explanation: "Finite Automata are used for designing lexical analysis of compilers, which involves recognizing patterns using regular expressions."
+    },
+    {
+        question: "Which notation can replace '|' in set builder notation?",
+        options: [
+        ": (colon)",
+        "; (semicolon)",
+        ", (comma)",
+        ". (period)"
+        ],
+        correct: 0,
+        explanation: "Some people use ':' instead of '|' in set builder notation, writing { x : x > 0 } instead of { x | x > 0 }."
+    },
+    {
+        question: "What does the Idempotent Law state?",
+        options: [
+        "A ∪ A = A",
+        "A ∪ B = B ∪ A",
+        "A ∪ (B ∩ C) = (A ∪ B) ∩ (A ∪ C)",
+        "(A ∪ B)' = A' ∩ B'"
+        ],
+        correct: 0,
+        explanation: "The Idempotent Law states that A ∪ A = A and A ∩ A = A for any finite set A."
+    },
+    {
+        question: "In which year did Alan Turing die?",
+        options: [
+        "1952",
+        "1953",
+        "1954",
+        "1955"
+        ],
+        correct: 2,
+        explanation: "Alan Mathison Turing lived from June 23, 1912 to June 7, 1954."
+    },
+    {
+        question: "What is the main advantage of using Venn diagrams?",
+        options: [
+        "complex calculations",
+        "visual representation",
+        "mathematical proofs",
+        "algorithmic solutions"
+        ],
+        correct: 1,
+        explanation: "Venn diagrams help to visually represent the similarities and differences between concepts using overlapping circles."
+    },
+    {
+        question: "Which type of input can tree automata process?",
+        options: [
+        "linear sequences",
+        "tree structures",
+        "circular patterns",
+        "random symbols"
+        ],
+        correct: 1,
+        explanation: "Tree automata can process tree word input where the input may be a tree of symbols instead of a sequence."
+    },
+    {
+        question: "What does ω-words represent in automata?",
+        options: [
+        "finite words",
+        "empty words",
+        "infinite words",
+        "tree words"
+        ],
+        correct: 2,
+        explanation: "ω-words represent infinite words that can be accepted by automata designed for infinite input sequences."
+    },
+    {
+        question: "Which FSM component determines successful completion?",
+        options: [
+        "start state",
+        "accept states",
+        "transition function",
+        "input alphabet"
+        ],
+        correct: 1,
+        explanation: "Accept States (F) are a subset of states that signify successful completion in acceptor FSMs."
+    },
+    {
+        question: "What is the relationship between Σ+ and Σ*?",
+        options: [
+        "Σ+ ⊂ Σ*",
+        "Σ* ⊂ Σ+",
+        "Σ+ = Σ*",
+        "Σ+ ∩ Σ* = ∅"
+        ],
+        correct: 0,
+        explanation: "Σ+ is a proper subset of Σ* since Σ+ = Σ* - {λ}, excluding only the empty string."
+    },
+    {
+        question: "What was Turing's role at Bletchley Park?",
+        options: [
+        "code creation",
+        "code breaking",
+        "machine building",
+        "intelligence gathering"
+        ],
+        correct: 1,
+        explanation: "Turing worked at Bletchley Park, Britain's code breaking centre, and led Hut 8 responsible for German naval cryptanalysis."
+    },
+    {
+        question: "Which grammar type generates regular languages?",
+        options: [
+        "Context-free Grammar",
+        "Regular Grammar",
+        "Context-sensitive Grammar",
+        "Unrestricted Grammar"
+        ],
+        correct: 1,
+        explanation: "Regular grammars are formal grammars specifically used to describe regular languages recognized by finite automata."
+    },
+    {
+        question: "What distinguishes left-linear from right-linear grammar?",
+        options: [
+        "number of variables",
+        "position of variables",
+        "type of terminals",
+        "production rules"
+        ],
+        correct: 1,
+        explanation: "Left-linear has variables on the leftmost position of RHS, while right-linear has variables on the rightmost position."
+    },
+    {
+        question: "Which computational model has the most power?",
+        options: [
+        "Finite State Machine",
+        "Pushdown Automaton",
+        "Turing Machine",
+        "Linear Bounded Automaton"
+        ],
+        correct: 2,
+        explanation: "Turing Machine has infinite memory and is the most powerful computational model among the options."
+    },
+    {
+        question: "What does 'phi' (φ) represent in set theory?",
+        options: [
+        "universal set",
+        "empty set",
+        "infinite set",
+        "complement set"
+        ],
+        correct: 1,
+        explanation: "The empty set (null set or void set) is denoted by ∅ and is read as 'phi'."
+    },
+    {
+        question: "In regular expressions, what does 'a*' mean?",
+        options: [
+        "exactly one 'a'",
+        "at least one 'a'",
+        "zero or more 'a's",
+        "no 'a' allowed"
+        ],
+        correct: 2,
+        explanation: "Kleene star (a*) means zero or more occurrences of 'a', forming a regular language."
+    },
+    {
+        question: "What is the main application of finite automata in text editors?",
+        options: [
+        "font formatting",
+        "spell checking",
+        "file compression",
+        "syntax highlighting"
+        ],
+        correct: 1,
+        explanation: "Finite automata are used for the implementation of spell checkers in text editors."
+    },
+    {
+        question: "Which year was the Duck of Vaucanson created?",
+        options: [
+        "1737-1738",
+        "1738-1739",
+        "1739-1740",
+        "1740-1741"
+        ],
+        correct: 1,
+        explanation: "The Duck of Vaucanson was created during 1738-1739, following The Flute Player."
+    },
+    {
+        question: "What does the transition table represent in FSM?",
+        options: [
+        "graphical format",
+        "mathematical notation",
+        "tabular representation",
+        "textual description"
+        ],
+        correct: 2,
+        explanation: "Transition table provides a tabular representation of FSM, showing states and transitions in table format."
+    },
+    {
+        question: "Which operation combines two regular expressions in sequence?",
+        options: [
+        "Union (a + b)",
+        "Concatenation (ab)",
+        "Kleene star (a*)",
+        "Complement (a')"
+        ],
+        correct: 1,
+        explanation: "Concatenation (ab) combines two regular expressions in sequence, where 'a' is followed by 'b'."
+    },
+    {
+        question: "If A = {1,2,3} and B = {3,4,5}, what is A ∩ B?",
+        options: [
+        "{1,2,3,4,5}",
+        "{3}",
+        "{1,2}",
+        "{4,5}"
+        ],
+        correct: 1,
+        explanation: "A ∩ B contains only elements present in both sets A and B, which is {3}."
+    },
+    {
+        question: "If A = {1,2,3} and B = {3,4,5}, what is A ∪ B?",
+        options: [
+        "{1,2,3,4,5}",
+        "{3}",
+        "{1,2,4,5}",
+        "{1,2,3}"
+        ],
+        correct: 0,
+        explanation: "A ∪ B contains all elements from both sets: {1,2,3,4,5}."
+    },
+    {
+        question: "If A = {1,2,3} and B = {3,4,5}, what is A - B?",
+        options: [
+        "{3}",
+        "{1,2}",
+        "{4,5}",
+        "{1,2,3,4,5}"
+        ],
+        correct: 1,
+        explanation: "A - B contains elements in A but not in B: {1,2}."
+    },
+    {
+        question: "If |S| = 6 for string S = 'cabcad', what does |S| represent?",
+        options: [
+        "alphabet size",
+        "string length",
+        "state count",
+        "symbol frequency"
+        ],
+        correct: 1,
+        explanation: "The notation |S| represents the length of string S, which is the number of symbols present."
+    },
+    {
+        question: "For alphabet Σ = {a, b}, what is Σ²?",
+        options: [
+        "{a, b}",
+        "{aa, bb}",
+        "{aa, ab, ba, bb}",
+        "{λ, a, b}"
+        ],
+        correct: 2,
+        explanation: "Σ² represents all possible strings of length 2 over alphabet Σ: {aa, ab, ba, bb}."
+    },
+    {
+        question: "In a turnstile FSM, what happens when a coin is inserted in the unlocked state?",
+        options: [
+        "becomes locked",
+        "remains unlocked",
+        "error state",
+        "reset state"
+        ],
+        correct: 1,
+        explanation: "From the turnstile example: when unlocked and coin is inserted, it remains unlocked."
+    },
+    {
+        question: "If L₁ = {aⁿ | n ≥ 0} and L₂ = {bⁿ | n ≥ 0}, what type of operation creates L₁ ∪ L₂?",
+        options: [
+        "concatenation",
+        "intersection",
+        "union",
+        "complement"
+        ],
+        correct: 2,
+        explanation: "The union operation (∪) combines L₁ and L₂ to create L₁ ∪ L₂ = {aⁿ ∪ bⁿ | n ≥ 0}."
+    },
+    {
+        question: "In set theory, what is A △ B called?",
+        options: [
+        "union",
+        "intersection",
+        "symmetric difference",
+        "complement"
+        ],
+        correct: 2,
+        explanation: "A △ B represents symmetric difference, containing elements in either A or B but not in both."
+    },
+    {
+        question: "For the string 'acabacabcabca', what is its length?",
+        options: [
+        "11",
+        "12",
+        "13",
+        "14"
+        ],
+        correct: 2,
+        explanation: "Counting each character in 'acabacabcabca' gives 13 symbols."
+    },
+    {
+        question: "If A = {y,z} and B = {x,y,z}, what is A ∩ B?",
+        options: [
+        "{x}",
+        "{y,z}",
+        "{x,y,z}",
+        "{}"
+        ],
+        correct: 1,
+        explanation: "A ∩ B contains elements present in both A and B: {y,z}."
+    },
+    {
+        question: "For a DFA with states {q₀, q₁} and alphabet {0,1}, what is the minimum number of transitions needed?",
+        options: [
+        "2",
+        "4",
+        "6",
+        "8"
+        ],
+        correct: 1,
+        explanation: "DFA needs exactly one transition for each state-symbol pair: 2 states × 2 symbols = 4 transitions."
+    },
+    {
+        question: "If Σ = {a,b} and we want strings ending with 'a', which state should be final in a DFA?",
+        options: [
+        "initial state only",
+        "state after reading 'a'",
+        "state after reading 'b'",
+        "all states"
+        ],
+        correct: 1,
+        explanation: "The state reached after reading 'a' should be final to accept strings ending with 'a'."
+    },
+    {
+        question: "In a finite state machine with I = {a,b}, O = {0,1}, S = {σ₀, σ₁}, how many transition rules are needed?",
+        options: [
+        "2",
+        "4",
+        "6",
+        "8"
+        ],
+        correct: 1,
+        explanation: "Need one rule for each state-input pair: 2 states × 2 inputs = 4 transition rules."
+    },
+    {
+        question: "For string 'aabbaba' processed by an FSM, what determines the output length?",
+        options: [
+        "alphabet size",
+        "state count",
+        "input string length",
+        "transition rules"
+        ],
+        correct: 2,
+        explanation: "The output string has the same length as the input string, with one output symbol per input symbol."
+    },
+    {
+        question: "If a language L contains all strings of length 2 over Σ = {a,b}, what is |L|?",
+        options: [
+        "2",
+        "4",
+        "6",
+        "8"
+        ],
+        correct: 1,
+        explanation: "For alphabet size 2 and string length 2: 2² = 4 possible strings {aa, ab, ba, bb}."
+    },
+    {
+        question: "In De Morgan's Law, if U = {1,2,3,4,5}, A = {1,2}, B = {3,4}, what is (A ∪ B)'?",
+        options: [
+        "{5}",
+        "{1,2,3,4}",
+        "{1,2,3,4,5}",
+        "{}"
+        ],
+        correct: 0,
+        explanation: "A ∪ B = {1,2,3,4}, so (A ∪ B)' = U - (A ∪ B) = {5}."
+    },
+    {
+        question: "For input string 'abaabbababaaaba' on an FSM, how many state transitions occur?",
+        options: [
+        "14",
+        "15",
+        "16",
+        "17"
+        ],
+        correct: 1,
+        explanation: "The string has 15 characters, so 15 state transitions occur (one per input symbol)."
+    },
+    {
+        question: "If Σ* = {λ, a, b, aa, ab, ba, bb, ...}, what is |Σ⁰|?",
+        options: [
+        "0",
+        "1",
+        "2",
+        "infinite"
+        ],
+        correct: 1,
+        explanation: "Σ⁰ contains only strings of length 0, which is just the empty string λ, so |Σ⁰| = 1."
+    },
+    {
+        question: "In a Venn diagram with 40 students, 14 taking English, 29 taking Chemistry, and 5 taking both, how many take neither?",
+        options: [
+        "2",
+        "3",
+        "4",
+        "5"
+        ],
+        correct: 0,
+        explanation: "Students taking at least one course: 14 + 29 - 5 = 38. Neither: 40 - 38 = 2."
+    },
+    {
+        question: "For the same Venn diagram problem, how many students are in either class?",
+        options: [
+        "35",
+        "36",
+        "37",
+        "38"
+        ],
+        correct: 3,
+        explanation: "Students in either class = 14 + 29 - 5 = 38 (using inclusion-exclusion principle)."
+    },
+    {
+        question: "In the Venn diagram problem, what is the probability of randomly selecting a student taking only Chemistry?",
+        options: [
+        "24/40",
+        "29/40",
+        "5/40",
+        "14/40"
+        ],
+        correct: 0,
+        explanation: "Students taking only Chemistry = 29 - 5 = 24. Probability = 24/40 = 0.6."
+    },
+    {
+        question: "If A = {1,2,3,4} and B = {3,4,5,6}, what is |A △ B|?",
+        options: [
+        "2",
+        "4",
+        "6",
+        "8"
+        ],
+        correct: 1,
+        explanation: "A △ B = (A - B) ∪ (B - A) = {1,2} ∪ {5,6} = {1,2,5,6}, so |A △ B| = 4."
+    },
+    {
+        question: "For language L₁ = {aᵐbⁿ | n ≥ 0, m ≥ 0}, what type of language is this?",
+        options: [
+        "finite language",
+        "regular language",
+        "context-free language",
+        "context-sensitive language"
+        ],
+        correct: 1,
+        explanation: "L₁ = {aᵐbⁿ | n ≥ 0, m ≥ 0} can be expressed by regular expression a*b* and is therefore regular."
+    },
+    {
+        question: "If we have 3 states and 2 input symbols in an FSM, what is the total number of possible output combinations for one complete transition table?",
+        options: [
+        "6",
+        "12",
+        "18",
+        "36"
+        ],
+        correct: 0,
+        explanation: "For output function g: S × I → O, we need one output for each state-input pair: 3 states × 2 inputs = 6 output assignments."
+    },
+    {
+        question: "For string processing in FSM M = (I,O,S,f,g,σ₀) with string length n, how many function evaluations are needed?",
+        options: [
+        "n evaluations of f only",
+        "n evaluations of g only", 
+        "n evaluations each of f and g",
+        "2n total evaluations"
+        ],
+        correct: 2,
+        explanation: "For each input symbol, both transition function f and output function g must be evaluated once, requiring n evaluations of each."
+    },
+    {
+        question: "In regular expression (a+b)*, what does this represent?",
+        options: [
+        "strings with exactly one a or b",
+        "strings with at least one a or b",
+        "all strings over alphabet {a,b}",
+        "strings ending with a or b"
+        ],
+        correct: 2,
+        explanation: "(a+b)* represents all possible strings (including empty string) that can be formed using alphabet {a,b}."
+    },
+    {
+        question: "For a left-linear grammar rule A → Da | Bc | b, which position constraint is satisfied?",
+        options: [
+        "variable on rightmost position",
+        "variable on leftmost position",
+        "no variables allowed",
+        "multiple variables allowed"
+        ],
+        correct: 1,
+        explanation: "In left-linear grammar, variables appear on the leftmost position of the right-hand side, as shown with D and B."
+    },
+    {
+        question: "If L₁ and L₂ are regular languages, which property guarantees L₁.L₂ is also regular?",
+        options: [
+        "associative property",
+        "commutative property",
+        "closure property",
+        "distributive property"
+        ],
+        correct: 2,
+        explanation: "Regular languages are closed under concatenation, meaning if L₁ and L₂ are regular, then L₁.L₂ is also regular."
+    },
+    {
+        question: "In an infinite tree automaton, what type of systems does it typically model?",
+        options: [
+        "terminating algorithms",
+        "finite state systems",
+        "reactive systems",
+        "linear programs"
+        ],
+        correct: 2,
+        explanation: "Infinite tree automata are used to model systems with ongoing, non-terminating behaviors such as reactive systems or games."
+    },
+    {
+        question: "What is the main difference between Σ* and the language generated by (a+b)*?",
+        options: [
+        "Σ* is finite, (a+b)* is infinite",
+        "no difference if Σ = {a,b}",
+        "Σ* includes numbers, (a+b)* doesn't",
+        "Σ* is formal, (a+b)* is practical"
+        ],
+        correct: 1,
+        explanation: "If Σ = {a,b}, then Σ* and (a+b)* generate exactly the same language - all strings over {a,b} including empty string."
+    },
+    {
+        question: "For Tower of Hanoi problem solving, which automaton type is most suitable?",
+        options: [
+        "Finite Automaton",
+        "Pushdown Automaton",
+        "Turing Machine",
+        "Linear Bounded Automaton"
+        ],
+        correct: 1,
+        explanation: "Push Down Automata (PDA) are used for solving the Tower of Hanoi problem due to their stack-based memory."
+    },
+    {
+        question: "In set operations, what does A ⊆ B ⟺ B' ⊆ A' represent?",
+        options: [
+        "commutative law",
+        "associative law",
+        "contrapositive relationship",
+        "distributive law"
+        ],
+        correct: 2,
+        explanation: "This represents a contrapositive relationship: A is subset of B if and only if complement of B is subset of complement of A."
+    },
+    {
+        question: "What is the time complexity advantage of using finite automata for pattern matching?",
+        options: [
+        "O(n²) time",
+        "O(n log n) time",
+        "O(n) time",
+        "O(2ⁿ) time"
+        ],
+        correct: 2,
+        explanation: "Finite automata can perform pattern matching in linear O(n) time with respect to input length."
+    },
+    {
+        question: "For string 'acabacabcabca' with output '1010221001001', what pattern emerges in the FSM?",
+        options: [
+        "alternating 0s and 1s",
+        "state-dependent output",
+        "random output generation",
+        "input symbol copying"
+        ],
+        correct: 1,
+        explanation: "The output pattern depends on the current state and input symbol, showing state-dependent behavior in the FSM."
+    },
+    {
+        question: "In compiler design, which phase uses pushdown automata?",
+        options: [
+        "lexical analysis",
+        "syntax analysis",
+        "semantic analysis",
+        "code generation"
+        ],
+        correct: 1,
+        explanation: "Pushdown automata are used in the syntax analysis (parsing) phase of compilers to handle context-free grammars."
+    },
+    {
+        question: "What happens to the complement of a regular language?",
+        options: [
+        "becomes context-free",
+        "becomes non-regular",
+        "remains regular",
+        "becomes undecidable"
+        ],
+        correct: 2,
+        explanation: "Regular languages are closed under complement operation, so the complement of a regular language is also regular."
+    },
+    {
+        question: "For Mealy and Moore machines, what is their primary application?",
+        options: [
+        "string recognition",
+        "circuit design",
+        "language generation",
+        "pattern matching"
+        ],
+        correct: 1,
+        explanation: "Mealy and Moore machines are used for designing combination and sequential circuits."
+    },
+    {
+        question: "In the formal definition of FSM M = (I,O,S,f,g,σ), what does σ represent?",
+        options: [
+        "final state",
+        "initial state", 
+        "transition function",
+        "output function"
+        ],
+        correct: 1,
+        explanation: "In the FSM definition, σ (sigma) represents the initial state from which the machine begins operation."
+    },
+    {
+        question: "Which war engagement was significantly helped by Turing's code-breaking work?",
+        options: [
+        "Battle of Britain",
+        "Battle of Atlantic",
+        "Battle of Normandy",
+        "Battle of Stalingrad"
+        ],
+        correct: 1,
+        explanation: "Turing's work enabled the Allies to defeat the Nazis in many crucial engagements, including the Battle of the Atlantic."
+    },
+    {
+        question: "What is the estimated impact of Ultra intelligence on WWII duration?",
+        options: [
+        "shortened by 1 year",
+        "shortened by more than 2 years",
+        "shortened by 6 months",
+        "no significant impact"
+        ],
+        correct: 1,
+        explanation: "At the upper end, it has been estimated that Ultra intelligence shortened the war in Europe by more than two years."
+    },
+    {
+        question: "For ε-transitions in NFA, what do they represent?",
+        options: [
+        "transitions with input symbols",
+        "transitions without input",
+        "transitions to final states",
+        "transitions from initial state"
+        ],
+        correct: 1,
+        explanation: "ε-transitions (epsilon transitions) are transitions that occur without consuming any input symbol."
+    },
+    {
+        question: "In animatronics, what type of modern automata are they considered?",
+        options: [
+        "mechanical automata",
+        "electronic automata", 
+        "hydraulic automata",
+        "pneumatic automata"
+        ],
+        correct: 1,
+        explanation: "Animatronics are described as a modern type of automata with electronics, used in films and theme parks."
+    },
+    {
+        question: "What is the main limitation when using FSM for balanced parentheses checking?",
+        options: [
+        "cannot count symbols",
+        "cannot remember nesting level",
+        "cannot process input",
+        "cannot produce output"
+        ],
+        correct: 1,
+        explanation: "FSMs cannot handle nested structures like balanced parentheses because they cannot remember the nesting level without stack memory."
+    },
+    {
+        question: "For decision problems in regular languages, which can be solved?",
+        options: [
+        "membership testing only",
+        "emptiness testing only",
+        "equivalence testing only",
+        "membership, emptiness, and equivalence"
+        ],
+        correct: 3,
+        explanation: "Decision problems like membership testing, emptiness, and equivalence can all be solved for regular languages."
+    },
+    {
+        question: "In the context of reactive systems, which automaton model is most appropriate?",
+        options: [
+        "finite tree automata",
+        "infinite tree automata",
+        "linear automata",
+        "circular automata"
+        ],
+        correct: 1,
+        explanation: "Infinite tree automata are designed to model systems with ongoing, non-terminating behaviors like reactive systems."
+    }
+    ];
+
+        let currentQuestion = 0;
+        let score = 0;
+        let userAnswers = [];
+        let quizCompleted = false;
+
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        // Shuffle questions on initial load
+        shuffle(questions);
+
+        function initializeQuiz() {
+            showQuestion();
+            updateProgress();
+            updateScore();
+        }
+
+        function showQuestion() {
+            const questionData = questions[currentQuestion];
+            document.getElementById('questionText').innerHTML = `<span style="color: #ad1457; font-weight: bold;">Question ${currentQuestion + 1}:</span> ${questionData.question}`;
+            
+            const optionsContainer = document.getElementById('optionsContainer');
+            optionsContainer.innerHTML = '';
+            
+            questionData.options.forEach((option, index) => {
+                const optionElement = document.createElement('div');
+                optionElement.className = 'option';
+                optionElement.innerHTML = `<strong>${String.fromCharCode(65 + index)}.</strong> ${option}`;
+                optionElement.onclick = () => selectOption(index);
+                optionElement.dataset.index = index;
+                optionsContainer.appendChild(optionElement);
+            });
+            
+            document.getElementById('feedback').classList.remove('show');
+            document.getElementById('prevBtn').disabled = currentQuestion === 0;
+            document.getElementById('nextBtn').disabled = true;
+            document.getElementById('nextBtn').textContent = currentQuestion === questions.length - 1 ? 'Finish Quiz' : 'Next';
+        }
+
+        function selectOption(selectedIndex) {
+            const questionData = questions[currentQuestion];
+            const options = document.querySelectorAll('.option');
+            
+            // Disable all options
+            options.forEach(option => {
+                option.classList.add('disabled');
+                option.onclick = null;
+            });
+            
+            // Mark selected option
+            options[selectedIndex].classList.add('selected');
+            
+            // Show correct answer (green)
+            options[questionData.correct].classList.add('correct');
+            
+            // Mark incorrect if wrong selection (red)
+            if (selectedIndex !== questionData.correct) {
+                options[selectedIndex].classList.add('incorrect');
+            }
+            
+            // Store answer
+            userAnswers[currentQuestion] = selectedIndex;
+            
+            // Show feedback
+            const feedback = document.getElementById('feedback');
+            feedback.className = `feedback show ${selectedIndex === questionData.correct ? 'correct' : 'incorrect'}`;
+            feedback.innerHTML = `
+                <strong>${selectedIndex === questionData.correct ? '✓ Correct!' : '✗ Incorrect'}</strong><br>
+                <strong>Correct Answer:</strong> ${String.fromCharCode(65 + questionData.correct)}. ${questionData.options[questionData.correct]}<br>
+                <strong>Explanation:</strong> ${questionData.explanation}
+            `;
+            
+            document.getElementById('nextBtn').disabled = false;
+            updateScore();
+        }
+
+        function updateScore() {
+            // Calculate score based on all answered questions
+            let calculatedScore = 0;
+            userAnswers.forEach((ans, idx) => {
+                if (ans === questions[idx].correct) calculatedScore++;
+            });
+            document.getElementById('scoreDisplay').textContent = `Score: ${calculatedScore}/${currentQuestion + 1}`;
+            score = calculatedScore;
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++;
+                showQuestion();
+                updateProgress();
+            } else {
+                finishQuiz();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                showQuestion();
+                updateProgress();
+                
+                // If question was already answered, show the previous selection
+                if (userAnswers[currentQuestion] !== undefined) {
+                    setTimeout(() => {
+                        selectOption(userAnswers[currentQuestion]);
+                    }, 100);
+                }
+            }
+        }
+
+        function updateProgress() {
+            const progress = ((currentQuestion) / questions.length) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+            document.getElementById('progressText').textContent = `Question ${currentQuestion + 1} of ${questions.length}`;
+        }
+
+        function finishQuiz() {
+            quizCompleted = true;
+            const percentage = Math.round((score / questions.length) * 100);
+            
+            document.getElementById('questionContainer').style.display = 'none';
+            document.getElementById('finalScore').classList.add('show');
+            document.getElementById('finalScoreCircle').textContent = `${percentage}%`;
+            document.getElementById('finalScoreText').innerHTML = `
+                You scored <strong>${score}</strong> out of <strong>${questions.length}</strong> questions correctly!<br>
+                <span style="font-size: 1.1em; margin-top: 10px; display: block;">
+                    ${percentage >= 120 ? '🏆 Excellent! Outstanding knowledge of Operating Systems!' :
+                      percentage >= 100 ? '🎉 Great job! Very good understanding!' :
+                      percentage >= 80 ? '👍 Good work! Solid foundation!' :
+                      percentage >= 60 ? '📚 Not bad! Keep studying to improve!' :
+                      '💪 Keep learning! Practice makes perfect!'}
+                </span>
+            `;
+            
+            // Update progress to 100%
+            document.getElementById('progressFill').style.width = '100%';
+            document.getElementById('progressText').textContent = 'Quiz Completed!';
+        }
+
+        function restartQuiz() {
+            currentQuestion = 0;
+            score = 0;
+            userAnswers = [];
+            quizCompleted = false;
+
+            // Shuffle questions on restart
+            shuffle(questions);
+
+            document.getElementById('questionContainer').style.display = 'block';
+            document.getElementById('finalScore').classList.remove('show');
+
+            initializeQuiz();
+        }
+
+        // Initialize quiz when page loads
+        window.onload = initializeQuiz;
+    </script>
+</body>
+</html>
