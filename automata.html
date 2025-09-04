@@ -1069,28 +1069,6 @@
         explanation: "Students taking at least one course: 14 + 29 - 5 = 38. Neither: 40 - 38 = 2."
     },
     {
-        question: "For the same Venn diagram problem, how many students are in either class?",
-        options: [
-        "35",
-        "36",
-        "37",
-        "38"
-        ],
-        correct: 3,
-        explanation: "Students in either class = 14 + 29 - 5 = 38 (using inclusion-exclusion principle)."
-    },
-    {
-        question: "In the Venn diagram problem, what is the probability of randomly selecting a student taking only Chemistry?",
-        options: [
-        "24/40",
-        "29/40",
-        "5/40",
-        "14/40"
-        ],
-        correct: 0,
-        explanation: "Students taking only Chemistry = 29 - 5 = 24. Probability = 24/40 = 0.6."
-    },
-    {
         question: "If A = {1,2,3,4} and B = {3,4,5,6}, what is |A △ B|?",
         options: [
         "2",
@@ -1101,6 +1079,28 @@
         correct: 1,
         explanation: "A △ B = (A - B) ∪ (B - A) = {1,2} ∪ {5,6} = {1,2,5,6}, so |A △ B| = 4."
     },
+    {
+    question: "Given FSM with I = {0,1}, O = {A,B}, S = {q₀,q₁,q₂}, and transition table: From q₀: (0→q₁,A), (1→q₂,B); From q₁: (0→q₂,B), (1→q₀,A); From q₂: (0→q₀,A), (1→q₁,B). For input string '0110', what is the output sequence?",
+    options: [
+      "ABBA",
+      "ABAB", 
+      "BAAB",
+      "BBAA"
+    ],
+    correct: 0,
+    explanation: "Starting at q₀: 0→(q₁,A), 1→(q₀,B), 1→(q₂,B), 0→(q₀,A). Output sequence: ABBA"
+  },
+  {
+    question: "Consider an FSM modeling a simple vending machine with states: IDLE, COIN_INSERTED, DISPENSING. Input symbols: {coin, select, timeout}. Output symbols: {wait, dispense, return_coin}. If the machine receives input sequence 'coin, select, timeout', starting from IDLE state, and follows rules: IDLE+coin→COIN_INSERTED+wait, COIN_INSERTED+select→DISPENSING+dispense, DISPENSING+timeout→IDLE+return_coin, what is the final state and complete output sequence?",
+    options: [
+      "COIN_INSERTED, wait-dispense-return_coin",
+      "DISPENSING, wait-dispense-return_coin", 
+      "IDLE, wait-dispense-return_coin",
+      "IDLE, wait-return_coin-dispense"
+    ],
+    correct: 2,
+    explanation: "IDLE+coin→COIN_INSERTED+wait, COIN_INSERTED+select→DISPENSING+dispense, DISPENSING+timeout→IDLE+return_coin. Final state: IDLE, Output: wait-dispense-return_coin"
+  },
     {
         question: "For language L₁ = {aᵐbⁿ | n ≥ 0, m ≥ 0}, what type of language is this?",
         options: [
@@ -1123,6 +1123,61 @@
         correct: 0,
         explanation: "For output function g: S × I → O, we need one output for each state-input pair: 3 states × 2 inputs = 6 output assignments."
     },
+    {
+  question: "Given FSM with I = {a,b}, O = {0,1}, and states {q0,q1}. Transition rules: q0+a→(q1,0), q0+b→(q0,1), q1+a→(q0,1), q1+b→(q1,0). Starting at q0, for input string 'abba', what is the output sequence?",
+  options: [
+    "0101",
+    "0011",
+    "1100",
+    "1010"
+  ],
+  correct: 0,
+  explanation: "q0+a→q1,0; q1+b→q1,0; q1+b→q1,0; q1+a→q0,1. Sequence: 0101"
+},
+{
+  question: "An FSM recognizes binary strings ending with '01'. States: {q0 (start), q1, q2 (accept)}. Transitions: q0+0→q1, q0+1→q0; q1+0→q1, q1+1→q2; q2+0→q1, q2+1→q0. For input '1101', does the machine accept?",
+  options: [
+    "Yes, it ends at q2",
+    "No, it ends at q1",
+    "No, it ends at q0",
+    "Yes, it ends at q1"
+  ],
+  correct: 0,
+  explanation: "q0+1→q0; q0+1→q0; q0+0→q1; q1+1→q2. Ends in q2 (accept), so YES"
+},
+{
+  question: "Consider FSM with states {A,B,C}, input {x,y}, outputs {p,q}. Rules: A+x→(B,p), A+y→(C,q), B+x→(A,p), B+y→(C,q), C+x→(A,q), C+y→(B,p). Starting in A, what is the output for input 'xyx'?",
+  options: [
+    "pqp",
+    "pqq",
+    "qpp",
+    "pqq"
+  ],
+  correct: 0,
+  explanation: "A+x→B,p; B+y→C,q; C+x→A,p. Output = pqp"
+},
+{
+  question: "An FSM is defined with I={0,1}, states {s0(start), s1, s2}, accepting state {s2}. Rules: s0+0→s1, s0+1→s0; s1+0→s1, s1+1→s2; s2+0→s1, s2+1→s0. Does the FSM accept the input '101'?",
+  options: [
+    "Yes, ends at s2",
+    "No, ends at s1",
+    "No, ends at s0",
+    "Yes, ends at s1"
+  ],
+  correct: 0,
+  explanation: "s0+1→s0; s0+0→s1; s1+1→s2. Ends in accept state s2 → ACCEPT"
+},
+{
+  question: "FSM with states {X,Y}, input {0,1}, output {M,N}. Transition rules: X+0→(X,M), X+1→(Y,N), Y+0→(X,N), Y+1→(Y,M). Start in X. For input '1100', what is the output?",
+  options: [
+    "NNMM",
+    "NMMM",
+    "MNMM",
+    "NMNM"
+  ],
+  correct: 0,
+  explanation: "X+1→Y,N; Y+1→Y,M; Y+0→X,N; X+0→X,M. Sequence = NNMM"
+},
     {
         question: "For string processing in FSM M = (I,O,S,f,g,σ₀) with string length n, how many function evaluations are needed?",
         options: [
