@@ -1,0 +1,1685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Operating Systems Review</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Barbie', 'Arial', sans-serif;
+            background: #fff0f6; /* Light pink solid background */
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .quiz-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #fff0f6;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            overflow: hidden;
+            border: 3px solid #ff69b4;
+        }
+        
+        .quiz-header {
+            background: #ff69b4; /* Solid Barbie pink for better readability */
+            color: #000;
+            padding: 30px;
+            text-align: center;
+            border-bottom: 3px solid #ff69b4;
+        }
+        
+        .quiz-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-family: 'Barbie', 'Arial', sans-serif;
+            letter-spacing: 2px;
+            color: #fff; /* White text for strong contrast */
+            text-shadow: 2px 2px 0 #ad1457;
+        }
+        
+        .quiz-header p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+            color: #fff; /* White text for strong contrast */
+            text-shadow: 1px 1px 0 #ad1457;
+        }
+        
+        .progress-container {
+            background: #fff0f6;
+            padding: 20px;
+            border-bottom: 1px solid #ff69b4;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background: #ff69b4;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ff69b4, #fff0f6);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        
+        .progress-text {
+            text-align: center;
+            margin-top: 10px;
+            font-weight: bold;
+            color: #000;
+            text-shadow: 1px 1px 0 #fff;
+        }
+        
+        .question-container {
+            padding: 40px;
+            min-height: 400px;
+            background: #fff0f6;
+        }
+        
+        .question {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #ff69b4;
+            margin-bottom: 25px;
+            line-height: 1.6;
+            text-shadow: 1px 1px 0 #fff;
+        }
+        
+        .options {
+            display: grid;
+            gap: 15px;
+        }
+        
+        .option {
+            background: #fff;
+            border: 2px solid #ff69b4;
+            border-radius: 10px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+            position: relative;
+            color: #000;
+            font-weight: bold;
+        }
+        
+        .option:hover {
+            border-color: #ff69b4;
+            background: #ffe4ec;
+            transform: translateY(-2px);
+        }
+        
+        .option.selected {
+            border-color: #ff69b4;
+            background: #ffe4ec;
+        }
+        
+        .option.correct {
+            border-color: #28a745;
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .option.incorrect {
+            border-color: #dc3545;
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        .option.disabled {
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+        
+        .feedback {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 10px;
+            display: none;
+            font-weight: bold;
+            color: #000;
+        }
+        
+        .feedback.show {
+            display: block;
+        }
+        
+        .feedback.correct {
+            background: #d4edda;
+            color: #155724;
+            border: 2px solid #28a745;
+        }
+        
+        .feedback.incorrect {
+            background: #f8d7da;
+            color: #721c24;
+            border: 2px solid #dc3545;
+        }
+        
+        .controls {
+            padding: 30px 40px;
+            background: #fff0f6;
+            text-align: center;
+            border-top: 1px solid #ff69b4;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, #ff69b4 0%, #fff0f6 100%);
+            color: #000;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 0 10px;
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(255, 105, 180, 0.2);
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(255, 105, 180, 0.3);
+            background: linear-gradient(135deg, #ffe4ec 0%, #ff69b4 100%);
+            color: #000;
+        }
+        
+        .btn:disabled {
+            background: #ffb6c1;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+            color: #000;
+        }
+        
+        .score-display {
+            display: inline-block;
+            background: #fff;
+            padding: 10px 20px;
+            border-radius: 25px;
+            margin: 0 15px;
+            font-weight: bold;
+            color: #ff69b4;
+            border: 2px solid #ff69b4;
+        }
+        
+        .final-score {
+            text-align: center;
+            padding: 40px;
+            display: none;
+            background: #fff0f6;
+            color: #000;
+        }
+        
+        .final-score.show {
+            display: block;
+        }
+        
+        .final-score h2 {
+            font-size: 2.5rem;
+            color: #ff69b4;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 0 #fff;
+        }
+        
+        .score-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ff69b4 0%, #fff0f6 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px auto;
+            color: #000;
+            font-size: 2rem;
+            font-weight: bold;
+            border: 3px solid #ff69b4;
+            text-shadow: 2px 2px 0 #fff;
+        }
+        
+        @media (max-width: 768px) {
+            .quiz-header h1 {
+                font-size: 2rem;
+            }
+            
+            .question-container {
+                padding: 20px;
+            }
+            
+            .question {
+                font-size: 1.1rem;
+            }
+            
+            .option {
+                padding: 15px;
+                font-size: 1rem;
+            }
+            
+            .controls {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <div class="quiz-header">
+            <h1>Operating Systems Reviewer</h1>
+            <p>4.0 cutie for everyone</p>
+        </div>
+        
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-text" id="progressText">Question 1 of 100</div>
+        </div>
+        
+        <div class="question-container" id="questionContainer">
+            <div class="question" id="questionText"></div>
+            <div class="options" id="optionsContainer"></div>
+            <div class="feedback" id="feedback"></div>
+        </div>
+        
+        <div class="controls">
+            <button class="btn" id="prevBtn" onclick="previousQuestion()">Previous</button>
+            <span class="score-display" id="scoreDisplay">Score: 0/0</span>
+            <button class="btn" id="nextBtn" onclick="nextQuestion()">Next</button>
+        </div>
+        
+        <div class="final-score" id="finalScore">
+            <h2>Quiz Complete!</h2>
+            <div class="score-circle" id="finalScoreCircle"></div>
+            <p id="finalScoreText"></p>
+            <button class="btn" onclick="restartQuiz()">Restart Quiz</button>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            /* ===================== PROCESSOR MANAGEMENT (1–25) ===================== */
+            /* 1 */
+            {
+            question: "Which statement best captures what multi-core technology provides?",
+            options: [
+                "Multiple independent execution units on one chip for parallel threads",
+                "A single core that runs multiple tasks faster by overclocking",
+                "Splitting a core into hardware and software halves",
+                "A software shim that emulates extra cores"
+            ],
+            correct: 0,
+            explanation: "Multi-core chips contain multiple physical cores that can execute threads in parallel."
+            },
+            /* 2 */
+            {
+            question: "What is the primary role of a CPU scheduler's short-term component?",
+            options: [
+                "Admit jobs into the system",
+                "Choose which ready process gets CPU now",
+                "Swap processes to disk to free memory",
+                "Manage device interrupts"
+            ],
+            correct: 1,
+            explanation: "Short-term scheduler selects ready processes for immediate CPU execution."
+            },
+            /* 3 */
+            {
+            question: "Which scheduling level manages the degree of multiprogramming by admitting jobs?",
+            options: [
+                "Short-term scheduler",
+                "Medium-term scheduler",
+                "Long-term scheduler",
+                "I/O scheduler"
+            ],
+            correct: 2,
+            explanation: "Long-term (job) scheduler controls which jobs enter the system, affecting multiprogramming."
+            },
+            /* 4 */
+            {
+            question: "What does Round Robin scheduling primarily use to share CPU fairly?",
+            options: [
+                "Priority inversion",
+                "Time quantum slices in cyclic order",
+                "Shortest remaining time",
+                "Static user quotas"
+            ],
+            correct: 1,
+            explanation: "Round Robin assigns fixed time quanta and cycles through processes for fairness."
+            },
+            /* 5 */
+            {
+            question: "Which description fits the Linux Completely Fair Scheduler (CFS)?",
+            options: [
+                "A strict FCFS queue with no preemption",
+                "Uses a balanced tree to proportionally distribute CPU",
+                "Allocates CPU by lottery ticket draws",
+                "Implements only fixed-priority preemption"
+            ],
+            correct: 1,
+            explanation: "CFS uses a balanced tree structure to provide proportional, fair CPU allocation."
+            },
+            /* 6 */
+            {
+            question: "In multilevel queue scheduling, queues are primarily separated by:",
+            options: [
+                "I/O speed of the process",
+                "Static process categories like foreground vs background",
+                "Exact memory footprint",
+                "Hardware affinity only"
+            ],
+            correct: 1,
+            explanation: "Multilevel queues separate processes into categories (e.g., interactive, batch) with distinct policies."
+            },
+            /* 7 */
+            {
+            question: "Which algorithm is theoretically optimal for minimum average waiting time when job lengths are known?",
+            options: [
+                "First-Come-First-Served",
+                "Shortest Job Next (SJN)",
+                "Round Robin",
+                "Priority Scheduling"
+            ],
+            correct: 1,
+            explanation: "SJN minimizes average waiting time given exact knowledge of job run times."
+            },
+            /* 8 */
+            {
+            question: "What problem can Priority Scheduling introduce if unmitigated?",
+            options: [
+                "Excessive context switching for short tasks",
+                "Starvation of lower-priority processes",
+                "Guaranteed fairness among users",
+                "Automatic load balancing across cores"
+            ],
+            correct: 1,
+            explanation: "Priority scheduling may starve low-priority processes unless techniques like aging are used."
+            },
+            /* 9 */
+            {
+            question: "Which scheduling policy focuses on distributing CPU by user or group shares?",
+            options: [
+                "Rate-Monotonic Scheduling",
+                "Fair Share Scheduling",
+                "Shortest Remaining Time",
+                "First-Fit Scheduling"
+            ],
+            correct: 1,
+            explanation: "Fair Share assigns CPU based on user/group resource shares to ensure equitable usage."
+            },
+            /* 10 */
+            {
+            question: "Rate-Monotonic Scheduling (RMS) assigns priority based on:",
+            options: [
+                "Job arrival time",
+                "Shortest expected run time",
+                "Fixed periods: shorter period → higher priority",
+                "Random lottery"
+            ],
+            correct: 2,
+            explanation: "RMS gives higher priority to tasks with shorter periodic cycle times (fixed priorities)."
+            },
+            /* 11 */
+            {
+            question: "Earliest Deadline First (EDF) is best described as:",
+            options: [
+                "Static priority algorithm",
+                "Dynamic priority algorithm using deadlines",
+                "A memory allocation technique",
+                "A disk scheduling policy"
+            ],
+            correct: 1,
+            explanation: "EDF assigns priorities dynamically based on task deadlines, suitable for real-time systems."
+            },
+            /* 12 */
+            {
+            question: "Lottery scheduling achieves fairness primarily via:",
+            options: [
+                "Strict queues per priority level",
+                "Probabilistic ticket draws proportional to entitlement",
+                "Precomputed time slices per process",
+                "Round robin within priority classes"
+            ],
+            correct: 1,
+            explanation: "Lottery uses tickets to probabilistically allocate CPU based on the number of tickets a process holds."
+            },
+            /* 13 */
+            {
+            question: "Which statement about medium-term scheduling (the swapper) is correct?",
+            options: [
+                "It selects which thread runs on each core next",
+                "It temporarily removes processes from main memory to control multiprogramming",
+                "It handles interrupt prioritization",
+                "It manages device driver loading"
+            ],
+            correct: 1,
+            explanation: "Medium-term scheduler swaps processes in/out of memory to manage the degree of multiprogramming."
+            },
+            /* 14 */
+            {
+            question: "What is a common disadvantage of SJF (non-preemptive SJN)?",
+            options: [
+                "Impossible to implement on single-core systems",
+                "Requires knowing or estimating run times and can cause starvation",
+                "Always yields worst average waiting time",
+                "Prevents multitasking entirely"
+            ],
+            correct: 1,
+            explanation: "SJF needs runtime estimates and may starve longer jobs."
+            },
+            /* 15 */
+            {
+            question: "Priority inversion occurs when:",
+            options: [
+                "A high-priority task runs without interruption forever",
+                "A low-priority task holds resource needed by a higher-priority task",
+                "Two tasks have identical priorities and deadlock",
+                "All tasks are promoted to highest priority"
+            ],
+            correct: 1,
+            explanation: "Priority inversion arises when low-priority processes hold resources needed by higher-priority ones."
+            },
+            /* 16 */
+            {
+            question: "Which is the main goal of time quantum selection in Round Robin?",
+            options: [
+                "Maximize context switches",
+                "Balance between response time and overhead",
+                "Prevent any preemption",
+                "Ensure only one process ever runs"
+            ],
+            correct: 1,
+            explanation: "Quantum size must balance responsiveness and context-switch overhead."
+            },
+            /* 17 */
+            {
+            question: "What hardware feature commonly aids multi-core thread management?",
+            options: [
+                "Lone-level cache shared by all devices",
+                "Per-core caches and thread schedulers cooperating with OS",
+                "Single global program counter for all cores",
+                "Exclusive I/O channel for each core"
+            ],
+            correct: 1,
+            explanation: "Multi-core CPUs use per-core caches and cooperate with OS scheduling to manage threads effectively."
+            },
+            /* 18 */
+            {
+            question: "Which statement about preemptive scheduling is true?",
+            options: [
+                "Processes cannot be interrupted once running",
+                "The OS can interrupt a running process to switch to another",
+                "It only applies to single-threaded programs",
+                "It requires disabling interrupts permanently"
+            ],
+            correct: 1,
+            explanation: "Preemptive scheduling allows the OS to interrupt running processes for context switches."
+            },
+            /* 19 */
+            {
+            question: "What does context switching primarily involve?",
+            options: [
+                "Saving and restoring process state (registers, PC)",
+                "Reinstalling the kernel",
+                "Recompiling the process code",
+                "Encrypting the process memory"
+            ],
+            correct: 0,
+            explanation: "Context switch saves current process state and restores the next process's state so it can run."
+            },
+            /* 20 */
+            {
+            question: "Which scheduling algorithm is a preemptive version of SJF?",
+            options: [
+                "SRT (Shortest Remaining Time)",
+                "FCFS",
+                "Round Robin",
+                "Lottery Scheduling"
+            ],
+            correct: 0,
+            explanation: "SRT preempts running jobs if a newly arrived job has a shorter remaining time."
+            },
+            /* 21 */
+            {
+            question: "What is the 'convoy effect' in FCFS scheduling?",
+            options: [
+                "Many short jobs delay behind a long one increasing average wait",
+                "All jobs finish at the same time",
+                "Scheduler prioritizes short jobs always",
+                "Round robin degenerates into FCFS"
+            ],
+            correct: 0,
+            explanation: "In FCFS, long jobs at head can cause many short jobs to wait, creating a convoy."
+            },
+            /* 22 */
+            {
+            question: "Which property is central to Fair Share scheduling's fairness?",
+            options: [
+                "Per-process time quantum equalization",
+                "Allocation based on user/group shares instead of per-process",
+                "Strict FIFO per user",
+                "Randomized preemption"
+            ],
+            correct: 1,
+            explanation: "Fair Share considers user/group entitlements when distributing CPU, not individual processes alone."
+            },
+            /* 23 */
+            {
+            question: "What is a typical implementation challenge for LRU page replacement?",
+            options: [
+                "Tracking exact recent-use order can be expensive",
+                "It always evicts the newest page incorrectly",
+                "It requires no metadata",
+                "It cannot be used with virtual memory"
+            ],
+            correct: 0,
+            explanation: "LRU needs mechanisms to track access order, which can incur overhead."
+            },
+            /* 24 */
+            {
+            question: "Which scheduling algorithm suits interactive systems best?",
+            options: [
+                "SJF without preemption",
+                "Round Robin with reasonable quantum",
+                "Strict FCFS for all jobs",
+                "Lottery with single ticket each"
+            ],
+            correct: 1,
+            explanation: "Round Robin offers good responsiveness for interactive workloads when quantum is tuned."
+            },
+            /* 25 */
+            {
+            question: "What does 'aging' in priority scheduling prevent?",
+            options: [
+                "Excessive memory use",
+                "Starvation of low-priority processes by gradually increasing their priority",
+                "Too frequent context switching",
+                "Immediate deadline misses"
+            ],
+            correct: 1,
+            explanation: "Aging raises waiting processes' priorities over time to avoid indefinite postponement."
+            },
+
+            /* ===================== PROCESS SYNCHRONIZATION (26–50) ===================== */
+            /* 26 */
+            {
+            question: "Which consequence follows from poor synchronization in concurrent systems?",
+            options: [
+                "Faster execution times always",
+                "Race conditions and data inconsistency",
+                "Guaranteed repeatable behavior",
+                "Lower memory usage"
+            ],
+            correct: 1,
+            explanation: "Poor synchronization can produce race conditions leading to inconsistent data and bugs."
+            },
+            /* 27 */
+            {
+            question: "Which is a defining property of a deadlock?",
+            options: [
+                "Processes make progress alternately",
+                "Two or more processes wait indefinitely for each other's resources",
+                "All processes terminate successfully",
+                "Resources are never requested"
+            ],
+            correct: 1,
+            explanation: "Deadlock is a standstill where processes wait indefinitely for resources held by others."
+            },
+            /* 28 */
+            {
+            question: "What are the four necessary conditions for deadlock?",
+            options: [
+                "Mutual Exclusion, Hold and Wait, No Preemption, Circular Wait",
+                "Mutual Access, Preemption, Sharing, Starvation",
+                "Concurrency, Atomicity, Isolation, Durability",
+                "Paging, Segmentation, Fragmentation, Swapping"
+            ],
+            correct: 0,
+            explanation: "Those four conditions must hold simultaneously for deadlock to occur."
+            },
+            /* 29 */
+            {
+            question: "In a Resource Allocation Graph (RAG), a cycle indicates:",
+            options: [
+                "Guaranteed system safety",
+                "At least possible deadlock (definite if single instance per resource)",
+                "All processes are preempted",
+                "Resources are released"
+            ],
+            correct: 1,
+            explanation: "A cycle means possible deadlock; with single-instance resources, a cycle implies definite deadlock."
+            },
+            /* 30 */
+            {
+            question: "Which method is used by the Banker's Algorithm?",
+            options: [
+                "Preempt resources randomly",
+                "Determine safety by checking if a safe sequence exists before granting requests",
+                "Terminate processes immediately when waiting",
+                "Ignore resource requests"
+            ],
+            correct: 1,
+            explanation: "Banker's Algorithm grants requests only if the resulting state is safe (a safe sequence exists)."
+            },
+            /* 31 */
+            {
+            question: "Which technique is an example of deadlock prevention?",
+            options: [
+                "Allow circular wait by design",
+                "Require processes to request all resources at once (eliminate hold-and-wait)",
+                "Always ignore deadlocks",
+                "Randomly preempt resources"
+            ],
+            correct: 1,
+            explanation: "Requiring all resources upfront prevents hold-and-wait, one of the deadlock conditions."
+            },
+            /* 32 */
+            {
+            question: "What does 'no preemption' mean in the deadlock context?",
+            options: [
+                "Resources cannot be forcibly taken from a process",
+                "Processes are terminated aggressively",
+                "All resources are shared",
+                "OS can reassign resources anytime"
+            ],
+            correct: 0,
+            explanation: "No preemption means resources must be released voluntarily by holding processes."
+            },
+            /* 33 */
+            {
+            question: "Which is NOT a valid deadlock handling strategy?",
+            options: [
+                "Avoidance using Banker's algorithm",
+                "Prevention by design constraints",
+                "Detection and recovery",
+                "Acceleration to speed up processes"
+            ],
+            correct: 3,
+            explanation: "Acceleration is not a recognized deadlock handling method."
+            },
+            /* 34 */
+            {
+            question: "What is a livelock?",
+            options: [
+                "A deadlocked process that halts",
+                "Processes repeatedly change state but make no progress",
+                "A process that finishes early",
+                "A memory leak scenario"
+            ],
+            correct: 1,
+            explanation: "Livelock involves activity without progress, e.g., processes reacting to each other repeatedly."
+            },
+            /* 35 */
+            {
+            question: "Which is the simplest synchronization primitive among these?",
+            options: [
+                "Semaphore",
+                "Barrier",
+                "Reader-writer lock",
+                "Transaction manager"
+            ],
+            correct: 0,
+            explanation: "Semaphores (binary or counting) are basic primitives for controlling access to resources."
+            },
+            /* 36 */
+            {
+            question: "What is the primary purpose of semaphores?",
+            options: [
+                "Memory allocation",
+                "Process synchronization and mutual exclusion",
+                "File compression",
+                "Page replacement"
+            ],
+            correct: 1,
+            explanation: "Semaphores coordinate access to shared resources and handle synchronization."
+            },
+            /* 37 */
+            {
+            question: "Which practice helps reduce critical-section duration?",
+            options: [
+                "Holding locks while performing I/O",
+                "Minimizing work inside locks",
+                "Nesting locks deeply",
+                "Using busy waiting for long tasks"
+            ],
+            correct: 1,
+            explanation: "Keeping critical sections short reduces contention and improves throughput."
+            },
+            /* 38 */
+            {
+            question: "What does the 'hold-and-wait' condition describe?",
+            options: [
+                "A process holding resources is requesting additional ones",
+                "A process releases all resources before requesting more",
+                "Resources are always preemptible",
+                "No process holds any resource"
+            ],
+            correct: 0,
+            explanation: "Hold-and-wait means a process holds some resources while waiting for others, enabling deadlock."
+            },
+            /* 39 */
+            {
+            question: "Which statement about detection-based deadlock handling is true?",
+            options: [
+                "It prevents deadlocks proactively with zero overhead",
+                "It periodically checks for cycles and recovers if found",
+                "It never requires terminating processes",
+                "It is identical to avoidance"
+            ],
+            correct: 1,
+            explanation: "Detection algorithms check for deadlocks at runtime and then take recovery actions."
+            },
+            /* 40 */
+            {
+            question: "Which recovery action might be used after detecting a deadlock?",
+            options: [
+                "Abort one or more processes to break the cycle",
+                "Increase CPU speed",
+                "Convert threads into processes",
+                "Compress memory"
+            ],
+            correct: 0,
+            explanation: "Terminating processes is a common recovery approach to break deadlock cycles."
+            },
+            /* 41 */
+            {
+            question: "Which graph property is important when modeling deadlocks with directed graphs?",
+            options: [
+                "Edge color",
+                "Cycle presence and structure",
+                "Node font size",
+                "Number of loops in undirected graphs"
+            ],
+            correct: 1,
+            explanation: "Cycles in resource-allocation graphs signal potential or definite deadlocks."
+            },
+            /* 42 */
+            {
+            question: "Which is a practical way to avoid starvation under priority scheduling?",
+            options: [
+                "Disable preemption permanently",
+                "Use aging to increase waiting processes' priority over time",
+                "Always schedule only the highest-priority process",
+                "Assign random priorities each second"
+            ],
+            correct: 1,
+            explanation: "Aging prevents starvation by gradually raising the priority of long-waiting processes."
+            },
+            /* 43 */
+            {
+            question: "What is a key trade-off when preventing deadlocks proactively?",
+            options: [
+                "Lower code readability",
+                "Performance overhead or reduced concurrency",
+                "Unlimited resource availability",
+                "Simpler scheduling algorithms"
+            ],
+            correct: 1,
+            explanation: "Deadlock prevention can reduce concurrency and add overhead to enforce constraints."
+            },
+            /* 44 */
+            {
+            question: "What is the main use of a Resource Allocation Graph with multiple instances per resource?",
+            options: [
+                "Immediate detection of safe state without analysis",
+                "More complex cycle checks; cycles are not always definite deadlocks",
+                "Makes deadlocks impossible",
+                "Removes need for Banker's algorithm"
+            ],
+            correct: 1,
+            explanation: "With multiple instances, cycles may not guarantee deadlock; additional checks are needed."
+            },
+            /* 45 */
+            {
+            question: "Which is a consequence of excessive locking or busy waiting?",
+            options: [
+                "Improved throughput always",
+                "Performance degradation and increased latency",
+                "Guaranteed absence of race conditions",
+                "Reduced memory usage"
+            ],
+            correct: 1,
+            explanation: "Heavy locking and busy waiting consume CPU and hurt performance."
+            },
+            /* 46 */
+            {
+            question: "Which synchronization problem best matches 'lost update' or inconsistent state?",
+            options: [
+                "Deadlock",
+                "Race condition",
+                "Paging fault",
+                "Fragmentation"
+            ],
+            correct: 1,
+            explanation: "Race conditions occur when concurrent accesses cause inconsistent or lost updates."
+            },
+            /* 47 */
+            {
+            question: "What role do high-level constructs (e.g., monitors) play in synchronization?",
+            options: [
+                "They replace OS kernels",
+                "They encapsulate locking logic to reduce programmer errors",
+                "They eliminate the need for memory management",
+                "They ensure deterministic network performance"
+            ],
+            correct: 1,
+            explanation: "High-level primitives encapsulate synchronization, making correct usage easier."
+            },
+            /* 48 */
+            {
+            question: "Which is NOT a typical consequence of poor synchronization listed in the PPT?",
+            options: [
+                "Data inconsistency",
+                "Security vulnerabilities",
+                "Faster compilation times",
+                "Difficult debugging"
+            ],
+            correct: 2,
+            explanation: "Faster compilation is unrelated; poor synchronization causes the other listed issues."
+            },
+            /* 49 */
+            {
+            question: "Which is an example of a best practice to avoid synchronization bugs?",
+            options: [
+                "Maximize nested locks depth",
+                "Minimize critical sections and use high-level primitives",
+                "Lock every variable globally",
+                "Use busy waiting for I/O"
+            ],
+            correct: 1,
+            explanation: "Short critical sections and high-level constructs reduce contention and error risk."
+            },
+            /* 50 */
+            {
+            question: "Why are deadlock handling strategies often combined in real systems?",
+            options: [
+                "To make systems completely deterministic",
+                "To balance performance, complexity, and correctness trade-offs",
+                "Because single approaches are illegal",
+                "To eliminate need for synchronization"
+            ],
+            correct: 1,
+            explanation: "Combining strategies lets systems optimize for safety and performance depending on resource criticality."
+            },
+
+            /* ===================== DEVICE MANAGEMENT (INTERRUPTS) (51–75) ===================== */
+            /* 51 */
+            {
+            question: "What is an interrupt in the context of device management?",
+            options: [
+                "A temporary suspension of the kernel's build",
+                "A signal to the CPU that an event needs immediate attention",
+                "A method for persistent logging",
+                "A network packet type"
+            ],
+            correct: 1,
+            explanation: "Interrupts notify the CPU of events (hardware or software) requiring prompt handling."
+            },
+            /* 52 */
+            {
+            question: "Which type of interrupt is generated by hardware devices (e.g., keyboard)?",
+            options: [
+                "Software interrupt",
+                "Hardware interrupt",
+                "Semantic interrupt",
+                "Logical interrupt"
+            ],
+            correct: 1,
+            explanation: "Hardware interrupts originate from devices signaling the CPU (e.g., I/O completion)."
+            },
+            /* 53 */
+            {
+            question: "What is the purpose of saving CPU context when handling an interrupt?",
+            options: [
+                "To permanently remove the interrupted process",
+                "So execution can resume correctly after the interrupt handler runs",
+                "To increase disk throughput",
+                "To compress memory contents"
+            ],
+            correct: 1,
+            explanation: "Context save allows the interrupted task to continue correctly once the ISR finishes."
+            },
+            /* 54 */
+            {
+            question: "Which component prioritizes and forwards multiple interrupts to the CPU?",
+            options: [
+                "Translation Lookaside Buffer",
+                "Interrupt controller (PIC/APIC)",
+                "Page table",
+                "File manager"
+            ],
+            correct: 1,
+            explanation: "PIC/APIC hardware manages and prioritizes interrupt signals to the CPU."
+            },
+            /* 55 */
+            {
+            question: "What does 'interrupt masking' accomplish?",
+            options: [
+                "Temporarily disable certain interrupts to protect critical code",
+                "Permits all devices to interrupt simultaneously",
+                "Compresses interrupt vectors",
+                "Automatically acknowledges interrupts"
+            ],
+            correct: 0,
+            explanation: "Masking disables selected interrupts during critical sections to prevent race conditions."
+            },
+            /* 56 */
+            {
+            question: "Which is true about nested interrupts?",
+            options: [
+                "They allow higher-priority interrupts to preempt lower-priority ISRs",
+                "They prevent any ISR from running",
+                "They are unrelated to priority",
+                "They always guarantee no data loss"
+            ],
+            correct: 0,
+            explanation: "Nested interrupts permit higher-priority interrupts to preempt current handlers if allowed."
+            },
+            /* 57 */
+            {
+            question: "Edge-triggered interrupts fire when:",
+            options: [
+                "An input signal is at a steady level",
+                "A signal transitions (rising/falling edge)",
+                "The CPU requests an interrupt",
+                "A timer reaches zero only"
+            ],
+            correct: 1,
+            explanation: "Edge-triggered interrupts occur on signal transitions, not on sustained levels."
+            },
+            /* 58 */
+            {
+            question: "Level-triggered interrupts differ because they:",
+            options: [
+                "Trigger only once at boot",
+                "Remain asserted while the signal is at a particular level",
+                "Never require acknowledgment",
+                "Are exclusively software-based"
+            ],
+            correct: 1,
+            explanation: "Level-triggered interrupts remain active while the interrupt condition persists, requiring proper handling."
+            },
+            /* 59 */
+            {
+            question: "What is an Interrupt Service Routine (ISR)?",
+            options: [
+                "A procedure that handles a specific interrupt",
+                "The kernel's boot loader",
+                "A file system driver",
+                "A user-space polling loop"
+            ],
+            correct: 0,
+            explanation: "ISRs are routines executed when specific interrupts occur to service the event."
+            },
+            /* 60 */
+            {
+            question: "Which is a real-world example of a hardware interrupt mentioned in the PPT?",
+            options: [
+                "Timer interrupt",
+                "File creation event in user space",
+                "High-level syscall",
+                "Virtualization trap"
+            ],
+            correct: 0,
+            explanation: "Timer interrupts are hardware signals used for system timekeeping and preemptive scheduling."
+            },
+            /* 61 */
+            {
+            question: "What role does the Advanced Programmable Interrupt Controller (APIC) play?",
+            options: [
+                "Provides basic interrupts for single-core systems only",
+                "Enables complex prioritization and multicore interrupt routing",
+                "Replaces all device drivers",
+                "Manages virtual memory"
+            ],
+            correct: 1,
+            explanation: "APIC supports advanced interrupt routing and prioritization across multiprocessor systems."
+            },
+            /* 62 */
+            {
+            question: "Why must ISRs be fast and efficient?",
+            options: [
+                "They consume large disk space",
+                "They block other interrupts and delay system responsiveness if slow",
+                "They only run during shutdown",
+                "They prevent CPU from executing any process ever"
+            ],
+            correct: 1,
+            explanation: "Slow ISRs can delay handling of other interrupts and harm system responsiveness."
+            },
+            /* 63 */
+            {
+            question: "What is a spurious interrupt?",
+            options: [
+                "A deliberate system call from userspace",
+                "A false interrupt caused by noise or errors with no real event",
+                "A critical hardware failure",
+                "A normal timer tick"
+            ],
+            correct: 1,
+            explanation: "Spurious interrupts are false signals that must be handled safely by software/hardware."
+            },
+            /* 64 */
+            {
+            question: "Which technique reduces race conditions during critical sections involving interrupts?",
+            options: [
+                "Enable all interrupts unconditionally",
+                "Mask interrupts while executing critical code",
+                "Use larger file buffers",
+                "Increase page size"
+            ],
+            correct: 1,
+            explanation: "Masking interrupts in critical sections prevents asynchronous interruption and race conditions."
+            },
+            /* 65 */
+            {
+            question: "What is the typical sequence when an interrupt is handled?",
+            options: [
+                "Acknowledge, save context, run ISR, restore context, resume",
+                "Run ISR, save context, resume",
+                "Save context after resuming process",
+                "Ignore interrupt permanently"
+            ],
+            correct: 0,
+            explanation: "The CPU usually acknowledges the interrupt, saves context, executes ISR, restores context, and resumes."
+            },
+            /* 66 */
+            {
+            question: "Which statement about software interrupts is accurate?",
+            options: [
+                "They are generated by devices only",
+                "They are triggered by special instructions to request OS services (system calls)",
+                "They bypass the kernel always",
+                "They are identical to file system events"
+            ],
+            correct: 1,
+            explanation: "Software interrupts invoke system calls to request OS services from user programs."
+            },
+            /* 67 */
+            {
+            question: "Which is an advantage of APIC over traditional PIC?",
+            options: [
+                "Supports larger and more flexible interrupt vectors and multiprocessor routing",
+                "Removes need for ISRs",
+                "Always eliminates spurious interrupts",
+                "Manages filesystem access"
+            ],
+            correct: 0,
+            explanation: "APIC provides sophisticated interrupt handling suitable for multiprocessor systems."
+            },
+            /* 68 */
+            {
+            question: "What is interrupt priority used for?",
+            options: [
+                "To determine which interrupt handler should run first when multiple occur",
+                "To increase RAM speed",
+                "To schedule disk reads sequentially",
+                "To compress ISR code"
+            ],
+            correct: 0,
+            explanation: "Priority decides which interrupt is serviced first when several interrupt requests are pending."
+            },
+            /* 69 */
+            {
+            question: "Which hazard can occur if ISRs access shared data without protection?",
+            options: [
+                "Perfect parallelism",
+                "Race conditions and data corruption",
+                "Instant disk defragmentation",
+                "Guaranteed process termination"
+            ],
+            correct: 1,
+            explanation: "Unprotected ISR access to shared data can create race conditions and corrupt state."
+            },
+            /* 70 */
+            {
+            question: "Which is a good design approach for long-running device work?",
+            options: [
+                "Perform it entirely inside the ISR",
+                "Defer non-urgent work to a bottom half or worker thread",
+                "Disable all devices permanently",
+                "Block user processes until completion"
+            ],
+            correct: 1,
+            explanation: "ISRs should handle minimal, urgent tasks and defer longer work to worker contexts to remain responsive."
+            },
+            /* 71 */
+            {
+            question: "Which interrupt type typically drives preemptive scheduling ticks?",
+            options: [
+                "Keyboard interrupt only",
+                "Timer interrupt",
+                "File system interrupt",
+                "Network packet interrupt exclusively"
+            ],
+            correct: 1,
+            explanation: "Timer interrupts generate periodic ticks that the scheduler uses for time slicing and accounting."
+            },
+            /* 72 */
+            {
+            question: "Why must an ISR acknowledge or clear the interrupt source?",
+            options: [
+                "So the device thinks the event was never handled",
+                "To prevent the same interrupt from repeatedly firing",
+                "To compress interrupt logs",
+                "To allocate more memory to the device"
+            ],
+            correct: 1,
+            explanation: "Clearing/acknowledging the source prevents repeated firing of the same interrupt condition."
+            },
+            /* 73 */
+            {
+            question: "Which is true about edge-triggered vs level-triggered handling robustness?",
+            options: [
+                "Edge-triggered is immune to missed signals",
+                "Level-triggered is often simpler to poll reliably when handlers might be slow",
+                "They are exactly the same in practical systems",
+                "Level-triggered never needs clearing the condition"
+            ],
+            correct: 1,
+            explanation: "Level-triggered can be easier to handle when handling delays occur because it keeps the line asserted."
+            },
+            /* 74 */
+            {
+            question: "What does 'interrupt acknowledge' typically do?",
+            options: [
+                "Tells the interrupt controller the CPU received the interrupt and may want vector info",
+                "Guarantees the interrupt is permanent",
+                "Terminates the ISR immediately",
+                "Deletes the device driver"
+            ],
+            correct: 0,
+            explanation: "Acknowledgement signals the controller that CPU can accept vector/priority info for servicing."
+            },
+            /* 75 */
+            {
+            question: "Which is a typical function of device drivers related to interrupts?",
+            options: [
+                "Implement ISRs, register interrupt vectors, and acknowledge device events",
+                "Replace the kernel scheduler",
+                "Handle file compression",
+                "Manage virtual memory pages"
+            ],
+            correct: 0,
+            explanation: "Drivers provide ISRs, register for interrupts, and manage hardware-level acknowledgements."
+            },
+
+            /* ===================== FILE MANAGER (76–100) ===================== */
+            /* 76 */
+            {
+            question: "Which best describes the File Manager's purpose?",
+            options: [
+                "Compile user programs into binaries",
+                "Provide logical file views and handle creation, deletion, and metadata while hiding physical storage details",
+                "Allocate CPU to processes",
+                "Manage network routing tables"
+            ],
+            correct: 1,
+            explanation: "The File Manager offers a logical view and performs file operations while mapping to physical storage."
+            },
+            /* 77 */
+            {
+            question: "Which user interaction modes with file systems are highlighted in the PPT?",
+            options: [
+                "GUI and CLI",
+                "HTTP and FTP only",
+                "Binary and ASCII editors",
+                "Kernel and bootloader"
+            ],
+            correct: 0,
+            explanation: "Users primarily interact via graphical (GUI) or command-line (CLI) interfaces."
+            },
+            /* 78 */
+            {
+            question: "Which physical allocation method stores a file in one continuous block?",
+            options: [
+                "Linked allocation",
+                "Contiguous allocation",
+                "Indexed allocation",
+                "Hashed allocation"
+            ],
+            correct: 1,
+            explanation: "Contiguous allocation places file blocks consecutively on disk, aiding sequential access."
+            },
+            /* 79 */
+            {
+            question: "Which allocation method stores pointers inside each block to the next block?",
+            options: [
+                "Contiguous allocation",
+                "Linked allocation",
+                "Indexed allocation",
+                "Paged allocation"
+            ],
+            correct: 1,
+            explanation: "Linked allocation chains blocks with pointers, allowing files to be scattered across disk."
+            },
+            /* 80 */
+            {
+            question: "Which allocation uses an index block (inode) to list a file's block addresses?",
+            options: [
+                "Contiguous",
+                "Linked",
+                "Indexed",
+                "Segmented"
+            ],
+            correct: 2,
+            explanation: "Indexed allocation uses an index block that maps to all data blocks, enabling direct access."
+            },
+            /* 81 */
+            {
+            question: "Which physical allocation method suffers from external fragmentation?",
+            options: [
+                "Contiguous allocation",
+                "Linked allocation",
+                "Indexed allocation",
+                "Log-structured allocation"
+            ],
+            correct: 0,
+            explanation: "Contiguous allocation can fragment free space externally, making large allocations difficult over time."
+            },
+            /* 82 */
+            {
+            question: "Which method provides good random access performance?",
+            options: [
+                "Linked allocation",
+                "Contiguous allocation",
+                "Indexed allocation",
+                "Tape-based sequential only"
+            ],
+            correct: 2,
+            explanation: "Indexed allocation supports direct access to blocks, making random access efficient."
+            },
+            /* 83 */
+            {
+            question: "Which file access method reads records in order and requires traversing preceding records?",
+            options: [
+                "Random (direct) access",
+                "Sequential access",
+                "Indexed direct",
+                "Buffered streaming only"
+            ],
+            correct: 1,
+            explanation: "Sequential access reads data in linear order; to reach a record you read preceding ones."
+            },
+            /* 84 */
+            {
+            question: "Random (direct) access is particularly useful for:",
+            options: [
+                "Batch linear processing only",
+                "Databases needing quick retrieval of specific records",
+                "Tape backups exclusively",
+                "Sequential log viewers"
+            ],
+            correct: 1,
+            explanation: "Random access lets systems jump directly to needed records, a common DB requirement."
+            },
+            /* 85 */
+            {
+            question: "Which layer in the file management stack translates logical file ops into device-independent requests?",
+            options: [
+                "Application/Logical level",
+                "Basic File System level",
+                "Device Drivers level",
+                "Physical Device level"
+            ],
+            correct: 1,
+            explanation: "The Basic File System maps logical commands to device-independent block requests and directory management."
+            },
+            /* 86 */
+            {
+            question: "Which component provides a uniform interface to different file systems?",
+            options: [
+                "Virtual File System (VFS)",
+                "Page Table",
+                "Interrupt Controller",
+                "Swap Space"
+            ],
+            correct: 0,
+            explanation: "VFS abstracts file system operations so applications use a consistent interface across FS types."
+            },
+            /* 87 */
+            {
+            question: "Which access control mechanism associates permission lists per file object?",
+            options: [
+                "Capability lists",
+                "Access Control Lists (ACLs)",
+                "UGO only",
+                "Public-key encryption"
+            ],
+            correct: 1,
+            explanation: "ACLs list which subjects have what permissions for a specific file or directory."
+            },
+            /* 88 */
+            {
+            question: "What does the Principle of Least Privilege (PoLP) mandate for file access?",
+            options: [
+                "Grant users all permissions always",
+                "Assign only the minimum permissions necessary to perform tasks",
+                "Never use groups for permissions",
+                "Store all files in root"
+            ],
+            correct: 1,
+            explanation: "PoLP restricts permissions to the minimum needed to reduce security risk."
+            },
+            /* 89 */
+            {
+            question: "Which file system level handles buffering, scheduling, and error detection for devices?",
+            options: [
+                "Application/Logical level",
+                "Basic I/O Supervisor level",
+                "Device Drivers level",
+                "Physical Device level"
+            ],
+            correct: 1,
+            explanation: "The Basic I/O Supervisor initiates I/O, manages buffering, and handles device-level errors."
+            },
+            /* 90 */
+            {
+            question: "Which is a disadvantage of linked allocation?",
+            options: [
+                "Severe external fragmentation",
+                "Poor random access performance due to pointer traversal",
+                "Huge index blocks for tiny files",
+                "Impossible file growth"
+            ],
+            correct: 1,
+            explanation: "Linked files require traversing pointers, making random access slow compared to indexed or contiguous."
+            },
+            /* 91 */
+            {
+            question: "Which technique is lossless and suitable for text file compression?",
+            options: [
+                "JPEG",
+                "MP3",
+                "Huffman coding",
+                "DCT quantization"
+            ],
+            correct: 2,
+            explanation: "Huffman coding is a lossless compression method often used for general data and text."
+            },
+            /* 92 */
+            {
+            question: "Which compression method discards information to save more space and is common for images?",
+            options: [
+                "Run-Length Encoding (lossless)",
+                "Huffman coding (lossless)",
+                "Lossy (e.g., JPEG) using quantization",
+                "LZW (lossless)"
+            ],
+            correct: 2,
+            explanation: "Lossy compression (e.g., JPEG) discards some data (quantization) for higher compression ratios."
+            },
+            /* 93 */
+            {
+            question: "Which file organization concept helps map human-friendly names to files and metadata?",
+            options: [
+                "Virtual memory",
+                "Directory structure (hierarchical)",
+                "CPU scheduling",
+                "Interrupt vectors"
+            ],
+            correct: 1,
+            explanation: "Hierarchical directories organize files logically and map names to file identifiers and metadata."
+            },
+            /* 94 */
+            {
+            question: "What is a core responsibility of the Access Control Verification Module?",
+            options: [
+                "Translating file names to physical sectors",
+                "Enforcing access policies by checking subject, object, and operation",
+                "Compacting fragmented files automatically",
+                "Scheduling CPU time"
+            ],
+            correct: 1,
+            explanation: "It verifies identities and permissions (who, what, which operation) before granting access."
+            },
+            /* 95 */
+            {
+            question: "Which is a typical disadvantage of indexed allocation?",
+            options: [
+                "Extremely poor sequential reads",
+                "Index block overhead and potential single-point failure if index is lost",
+                "Impossible to append to files",
+                "No support for random access"
+            ],
+            correct: 1,
+            explanation: "Indexed allocation has overhead for index blocks and data loss risk if index is corrupted."
+            },
+            /* 96 */
+            {
+            question: "Which file system feature allows mounting remote file systems into a single namespace?",
+            options: [
+                "Virtual File System (VFS) and mounting mechanisms",
+                "Contiguous allocation only",
+                "Interrupt-driven I/O",
+                "Memory paging"
+            ],
+            correct: 0,
+            explanation: "VFS and mounting let OS integrate remote/local file systems into one directory tree."
+            },
+            /* 97 */
+            {
+            question: "Which method helps preserve data integrity during failures at the file manager level?",
+            options: [
+                "Journaling or write-ahead logging to record changes before applying them",
+                "Never flushing caches to disk",
+                "Deleting index nodes frequently",
+                "Ignoring write errors silently"
+            ],
+            correct: 0,
+            explanation: "Journaling records intended changes first so systems can recover to a consistent state after crashes."
+            },
+            /* 98 */
+            {
+            question: "Which describes capability lists vs ACLs?",
+            options: [
+                "Capability lists tie permissions to subjects; ACLs tie permissions to objects",
+                "They are identical in structure",
+                "ACLs attach to subjects; capability lists attach to objects",
+                "Neither is used in modern OSes"
+            ],
+            correct: 0,
+            explanation: "Capabilities list what a subject can access; ACLs list who can access a specific object."
+            },
+            /* 99 */
+            {
+            question: "Which file allocation scenario is most favorable for streaming large sequential reads?",
+            options: [
+                "Linked allocation with many hops",
+                "Contiguous allocation with sequential blocks",
+                "Indexed allocation with sparse index",
+                "Random access with frequent seeks"
+            ],
+            correct: 1,
+            explanation: "Contiguous allocation yields excellent sequential read performance due to locality."
+            },
+            /* 100 */
+            {
+            question: "Which layer is closest to the physical storage device in the file management hierarchy?",
+            options: [
+                "Application/Logical level",
+                "Basic File System level",
+                "Device Drivers level",
+                "Virtual File System (VFS)"
+            ],
+            correct: 2,
+            explanation: "Device drivers convert generic I/O requests into device-specific register commands at the hardware boundary."
+            }
+            ];
+
+
+        let currentQuestion = 0;
+        let score = 0;
+        let userAnswers = [];
+        let quizCompleted = false;
+
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        // Shuffle questions on initial load
+        shuffle(questions);
+
+        function initializeQuiz() {
+            showQuestion();
+            updateProgress();
+            updateScore();
+        }
+
+        function showQuestion() {
+            const questionData = questions[currentQuestion];
+            document.getElementById('questionText').innerHTML = `<span style="color: #ad1457; font-weight: bold;">Question ${currentQuestion + 1}:</span> ${questionData.question}`;
+            
+            const optionsContainer = document.getElementById('optionsContainer');
+            optionsContainer.innerHTML = '';
+            
+            questionData.options.forEach((option, index) => {
+                const optionElement = document.createElement('div');
+                optionElement.className = 'option';
+                optionElement.innerHTML = `<strong>${String.fromCharCode(65 + index)}.</strong> ${option}`;
+                optionElement.onclick = () => selectOption(index);
+                optionElement.dataset.index = index;
+                optionsContainer.appendChild(optionElement);
+            });
+            
+            document.getElementById('feedback').classList.remove('show');
+            document.getElementById('prevBtn').disabled = currentQuestion === 0;
+            document.getElementById('nextBtn').disabled = true;
+            document.getElementById('nextBtn').textContent = currentQuestion === questions.length - 1 ? 'Finish Quiz' : 'Next';
+        }
+
+        function selectOption(selectedIndex) {
+            const questionData = questions[currentQuestion];
+            const options = document.querySelectorAll('.option');
+            
+            // Disable all options
+            options.forEach(option => {
+                option.classList.add('disabled');
+                option.onclick = null;
+            });
+            
+            // Mark selected option
+            options[selectedIndex].classList.add('selected');
+            
+            // Show correct answer (green)
+            options[questionData.correct].classList.add('correct');
+            
+            // Mark incorrect if wrong selection (red)
+            if (selectedIndex !== questionData.correct) {
+                options[selectedIndex].classList.add('incorrect');
+            }
+            
+            // Store answer
+            userAnswers[currentQuestion] = selectedIndex;
+            
+            // Show feedback
+            const feedback = document.getElementById('feedback');
+            feedback.className = `feedback show ${selectedIndex === questionData.correct ? 'correct' : 'incorrect'}`;
+            feedback.innerHTML = `
+                <strong>${selectedIndex === questionData.correct ? '✓ Correct!' : '✗ Incorrect'}</strong><br>
+                <strong>Correct Answer:</strong> ${String.fromCharCode(65 + questionData.correct)}. ${questionData.options[questionData.correct]}<br>
+                <strong>Explanation:</strong> ${questionData.explanation}
+            `;
+            
+            document.getElementById('nextBtn').disabled = false;
+            updateScore();
+        }
+
+        function updateScore() {
+            // Calculate score based on all answered questions
+            let calculatedScore = 0;
+            userAnswers.forEach((ans, idx) => {
+                if (ans === questions[idx].correct) calculatedScore++;
+            });
+            document.getElementById('scoreDisplay').textContent = `Score: ${calculatedScore}/${currentQuestion + 1}`;
+            score = calculatedScore;
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++;
+                showQuestion();
+                updateProgress();
+            } else {
+                finishQuiz();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                showQuestion();
+                updateProgress();
+                
+                // If question was already answered, show the previous selection
+                if (userAnswers[currentQuestion] !== undefined) {
+                    setTimeout(() => {
+                        selectOption(userAnswers[currentQuestion]);
+                    }, 100);
+                }
+            }
+        }
+
+        function updateProgress() {
+            const progress = ((currentQuestion) / questions.length) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+            document.getElementById('progressText').textContent = `Question ${currentQuestion + 1} of ${questions.length}`;
+        }
+
+        function finishQuiz() {
+            quizCompleted = true;
+            const percentage = Math.round((score / questions.length) * 100);
+            
+            document.getElementById('questionContainer').style.display = 'none';
+            document.getElementById('finalScore').classList.add('show');
+            document.getElementById('finalScoreCircle').textContent = `${percentage}%`;
+            document.getElementById('finalScoreText').innerHTML = `
+                You scored <strong>${score}</strong> out of <strong>${questions.length}</strong> questions correctly!<br>
+                <span style="font-size: 1.1em; margin-top: 10px; display: block;">
+                    ${percentage >= 90 ? '🏆 Excellent! Outstanding knowledge of Operating Systems!' :
+                      percentage >= 80 ? '🎉 Great job! Very good understanding!' :
+                      percentage >= 70 ? '👍 Good work! Solid foundation!' :
+                      percentage >= 60 ? '📚 Not bad! Keep studying to improve!' :
+                      '💪 Keep learning! Practice makes perfect!'}
+                </span>
+            `;
+            
+            // Update progress to 100%
+            document.getElementById('progressFill').style.width = '100%';
+            document.getElementById('progressText').textContent = 'Quiz Completed!';
+        }
+
+        function restartQuiz() {
+            currentQuestion = 0;
+            score = 0;
+            userAnswers = [];
+            quizCompleted = false;
+
+            // Shuffle questions on restart
+            shuffle(questions);
+
+            document.getElementById('questionContainer').style.display = 'block';
+            document.getElementById('finalScore').classList.remove('show');
+
+            initializeQuiz();
+        }
+
+        // Initialize quiz when page loads
+        window.onload = initializeQuiz;
+    </script>
+</body>
+</html>
