@@ -1,0 +1,1401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rizal Review</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Barbie', 'Arial', sans-serif;
+            background: #fff0f6; /* Light pink solid background */
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .quiz-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #fff0f6;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            overflow: hidden;
+            border: 3px solid #ff69b4;
+        }
+        
+        .quiz-header {
+            background: #ff69b4; /* Solid Barbie pink for better readability */
+            color: #000;
+            padding: 30px;
+            text-align: center;
+            border-bottom: 3px solid #ff69b4;
+        }
+        
+        .quiz-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-family: 'Barbie', 'Arial', sans-serif;
+            letter-spacing: 2px;
+            color: #fff; /* White text for strong contrast */
+            text-shadow: 2px 2px 0 #ad1457;
+        }
+        
+        .quiz-header p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+            color: #fff; /* White text for strong contrast */
+            text-shadow: 1px 1px 0 #ad1457;
+        }
+        
+        .progress-container {
+            background: #fff0f6;
+            padding: 20px;
+            border-bottom: 1px solid #ff69b4;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background: #ff69b4;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ff69b4, #fff0f6);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        
+        .progress-text {
+            text-align: center;
+            margin-top: 10px;
+            font-weight: bold;
+            color: #000;
+            text-shadow: 1px 1px 0 #fff;
+        }
+        
+        .question-container {
+            padding: 40px;
+            min-height: 400px;
+            background: #fff0f6;
+        }
+        
+        .question {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #ff69b4;
+            margin-bottom: 25px;
+            line-height: 1.6;
+            text-shadow: 1px 1px 0 #fff;
+        }
+        
+        .options {
+            display: grid;
+            gap: 15px;
+        }
+        
+        .option {
+            background: #fff;
+            border: 2px solid #ff69b4;
+            border-radius: 10px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+            position: relative;
+            color: #000;
+            font-weight: bold;
+        }
+        
+        .option:hover {
+            border-color: #ff69b4;
+            background: #ffe4ec;
+            transform: translateY(-2px);
+        }
+        
+        .option.selected {
+            border-color: #ff69b4;
+            background: #ffe4ec;
+        }
+        
+        .option.correct {
+            border-color: #28a745;
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .option.incorrect {
+            border-color: #dc3545;
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        .option.disabled {
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+        
+        .feedback {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 10px;
+            display: none;
+            font-weight: bold;
+            color: #000;
+        }
+        
+        .feedback.show {
+            display: block;
+        }
+        
+        .feedback.correct {
+            background: #d4edda;
+            color: #155724;
+            border: 2px solid #28a745;
+        }
+        
+        .feedback.incorrect {
+            background: #f8d7da;
+            color: #721c24;
+            border: 2px solid #dc3545;
+        }
+        
+        .controls {
+            padding: 30px 40px;
+            background: #fff0f6;
+            text-align: center;
+            border-top: 1px solid #ff69b4;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, #ff69b4 0%, #fff0f6 100%);
+            color: #000;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 0 10px;
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(255, 105, 180, 0.2);
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(255, 105, 180, 0.3);
+            background: linear-gradient(135deg, #ffe4ec 0%, #ff69b4 100%);
+            color: #000;
+        }
+        
+        .btn:disabled {
+            background: #ffb6c1;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+            color: #000;
+        }
+        
+        .score-display {
+            display: inline-block;
+            background: #fff;
+            padding: 10px 20px;
+            border-radius: 25px;
+            margin: 0 15px;
+            font-weight: bold;
+            color: #ff69b4;
+            border: 2px solid #ff69b4;
+        }
+        
+        .final-score {
+            text-align: center;
+            padding: 40px;
+            display: none;
+            background: #fff0f6;
+            color: #000;
+        }
+        
+        .final-score.show {
+            display: block;
+        }
+        
+        .final-score h2 {
+            font-size: 2.5rem;
+            color: #ff69b4;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 0 #fff;
+        }
+        
+        .score-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ff69b4 0%, #fff0f6 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px auto;
+            color: #000;
+            font-size: 2rem;
+            font-weight: bold;
+            border: 3px solid #ff69b4;
+            text-shadow: 2px 2px 0 #fff;
+        }
+        
+        @media (max-width: 768px) {
+            .quiz-header h1 {
+                font-size: 2rem;
+            }
+            
+            .question-container {
+                padding: 20px;
+            }
+            
+            .question {
+                font-size: 1.1rem;
+            }
+            
+            .option {
+                padding: 15px;
+                font-size: 1rem;
+            }
+            
+            .controls {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <div class="quiz-header">
+            <h1>Rizal’s Life, Works and Writings Reviewer</h1>
+            <p>4.0 cutie for everyone</p>
+        </div>
+        
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-text" id="progressText">Question 1 of 100</div>
+        </div>
+        
+        <div class="question-container" id="questionContainer">
+            <div class="question" id="questionText"></div>
+            <div class="options" id="optionsContainer"></div>
+            <div class="feedback" id="feedback"></div>
+        </div>
+        
+        <div class="controls">
+            <button class="btn" id="prevBtn" onclick="previousQuestion()">Previous</button>
+            <span class="score-display" id="scoreDisplay">Score: 0/0</span>
+            <button class="btn" id="nextBtn" onclick="nextQuestion()">Next</button>
+        </div>
+        
+        <div class="final-score" id="finalScore">
+            <h2>Quiz Complete!</h2>
+            <div class="score-circle" id="finalScoreCircle"></div>
+            <p id="finalScoreText"></p>
+            <button class="btn" onclick="restartQuiz()">Restart Quiz</button>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "What is the primary significance of the woman's image on the cover of Noli Me Tangere?",
+                options: [
+                    "She represents Maria Clara as the protagonist's romantic interest",
+                    "She symbolizes the Filipino nation and women as victims of social cancer",
+                    "She depicts Josephine Bracken, Rizal's companion during his exile years",
+                    "She represents the Virgin Mary according to Catholic tradition and iconography"
+                ],
+                correct: 1,
+                explanation: "The woman on the cover represents the nation and the women, victims of the social cancer, with the friar's feet symbolizing one of the causes of oppression."
+            },
+            {
+                question: "What symbolic elements on the Noli Me Tangere cover represent the causes of oppression?",
+                options: [
+                    "The bamboo stands and tropical flowers throughout the design",
+                    "The guard's helmet, iron chains, teacher's whip, and alferez's scourge",
+                    "Only the cross and maze visible in the background imagery",
+                    "The woman's chains combined with the friar's robes and posture"
+                ],
+                correct: 1,
+                explanation: "The guard's helmet, iron chains, teacher's whip and the alferez's scourge represent the aggravating causes of oppression and discrimination in Philippine society."
+            },
+            {
+                question: "According to the novel, who is Maria Clara's biological father?",
+                options: [
+                    "Kapitan Tiago, her known father",
+                    "Father Salví, the town priest",
+                    "Father Dámaso, a visiting friar",
+                    "Crisostomo Ibarra, her fiancé"
+                ],
+                correct: 2,
+                explanation: "Maria Clara is the illegitimate daughter of Father Dámaso and Pía Alba, though Kapitan Tiago is known as her father."
+            },
+            {
+                question: "What philosophical approach did Elias advocate for achieving freedom from Spanish authorities?",
+                options: [
+                    "Migration to other countries for opportunities abroad",
+                    "Legal reform and education through peaceful means only",
+                    "Violent revolution against the colonial government system",
+                    "Peaceful negotiation with the friars and Spanish officials"
+                ],
+                correct: 2,
+                explanation: "Elias advocates a more radical approach (revolution) to achieve true freedom from Spanish authorities, contrasting with Ibarra's peaceful methods."
+            },
+            {
+                question: "What was the ironic connection between Ibarra and Elias?",
+                options: [
+                    "They were related by blood through distant family connections",
+                    "Ibarra's ancestors were responsible for the sufferings of Elias' ancestors",
+                    "Elias was secretly working for the Spanish colonial government",
+                    "They both loved Maria Clara without her knowledge of either"
+                ],
+                correct: 1,
+                explanation: "Ironically, Ibarra's ancestors were responsible for the sufferings of Elias' ancestors, adding complexity to their relationship."
+            },
+            {
+                question: "What was the significance of the 'parable of the moth' in Rizal's childhood?",
+                options: [
+                    "It showed him the importance of obedience to his elders",
+                    "It taught him about the physical dangers of playing with fire",
+                    "It was a lesson about avoiding temptation and sinful desires",
+                    "It inspired his belief that light (knowledge) is worth sacrificing one's life for"
+                ],
+                correct: 3,
+                explanation: "The moth story inspired Rizal to believe that 'light [knowledge] is the most beautiful thing in creation, and that it is worthy for a man to sacrifice his life' for it."
+            },
+            {
+                question: "What was Father Vilaclara's controversial advice to the young Rizal?",
+                options: [
+                    "To stop communing with the Muse and focus on practical studies",
+                    "To continue writing poetry prolifically as his divine calling",
+                    "To join the priesthood immediately for a secure future career",
+                    "To focus only on religious studies and daily prayer and devotion"
+                ],
+                correct: 0,
+                explanation: "Father Jose Vilaclara advised Rizal to stop communing with the Muse and pay more attention to more practical studies, discouraging his poetry."
+            },
+            {
+                question: "What was the deleted chapter of Noli Me Tangere that was restored by Soledad Lacson-Locsin?",
+                options: [
+                    "Maria Clara and Ibarra's final meeting before his supposed death",
+                    "Elias and Salome's romantic relationship and tragic circumstances",
+                    "Sisa's Madness as she wandered through the town calling her sons",
+                    "Basilio and Crispin's torture by the sacristan mayor at church"
+                ],
+                correct: 1,
+                explanation: "'Elias and Salome' was deleted to save printing expenses but was restored by Soledad Lacson-Locsin in her translation as Chapter 25."
+            },
+            {
+                question: "What happened to Doña Teodora that deeply affected young Rizal?",
+                options: [
+                    "She lost her eyesight completely due to an untreated condition",
+                    "She was forbidden from teaching children in their hometown area",
+                    "She was accused of being an accomplice in trying to poison her half-brother's wife",
+                    "She was exiled to Spain for alleged conspiracy against authorities"
+                ],
+                correct: 2,
+                explanation: "Teodora was accused of being an accomplice in trying to poison her half-brother Jose Alberto's wife, whom she had advised about marital problems, and was imprisoned for two and a half years."
+            },
+            {
+                question: "What was unique about the Jesuit Ateneo Municipal's curriculum compared to other schools?",
+                options: [
+                    "It only taught Spanish aristocrats and children of wealthy families",
+                    "It included humanities, sciences, and Spanish studies, even having a physics laboratory",
+                    "It focused solely on religious instruction and theological preparation",
+                    "It excluded Filipino students from science classes for racial reasons"
+                ],
+                correct: 1,
+                explanation: "Unlike other schools limited to the 3 Rs, the Jesuit Ateneo Municipal included humanities, sciences, and the study of Spanish, even having a physics laboratory."
+            },
+            {
+                question: "What was Pilosopo Tasyo's role in Noli Me Tangere?",
+                options: [
+                    "He was a wealthy businessman who supported Ibarra's projects",
+                    "He was Ibarra's business partner in the school construction plan",
+                    "He was a Spanish friar operating in disguise among Filipinos",
+                    "He was a philosopher whose ideas were too advanced and radical, earning him the name 'lunatic'"
+                ],
+                correct: 3,
+                explanation: "Pilosopo Tasyo (Don Anastasio) was portrayed as a philosopher whose ideas are too advance and radical for ordinary and uneducated people, leading him to be called 'Tasyo the Philosopher/Lunatic.' He represents Paciano."
+            },
+            {
+                question: "What happened to Maria Clara at the end of Noli Me Tangere?",
+                options: [
+                    "She married Alfonso Linares as her family had arranged originally",
+                    "She died of a terrible illness brought on by grief and despair",
+                    "She entered the Sta Clara nunnery instead of marrying",
+                    "She fled with Ibarra to escape Spanish colonial authorities"
+                ],
+                correct: 2,
+                explanation: "Upon hearing the news that Ibarra was supposedly dead, Maria Clara believed it and entered the Sta Clara nunnery instead of marrying Alfonso Linares (respectable nephew of Donya Victorina)."
+            },
+            {
+                question: "What were Elias' famous last words before dying?",
+                options: [
+                    "Long live the Philippines forever and may freedom reign soon",
+                    "Remember me to Maria Clara and tell her I fought bravely",
+                    "I die without seeing the dawn brighten over my native land",
+                    "Avenge my death and fight for our country's independence"
+                ],
+                correct: 2,
+                explanation: "Before Elias died, he uttered one of the most famous lines in Filipino literature: 'I die without seeing the dawn brighten over my native land. You who have it to see, welcome it—and forget not those who have fallen during the night.'"
+            },
+            {
+                question: "To whom did Rizal dedicate El Filibusterismo?",
+                options: [
+                    "To his family members who supported him throughout his life",
+                    "To the Filipino youth who would carry on the fight for reform",
+                    "To the three martyr priests: Burgos, Gomez, and Zamora",
+                    "To Maria Clara as a symbolic character representing Filipino women"
+                ],
+                correct: 2,
+                explanation: "The novel is dedicated to the three martyr priests of Cavite Mutiny: Padre Jose Burgos, Padre Mariano Gomez, and Jacinto Zamora."
+            },
+            {
+                question: "Who was Simoun in El Filibusterismo?",
+                options: [
+                    "Crisostomo Ibarra in disguise, seeking revenge against Spanish authorities",
+                    "A wealthy Spanish jeweler and merchant newly arrived from Europe",
+                    "Basilio's mentor and guide who taught him revolutionary principles",
+                    "Elias who survived his wounds and returned with a new identity"
+                ],
+                correct: 0,
+                explanation: "Thirteen years after leaving the Philippines, Crisostomo Ibarra returns as Simoun, a rich jeweler sporting a beard and blue-tinted glasses, abandoning his idealism to become a cynical saboteur seeking revenge."
+            },
+            {
+                question: "What was Simoun's plan during the wedding of Paulita Gómez and Juanito?",
+                options: [
+                    "To start a peaceful protest outside the wedding venue location",
+                    "To kidnap the bride during the ceremony to prevent the marriage",
+                    "To expose government corruption publicly before all the wedding guests",
+                    "To conceal an explosive inside a lamp that would kill important members of society"
+                ],
+                correct: 3,
+                explanation: "Simoun's plan was to conceal an explosive inside a beautiful lamp that would explode and kill everyone—important members of civil society and the Church hierarchy—inside the house when someone attempted to turn the wick."
+            },
+            {
+                question: "What tragic fate befell Juli in El Filibusterismo?",
+                options: [
+                    "She was imprisoned by the Spanish colonial government for rebellion",
+                    "She committed suicide by jumping over a balcony rather than be dishonored by Padre Camorra",
+                    "She was killed by bandits while traveling on a dangerous road",
+                    "She died of a severe illness that swept through the region"
+                ],
+                correct: 1,
+                explanation: "Juli committed suicide rather than submit to the will of Father Camorra, who tried to rape her when she asked for his help, jumping over the balcony to her death."
+            },
+            {
+                question: "Who sabotaged Simoun's bombing plan and why?",
+                options: [
+                    "Simoun himself, overcome by conscience and guilt at the last moment",
+                    "Basilio, because he changed his mind about joining the revolution",
+                    "Father Salví, because he discovered the plot through his spies",
+                    "Isagani, because of his undying love for Paulita Gómez"
+                ],
+                correct: 3,
+                explanation: "Isagani, due to his undying love for Paulita, burst in the room and threw the lamp into the river, sabotaging Simoun's plans. He later regrets this impulsive action because he had contradicted his own belief that he loved his nation more than Paulita."
+            },
+            {
+                question: "What was Father Florentino's philosophical conclusion about Simoun's failed revolution?",
+                options: [
+                    "The Spanish were too powerful to defeat with violent methods",
+                    "The revolution was poorly planned and executed from the start",
+                    "God did not forsake him and his plans were not for the greater good but for personal gain",
+                    "God had forsaken the Philippines and abandoned the Filipino people"
+                ],
+                correct: 2,
+                explanation: "Florentino opines that God did not forsake Simoun and that his plans were not for the greater good but for personal gain, offering a moral perspective on the failed revolution."
+            },
+            {
+                question: "What happened to Basilio's character development from Noli to El Fili?",
+                options: [
+                    "He transformed from Sisa's son to an aspiring doctor and eventually joined the revolution",
+                    "He remained the same frightened child throughout both novels entirely",
+                    "He became a Spanish collaborator working against his fellow Filipinos",
+                    "He became a bandit leader operating in the mountains of Luzon"
+                ],
+                correct: 0,
+                explanation: "Basilio heeded the advice of the dying boatman Elías, studied to become a doctor, and after hearing about Julî's suicide, finally joins Simoun's revolution as a changed man."
+            },
+            {
+                question: "What does 'Filibusterismo' mean?",
+                options: [
+                    "The Revolution against colonial powers",
+                    "The Subversive or Subversion",
+                    "The Liberation of an oppressed people",
+                    "The Awakening of national consciousness"
+                ],
+                correct: 1,
+                explanation: "Filibusterismo means 'The Subversive or Subversion,' reflecting the novel's more radical tone compared to Noli Me Tangere."
+            },
+            {
+                question: "What was Cabesang Tales' transformation in El Filibusterismo?",
+                options: [
+                    "From a farmer to a friar serving the Spanish church",
+                    "From a cabeza de barangay disposed of his land to the feared bandit Matanglawin",
+                    "From a soldier to a revolutionary leader fighting the Spanish",
+                    "From a poor man to a wealthy merchant through hard work"
+                ],
+                correct: 1,
+                explanation: "Telesforo Juan de Dios (Cabesang Tales), a former cabeza de barangay who was disposed of his land by the friars, resurfaced as the feared Luzón bandit Matanglawin (Tagalog for 'Hawkeye')."
+            },
+            {
+                question: "What literary technique characterizes Noli Me Tangere according to the analysis?",
+                options: [
+                    "Symbolism with heavy use of metaphorical imagery throughout",
+                    "Romanticism emphasizing emotion and individualism in the narrative",
+                    "Realism, portraying real social, economic, and political conditions",
+                    "Surrealism with dreamlike and fantastical elements interwoven"
+                ],
+                correct: 2,
+                explanation: "Noli Me Tangere is a good example of realism, as it portrays the real social, economic, and political conditions of the Philippines and the Filipinos under Spanish colonial rule."
+            },
+            {
+                question: "What was Rizal's original article written in Spain?",
+                options: [
+                    "A La Juventud Filipina addressing Filipino youth",
+                    "Me Piden Versos when someone requested poetry",
+                    "Amor Patrio (Love of Country)",
+                    "Los Viajes describing his travels abroad"
+                ],
+                correct: 2,
+                explanation: "Amor Patrio (Love of Country) was Rizal's first article written on Spain's soil, published under the pen-name Laong Laan."
+            },
+            {
+                question: "Who helped fund the publication of Noli Me Tangere?",
+                options: [
+                    "The Spanish government through a special grant",
+                    "Paciano Rizal exclusively using family inheritance money",
+                    "Maximo Viola, who loaned Rizal the needed funds",
+                    "Dr. Antonio Regidor through his personal wealth"
+                ],
+                correct: 2,
+                explanation: "Maximo Viola, Rizal's friend from Bulacan, loaned him the needed funds (300 pesos) to publish the Noli Me Tangere, and was hailed as the savior of the novel."
+            },
+            {
+                question: "When was Noli Me Tangere published?",
+                options: [
+                    "May 21, 1887 in Berlin",
+                    "March 21, 1887 in Berlin",
+                    "April 21, 1887 in Berlin",
+                    "February 21, 1887 in Berlin"
+                ],
+                correct: 1,
+                explanation: "The Noli Me Tangere came off the press on March 21, 1887, at the Berliner Buchdruckrei-Action-Gesselschaft printing shop in Berlin."
+            },
+            {
+                question: "Who defended the Noli Me Tangere against its critics?",
+                options: [
+                    "Father Salvador Font using his position in the church",
+                    "Rev. Vicente Garcia using the pen name Justo Desiderio Magalang",
+                    "Msgr. Pedro Payo through official church declarations",
+                    "Father Jose Rodriguez in a series of published letters"
+                ],
+                correct: 1,
+                explanation: "Rev. Vicente Garcia, using the pen name Justo Desiderio Magalang, defended the Noli against its critics and detractors."
+            },
+            {
+                question: "What was La Solidaridad?",
+                options: [
+                    "A patriotic newspaper founded by Graciano Lopez Jaena that served as the organ of the Propaganda Movement",
+                    "A revolutionary society dedicated to overthrowing Spanish colonial rule",
+                    "A political party advocating for Filipino representation in Spain",
+                    "A secret organization plotting armed rebellion against the friars"
+                ],
+                correct: 0,
+                explanation: "La Solidaridad was a patriotic newspaper founded by Graciano Lopez Jaena in Barcelona on February 15, 1889, serving as the organ of the Propaganda Movement."
+            },
+            {
+                question: "What pen names did Rizal use in La Solidaridad?",
+                options: [
+                    "Laong Laan and Jose Mercado for different types of articles",
+                    "Pepe and Dimasalang depending on the topic of his writings",
+                    "Dimasalang and Laong Laan for various published pieces",
+                    "Jose Protasio and Laong Laan for anonymity and protection"
+                ],
+                correct: 2,
+                explanation: "Rizal used the pen names Dimasalang and Laong Laan when writing for La Solidaridad newspaper."
+            },
+            {
+                question: "What was significant about 'A La Juventud Filipina' in Philippine literature?",
+                options: [
+                    "It was his first published poem in any language or medium",
+                    "It was written when he was very young, at only fourteen years old",
+                    "It was the first great poem in Spanish by a Filipino recognized by Spanish authorities and expressed Filipino nationalism",
+                    "It was the longest poem ever written by a Filipino at that time"
+                ],
+                correct: 2,
+                explanation: "'A La Juventud Filipina' is significant because it was the first great poem in Spanish written by a Filipino whose merit was recognized by Spanish literary authorities, and it expressed the nationalistic concept that Filipinos were the 'fair hope of the Fatherland.'"
+            },
+            {
+                question: "What was the original name of 'The Philippines A Century Hence'?",
+                options: [
+                    "Cien Años de las Islas about the future of the islands",
+                    "Las Filipinas en el Futuro describing the coming times",
+                    "Filipinas dentro de Cien Años published in La Solidaridad",
+                    "El Futuro de Filipinas predicting political changes ahead"
+                ],
+                correct: 2,
+                explanation: "The essay was originally named 'Filipinas dentro de Cien Años' and was published in La Solidaridad from September 30, 1889 to February 1, 1890."
+            },
+            {
+                question: "Who translated 'The Philippines A Century Hence' into English?",
+                options: [
+                    "Charles Derbyshire as an English translator",
+                    "Virgilio Almario for Filipino readers abroad",
+                    "Leon Maria Guerrero for academic purposes",
+                    "Soledad Lacson-Locsin for wider distribution"
+                ],
+                correct: 0,
+                explanation: "Charles Derbyshire translated Dr. Jose Rizal's 'Philippines: A Century Hence' into the English language."
+            },
+            {
+                question: "According to Rizal in 'The Philippines A Century Hence,' what is necessary to read the destiny of a people?",
+                options: [
+                    "Predict future economic trends and market conditions",
+                    "Study current political systems and government structures",
+                    "Consult with foreign experts who understand the region",
+                    "Open the book of its past and study historical records"
+                ],
+                correct: 3,
+                explanation: "Rizal stated that 'In order to read the destiny of people, it is necessary to open the book of its past,' emphasizing the importance of historical understanding."
+            },
+            {
+                question: "What did Rizal observe happened to Filipinos during their transformation under Spanish rule?",
+                options: [
+                    "They successfully integrated Spanish and Filipino cultures harmoniously",
+                    "They maintained all their cultural practices despite colonial influence",
+                    "They gradually lost their ancient traditions, recollections, writings, songs, poetry, and laws",
+                    "They became more prosperous and educated under European guidance"
+                ],
+                correct: 2,
+                explanation: "Rizal noted that Filipinos 'gradually lost their ancient traditions, their recollections—they forgot their writings, their songs, their poetry, their laws, in order to learn by heart other doctrines, which they did not understand.'"
+            },
+            {
+                question: "According to Rizal, what three perspectives existed on the ethical condition of Filipinos?",
+                options: [
+                    "Everyone agreed Filipinos had declined morally under Spanish rule",
+                    "All perspectives agreed on continuous improvement and advancement",
+                    "Liberal Spaniards said no advancement; friars said progress from savagery; many Filipinos said they had retrograded",
+                    "All agreed Filipinos had advanced significantly in ethics and morals"
+                ],
+                correct: 2,
+                explanation: "For liberal Spaniards, natives had not advanced; for friars, people had been redeemed from savagery (progressed); for many Filipinos, ethics and customs had decayed (retrograded)."
+            },
+            {
+                question: "What did Rizal predict about the Philippines remaining under Spanish domination?",
+                options: [
+                    "Spain would voluntarily grant independence soon regardless of conditions",
+                    "The Philippines would be sold to another country eventually",
+                    "It would remain Spanish only with more law and greater liberty, or they would declare independence after bloodshed",
+                    "It would last forever regardless of conditions or treatment"
+                ],
+                correct: 2,
+                explanation: "Rizal stated: 'The Philippines, then, will remain under Spanish domination, but with more law and greater liberty, or they will declare themselves independent, after steeping themselves and the mother country in blood.'"
+            },
+            {
+                question: "What was Rizal's main concern in annotating Antonio de Morga's work?",
+                options: [
+                    "To praise Spanish colonization and its benefits to Filipinos",
+                    "To rewrite history completely according to his own interpretation",
+                    "To correct what has been distorted about the Philippines due to Spanish Conquest",
+                    "To criticize all Spanish contributions without acknowledging any benefits"
+                ],
+                correct: 2,
+                explanation: "Rizal's purposes included correcting what has been distorted about the Philippines due to Spanish Conquest, awakening Filipino consciousness about their glorious past, and proving Filipinos were civilized before Spanish arrival."
+            },
+            {
+                question: "What was Antonio de Morga's profession and role?",
+                options: [
+                    "He was only a historian with no other professional duties",
+                    "He was a Spanish lawyer, high-ranking colonial official for 43 years, and historian",
+                    "He was a friar missionary spreading Christianity in the colonies",
+                    "He was a military general leading Spanish conquest operations"
+                ],
+                correct: 1,
+                explanation: "Antonio de Morga was a Spanish lawyer, a high-ranking colonial official for 43 years, and a historian who graduated with a doctorate in canon law from the University of Salamanca."
+            },
+            {
+                question: "When was Morga's 'Sucesos De Las Islas Filipinas' published?",
+                options: [
+                    "1599 at the end of the 16th century",
+                    "1619 in the early 17th century",
+                    "1609 during the Spanish colonial period",
+                    "1629 in the later part of his life"
+                ],
+                correct: 2,
+                explanation: "Morga published 'Sucesos De Las Islas Filipinas' in 1609, and it is one of the most important works on the early history of Spanish Colonization of the Philippines."
+            },
+            {
+                question: "Where did Rizal find Morga's work?",
+                options: [
+                    "In a Philippine university library during his student years",
+                    "At the British Museum's reading room in London",
+                    "In a Manila library while researching Philippine history",
+                    "In a Spanish archive during his travels through Europe"
+                ],
+                correct: 1,
+                explanation: "Rizal found the book while he was in London at the British Museum's reading room. He hand-copied the whole 351 pages of the book and annotated every chapter of it."
+            },
+            {
+                question: "What did Morga state as his purpose for writing Sucesos?",
+                options: [
+                    "To document trade routes only for commercial purposes",
+                    "To chronicle the deeds achieved by Spaniards, the discovery, conquest, and conversion of the Philippines",
+                    "To criticize Spanish colonization and its negative effects",
+                    "To praise Filipino culture exclusively without Spanish perspective"
+                ],
+                correct: 1,
+                explanation: "Morga wrote that his purpose was so he could chronicle 'the deeds achieved by our Spaniards, the discovery, conquest, and conversion of the Filipinas Islands.'"
+            },
+            {
+                question: "How many chapters does Morga's Sucesos consist of?",
+                options: [
+                    "6 chapters covering the main events",
+                    "12 chapters for each year of Spanish rule",
+                    "8 chapters covering various governments",
+                    "10 chapters divided by geographic regions"
+                ],
+                correct: 2,
+                explanation: "The work consists of 8 chapters covering various governments and accounts of the Philippine Islands."
+            },
+            {
+                question: "What assertion of Rizal about Panday Pira was later debunked?",
+                options: [
+                    "That he made fine cannons comparable to Spanish quality",
+                    "That he was a blacksmith at all during his lifetime",
+                    "That he was Filipino rather than foreign-born",
+                    "That he existed at all in historical records"
+                ],
+                correct: 0,
+                explanation: "Retana and archaeological evidence proved that Panday Pira did not exactly make fine cannons as Rizal had asserted, showing Rizal sometimes made exaggerated historical claims."
+            },
+            {
+                question: "What did Rizal exaggerate about pre-Hispanic ship-building?",
+                options: [
+                    "That all ships were imported from China and neighboring countries",
+                    "That only Spaniards knew ship-building techniques and methods",
+                    "That natives could build ships that could hold around 2000 tons",
+                    "That Filipinos never built ships before Spanish colonization arrived"
+                ],
+                correct: 2,
+                explanation: "Rizal exaggerated that natives could build ships that could hold around 2000 tons, which later came to extinction due to cutting down of trees by the Spaniards."
+            },
+            {
+                question: "What was Rizal's primary purpose in writing 'The Indolence of the Filipinos'?",
+                options: [
+                    "To confirm Filipinos are naturally lazy due to tropical climate",
+                    "To blame Filipinos for colonial problems and economic backwardness",
+                    "To explain that indolence exists but is the effect, not the cause, of the country's backwardness",
+                    "To praise Spanish work ethic compared to Filipino work habits"
+                ],
+                correct: 2,
+                explanation: "Rizal admits that indolence does exist among the Filipinos, but it cannot be attributed to the troubles and backwardness of the country; rather it is the effect of the backwardness and troubles experienced by the country."
+            },
+            {
+                question: "When was 'The Indolence of the Filipinos' published?",
+                options: [
+                    "In 5 installments from July 15 to September 15, 1890",
+                    "In 3 installments during 1889 in Barcelona newspapers",
+                    "As a book in 1892 for wider distribution among Filipinos",
+                    "As a single publication in 1891 in Madrid, Spain"
+                ],
+                correct: 0,
+                explanation: "'La Indolencia de los Filipinos' was published in 5 installments, from July 15 up to September 15, 1890, in Madrid, Spain in La Solidaridad."
+            },
+            {
+                question: "According to Rizal, what disproves the notion that Filipinos are by nature indolent?",
+                options: [
+                    "Spanish documents praising Filipino workers for their diligence",
+                    "Modern economic data showing Filipino productivity levels",
+                    "Foreign testimonies only from various European travelers",
+                    "Early Filipinos were already carrying out trade, engaged in agriculture and mining, and some even spoke Spanish before Spanish arrival"
+                ],
+                correct: 3,
+                explanation: "Even before the Spaniards arrived, Rizal argues, the early Filipinos were already carrying out trade within provinces and with other neighboring countries; they were also engaged in agriculture and mining; some natives even spoke Spanish."
+            },
+            {
+                question: "What were the two main factors Rizal reduced all causes of indolence to?",
+                options: [
+                    "Climate and geography affecting work capacity and productivity",
+                    "Limited training and education; lack of national sentiment of unity",
+                    "Poverty and disease preventing consistent productive labor",
+                    "Language barriers and religion causing cultural misunderstandings"
+                ],
+                correct: 1,
+                explanation: "According to Rizal, all causes of indolence can be reduced to two factors: limited training and education Filipino natives receive, and the lack of a national sentiment of unity among them."
+            },
+            {
+                question: "What did the Spanish Jesuit priest Pedro Murillo Velarde say about Filipinos?",
+                options: [
+                    "They were inferior to all other races in mental capacity",
+                    "They don't lack skillful and clever people, are outstanding at material things, and learn jobs really fast",
+                    "They needed constant Spanish supervision for every task",
+                    "They were completely incapable of learning European skills"
+                ],
+                correct: 1,
+                explanation: "Pedro Murillo Velarde, having spent more than 20 years in the Philippines, stated: 'but they don't lack skillful and clever people... They are absolutely outstanding when it comes to material things... they learn the job really fast.'"
+            },
+            {
+                question: "Who wrote 'Myth of the Lazy Native'?",
+                options: [
+                    "Jose Rizal in his essays",
+                    "Pedro Murillo Velarde in Spain",
+                    "Antonio de Morga as historian",
+                    "Syed Hussein Alatas as sociologist"
+                ],
+                correct: 3,
+                explanation: "Syed Hussein Alatas (1928-2007), a Malaysian academic, politician, and sociologist, wrote 'Myth of the Lazy Native,' which investigated why colonial powers thought natives were lazy."
+            },
+            {
+                question: "What is Orientalism according to the critical theory mentioned?",
+                options: [
+                    "A travel guide to Asia for Western tourists visiting the East",
+                    "A study of Eastern philosophy and religious practices",
+                    "A theory asserting that the West created a false, essentialized image of the East to justify colonization",
+                    "A cultural exchange program between Eastern and Western nations"
+                ],
+                correct: 2,
+                explanation: "Orientalism is a critical theory asserting that the West (the Occident) created a false, essentialized image (lazy, weak, irrational) of the East (the Orient) to justify their colonization."
+            },
+            {
+                question: "What did Alatas conclude about the 'lazy native' stereotype?",
+                options: [
+                    "It was due to colonialism and the colonizers were the real indolents",
+                    "It was accurate and scientific based on careful observation",
+                    "It was a modern invention with no historical basis whatsoever",
+                    "It applied only to certain regions but not to all colonies"
+                ],
+                correct: 0,
+                explanation: "Alatas investigated why colonial powers thought natives in Malaysia, Indonesia, and the Philippines were lazy, concluding this was due to colonialism. He turns the tables on the colonizers, who were the real indolents."
+            },
+            {
+                question: "When was the alleged retraction document of Rizal found?",
+                options: [
+                    "January 1, 1900 in the church archives in Manila",
+                    "May 18, 1935 discovered by archivist Fr. Manuel Garcia",
+                    "February 14, 1897 shortly after Rizal's death occurred",
+                    "December 30, 1896 on the day of his execution"
+                ],
+                correct: 1,
+                explanation: "Archivist Fr. Manuel Garcia discovered the 'original' text on May 18, 1935 in the archdiocesan archives, after it disappeared for thirty-nine years from the afternoon of the day when Rizal was executed."
+            },
+            {
+                question: "What was a major inconsistency in the retraction document dates?",
+                options: [
+                    "The month was wrong in all versions of the document",
+                    "The year was completely missing from the original text",
+                    "All copies showed the same date with no discrepancies",
+                    "Different versions showed 'December 29, 1890', 'December 29, 189C', and 'December 29, 1896'"
+                ],
+                correct: 3,
+                explanation: "The date was very unclear in different versions. The original Spanish document showed 'December 29, 1890,' then another version had '189C' with the '0' altered to look like a 'C', then later '1896' appeared."
+            },
+            {
+                question: "What discrepancy existed between the newspaper and Jesuit copies of the retraction?",
+                options: [
+                    "Completely different content that contradicted each other",
+                    "Differences in words like 'mi cualidad' vs 'mi calidad', presence/absence of 'Catolica', and different comma usage",
+                    "Different languages used in each version of the documents",
+                    "No discrepancies at all between any of the versions"
+                ],
+                correct: 1,
+                explanation: "There were significant differences including: 'mi cualidad' vs 'mi calidad', the word 'Catolica' appearing in some versions but not others, different comma placements (4 vs 11), and different paragraphing."
+            },
+            {
+                question: "What did Dr. Ricardo R. Pascual conclude about the retraction document's handwriting?",
+                options: [
+                    "Multiple people wrote different parts of the entire document",
+                    "It was a one-man document where all writings including signatures were written by only one person",
+                    "It was typed, not handwritten, using printing press technology",
+                    "It was definitely Rizal's handwriting based on expert analysis"
+                ],
+                correct: 1,
+                explanation: "Dr. Ricardo R. Pascual of the University of the Philippines studied the document and concluded it was a one-man document, meaning all writings including the body, Rizal's signature, and witnesses' signatures were written by only one person."
+            },
+            {
+                question: "What confession allegedly supported the forgery theory?",
+                options: [
+                    "A Spanish official admitted to creating it for political purposes",
+                    "A Jesuit priest confessed on his deathbed to the forgery",
+                    "Roman Roque told how he was employed by friars to make several copies of a retraction document",
+                    "Rizal's family admitted to forging it to protect his legacy"
+                ],
+                correct: 2,
+                explanation: "Antonio K. Abad reported that on August 13, 1901, at a party at his house in Nueva Ecija, Roman Roque told how he was employed by the friars earlier that year to make several copies of a retraction document."
+            },
+            {
+                question: "What was one argument suggesting Rizal might have written the retraction?",
+                options: [
+                    "He was tortured into compliance by Spanish colonial authorities",
+                    "Love for family - to save his family and town from persecution of Spanish Authorities",
+                    "He received money for doing so from the Catholic Church",
+                    "He publicly announced his conversion weeks before his execution"
+                ],
+                correct: 1,
+                explanation: "One possible reason was love for family - to save his family and town from persecution of the Spanish Authorities. His love for family must have been his concern at the last minutes of his life."
+            },
+            {
+                question: "What action did Rizal reportedly do with the Sacred Heart of Jesus image before execution?",
+                options: [
+                    "He destroyed it in anger at the Spanish friars",
+                    "He refused to look at it despite repeated requests",
+                    "He gave it away to one of his family members",
+                    "He kissed it as presented by Fr. Luis Viza in his cell"
+                ],
+                correct: 3,
+                explanation: "Prior to his march towards execution on December 30, 1896, Rizal kissed the image of the Sacred Heart of Jesus that he had carved at age 14, as it was presented by Fr. Luis Viza in his cell."
+            },
+            {
+                question: "What happened to Rizal's burial despite the alleged retraction?",
+                options: [
+                    "He was given a state funeral with military honors",
+                    "He was still kept in secret outside the inner wall of Paco Cemetery, meant for traitors",
+                    "He was buried in the Manila Cathedral with full ceremony",
+                    "He was cremated according to Spanish colonial law at that time"
+                ],
+                correct: 1,
+                explanation: "Rizal's burial was still kept in secret outside the inner wall of the Paco Cemetery. Such burials are meant for those who died as traitors. Since he allegedly retracted, he should have been buried properly and not just dumped into a hole without a name."
+            },
+            {
+                question: "What was missing regarding Josephine Bracken that raised doubts about the retraction?",
+                options: [
+                    "Her death certificate from the Manila records office",
+                    "Her baptismal certificate from the Catholic Church archives",
+                    "Public record of her marriage contract to Rizal",
+                    "Her immigration papers when she arrived in the Philippines"
+                ],
+                correct: 2,
+                explanation: "There is no public record of the marriage contract of Josephine Bracken to Rizal which was supposed to have been permitted since he allegedly retracted, raising questions about the authenticity of the retraction."
+            },
+            {
+                question: "What famous line from 'Mi Ultimo Adios' contradicts the retraction narrative?",
+                options: [
+                    "I love my country more than life itself and all",
+                    "I'll go where there are no slaves, tyrants or hangmen, where faith does not kill",
+                    "Long live Spain and may its rule be just and fair",
+                    "Remember me in your prayers and daily devotions always"
+                ],
+                correct: 1,
+                explanation: "In 'Mi Ultimo Adios,' Rizal wrote: 'I'll go where there are no slaves, tyrants or hangmen, where faith does not kill and where God alone does reign,' which contradicts the idea of religious conversion."
+            },
+            {
+                question: "Who allegedly forged Rizal's signature and also forged Aguinaldo's signature?",
+                options: [
+                    "Fr. Balaguer who kept the original retraction document",
+                    "Fr. Manuel Garcia who discovered the document years later",
+                    "Roman Roque who was employed by the Spanish friars",
+                    "Antonio K. Abad who reported the forgery to authorities"
+                ],
+                correct: 2,
+                explanation: "Those who strongly believed in the faking of the Rizal retraction document reported that the forger was Roman Roque, the man who also forged the signature of Urbano Lacuna, which was used to capture Aguinaldo."
+            },
+            {
+                question: "What was Fr. Balaguer's controversial action regarding the retraction document?",
+                options: [
+                    "He destroyed the original to hide the evidence of forgery",
+                    "He kept it completely secret from all authorities and researchers",
+                    "He gave it to Rizal's family immediately after the execution",
+                    "He published a copy without witness names, then added them 20 years later in a notarized document"
+                ],
+                correct: 3,
+                explanation: "Fr. Balaguer's copy did not have the names of the witnesses initially, and it was only after twenty years in a notarized document that he added these witnesses, raising more questions about its authenticity."
+            },
+            {
+                question: "Why was Rizal still executed even after allegedly retracting?",
+                options: [
+                    "The retraction came too late to save him from execution",
+                    "The Spanish didn't believe his retraction was sincere or genuine",
+                    "It was a clerical error in the processing of documents",
+                    "The affairs of the government were different from the affairs of the church"
+                ],
+                correct: 3,
+                explanation: "Although many have the insight that the affairs of the government were different from the affairs of the church, this raised questions about why Rizal would retract if it wouldn't save his life."
+            },
+            {
+                question: "What was the original name of Ateneo before becoming Ateneo Municipal?",
+                options: [
+                    "Colegio de San Juan de Letran for young boys",
+                    "Escuela Pia (Charity School) for poor children",
+                    "Colegio de Santa Potenciana for Catholic students",
+                    "Seminario de Manila for aspiring priests and clergy"
+                ],
+                correct: 1,
+                explanation: "Ateneo was originally called Escuela Pia (Charity School), established by the city government in 1817 as a school for poor boys in Manila."
+            },
+            {
+                question: "How long did Rizal take to write El Filibusterismo?",
+                options: [
+                    "3 years from 1888 to 1891 in various European cities",
+                    "5 years from 1886 to 1891 starting in the Philippines",
+                    "2 years from 1889 to 1891 while living in Europe",
+                    "4 years from 1887 to 1891 beginning in Calamba"
+                ],
+                correct: 3,
+                explanation: "Rizal took 4 years to write his second novel (1887-1891). He started writing it in October 1887 in Calamba and completed the manuscript on March 29, 1891 in Biarritz, France."
+            },
+            {
+                question: "Who partially funded the publication of El Filibusterismo?",
+                options: [
+                    "Jose Basa who supported the propaganda movement financially",
+                    "Maximo Viola who had helped with Noli Me Tangere",
+                    "Valentin Ventura who loaned money to Rizal for printing",
+                    "Paciano Rizal using money from the family estate in Calamba"
+                ],
+                correct: 2,
+                explanation: "The novel was published in Ghent on September 18, 1891, partially funded by Rizal's friend, Valentin Ventura. Rizal gratefully donated the original manuscript and an autographed printed copy to him."
+            },
+            {
+                question: "What happened to the original manuscripts of both Noli and El Fili?",
+                options: [
+                    "They were destroyed in a fire during World War II",
+                    "They were lost at sea during transportation to the Philippines",
+                    "Someone stole them in the 1960s from the archives",
+                    "They remain in Spain under government protection and care"
+                ],
+                correct: 2,
+                explanation: "According to the document, someone stole both the original Noli manuscript and El Filibusterismo manuscript in the 1960s. The El Fili manuscript was bought by the PH government in 1928 for Php10,000."
+            },
+            {
+                question: "What does the bamboo stands in the Noli Me Tangere cover represent?",
+                options: [
+                    "Spanish colonial structures built throughout the Philippines",
+                    "Agricultural prosperity during the Spanish colonial period",
+                    "The people, forever in the background of their own country's history",
+                    "The church's foundation and its influence over society"
+                ],
+                correct: 2,
+                explanation: "The bamboo stands at the backdrop represent the people, forever in the background of their own country's history, symbolizing their marginalized position."
+            },
+            {
+                question: "What profession did Basilio pursue in El Filibusterismo?",
+                options: [
+                    "He became a teacher in a small town school",
+                    "He became a lawyer fighting for Filipino rights",
+                    "He became an aspiring doctor studying medicine",
+                    "He became a priest serving in a rural parish"
+                ],
+                correct: 2,
+                explanation: "Basilio, Sisa's son, became an aspiring doctor after being taken in by Capitan Tiago as a capista (servant-scholar), studying in Letran, then Ateneo Municipal, and graduating from UST."
+            },
+            {
+                question: "What was the symbolic meaning of 'Mene Thecel Phares' in Simoun's note?",
+                options: [
+                    "A revolutionary slogan calling for immediate armed uprising",
+                    "His real identity code that only certain people understood",
+                    "A biblical phrase suggesting judgment and doom",
+                    "A prayer for forgiveness and redemption from God"
+                ],
+                correct: 2,
+                explanation: "Simoun left a note saying 'Mene Thecel Phares' signed by Juan Crisostomo Ibarra. This is a biblical phrase from the Book of Daniel suggesting judgment, doom, and the weighing of one's deeds."
+            },
+            {
+                question: "According to Rizal's analysis, what caused Filipinos to become 'ashamed of what was distinctively their own'?",
+                options: [
+                    "Natural cultural evolution toward more advanced Western ways",
+                    "Being forced to learn doctrines they didn't understand and abandon their traditions",
+                    "Voluntary modernization to compete in the global economy",
+                    "Economic progress that required adopting European business practices"
+                ],
+                correct: 1,
+                explanation: "Rizal wrote that Filipinos 'gradually lost their ancient traditions... in order to learn by heart other doctrines, which they did not understand... they became ashamed of what was distinctively their own, in order to admire and praise what was foreign and incomprehensible.'"
+            },
+            {
+                question: "What was Isagani's character trait that defined him in El Filibusterismo?",
+                options: [
+                    "He was portrayed as emotional and reactive with little fear of authority",
+                    "He was cautious and conservative in all his political views",
+                    "He was primarily focused on wealth and social advancement",
+                    "He was submissive to Spanish rule and avoided controversy"
+                ],
+                correct: 0,
+                explanation: "Isagani, the best friend of Basilio and a poor law student and poet, was portrayed as emotional and reactive; he has little fear of authority and speaks openly of his patriotic ideals."
+            },
+            {
+                question: "What significant symbolic action occurs at the end of Noli Me Tangere involving Elias?",
+                options: [
+                    "He escapes to Spain to continue fighting for reforms",
+                    "He leads a successful revolution against Spanish colonial forces",
+                    "He creates a funeral pyre for himself and Sisa's body, instructing Basilio about buried treasure",
+                    "He kills Padre Damaso in revenge for all his crimes"
+                ],
+                correct: 2,
+                explanation: "Elias, severely wounded, reached the shore and met Basilio weeping over his mother's dead body. Elias told Basilio to make a funeral pyre on which their bodies will be burned and instructed him to dig for buried treasure for his education."
+            },
+            {
+                question: "What was the irony in Isagani's action of throwing the lamp into the river?",
+                options: [
+                    "He saved people he hated including Spanish colonial officials",
+                    "He contradicted his own belief that he loved his nation more than Paulita",
+                    "He became a hero to the Spanish whom he opposed",
+                    "He accidentally started the revolution he was trying to prevent"
+                ],
+                correct: 1,
+                explanation: "Isagani later regrets his impulsive action of saving Paulita and the guests because he had contradicted his own belief that he loved his nation more than Paulita, showing the conflict between personal love and patriotic duty."
+            },
+            {
+                question: "What did Rizal predict would happen if the Philippines was treated as 'a lode to be exploited'?",
+                options: [
+                    "Economic prosperity for all classes in Philippine society",
+                    "Spain would become stronger through colonial exploitation",
+                    "Peaceful coexistence would continue indefinitely into the future",
+                    "The operations of the inexorable laws of history would make independence inevitable"
+                ],
+                correct: 3,
+                explanation: "Rizal warned that if the Islands are seen as a resource to exploit rather than develop with law and liberty, 'however great may be the loyalty of the Filipinos, it will be impossible to hinder the operations of the inexorable laws of history.'"
+            },
+            {
+                question: "What happened to Paulita Gómez at the end of El Filibusterismo?",
+                options: [
+                    "She died in the explosion that Simoun had planned",
+                    "She entered a convent to dedicate her life to God",
+                    "She wed Juanito Peláez, dumping Isagani for wealth",
+                    "She married Isagani after all despite family objections"
+                ],
+                correct: 2,
+                explanation: "In the end, Paulita Gómez and Juanito Peláez were wed, and she dumps Isagani, believing that she will have no future if she marries him, choosing wealth over love."
+            },
+            {
+                question: "What was the significance of Rizal hand-copying Morga's 351-page book?",
+                options: [
+                    "It was required by the British Museum for all researchers",
+                    "It showed his dedication to studying Philippine history from an original source",
+                    "He had no money to buy it from the museum shop",
+                    "It was a punishment for accessing restricted materials"
+                ],
+                correct: 1,
+                explanation: "Rizal hand-copied the whole 351 pages of Morga's book and annotated every chapter of it, demonstrating his earnest dedication as a seeker of truth and his commitment to understanding Philippine history from primary sources."
+            },
+            {
+                question: "What was debunked about Rizal's claim regarding pre-Hispanic writing systems?",
+                options: [
+                    "That they never existed in any form before Spanish arrival",
+                    "That they were superior to Spanish writing in every way",
+                    "That Spanish missionaries destroyed them (they actually gave way to Latin alphabet as language developed new sounds)",
+                    "That only nobles could read them due to strict social hierarchy"
+                ],
+                correct: 2,
+                explanation: "Later scholars debunked Rizal's assertion that Spanish missionaries destroyed the indigenous writing system. Indigenous scripts gave way to the Latin alphabet because the spoken language developed new sounds, and UST still has baybayin documents."
+            },
+            {
+                question: "What rhetorical question did Rizal pose at the end of El Filibusterismo about Filipino youth?",
+                options: [
+                    "Where are the youth who will seek foreign education abroad?",
+                    "Where are the youth who will consecrate their golden hours to the welfare of their native land?",
+                    "Where are the youth who will migrate abroad for opportunities?",
+                    "Where are the youth who will join the priesthood and serve?"
+                ],
+                correct: 1,
+                explanation: "Rizal asked: 'Where are the youth who will consecrate their golden hours, their illusions, and their enthusiasm to the welfare of their native land? ...We await you, O youth! Come, for we await you!'"
+            },
+            {
+                question: "How did Rizal describe the transformation that must occur for peaceful change in the Philippines?",
+                options: [
+                    "It must come from foreign intervention and outside pressure",
+                    "It requires Spanish approval only through official legal channels",
+                    "It will be violent and fatal if it proceeds from the ranks of the people, but peaceful and fruitful if it emanates from the upper classes",
+                    "It must be led by the church hierarchy and religious institutions"
+                ],
+                correct: 2,
+                explanation: "Rizal stated that 'this transformation will be violent and fatal if it proceeds from the ranks of the people, but peaceful and fruitful if it emanate from the upper classes,' showing his preference for reform over revolution."
+            },
+            {
+                question: "What natural science principle did Rizal apply to the Philippines-Spain relationship?",
+                options: [
+                    "The survival of the fittest determines colonial outcomes",
+                    "Action and reaction are equal in political movements always",
+                    "A foreign body within another must be assimilated, destroy the organism, be eliminated, or become encysted",
+                    "Nature abhors a vacuum so power will always be filled"
+                ],
+                correct: 2,
+                explanation: "Rizal wrote: 'The existence of a foreign body within another endowed with strength and activity is contrary to all natural and ethical laws. Science teaches us that it is either assimilated, destroys the organism, is eliminated or becomes encysted.'"
+            },
+            {
+                question: "What does Rizal's work demonstrate about the relationship between history and national identity?",
+                options: [
+                    "History is irrelevant to current problems facing the nation",
+                    "History should be forgotten to move forward into modernity",
+                    "Only Spanish history matters for understanding the Philippines",
+                    "Understanding the past is essential to determine the future and awaken national consciousness"
+                ],
+                correct: 3,
+                explanation: "Rizal's annotation of Morga and his writings consistently emphasize that understanding and reclaiming the past is essential to determine the future, correct distortions, and awaken Filipino consciousness about their pre-colonial civilization and dignity."
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+        let userAnswers = [];
+        let quizCompleted = false;
+
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        // Shuffle questions on initial load
+        shuffle(questions);
+
+        function initializeQuiz() {
+            showQuestion();
+            updateProgress();
+            updateScore();
+        }
+
+        function showQuestion() {
+            const questionData = questions[currentQuestion];
+            document.getElementById('questionText').innerHTML = `<span style="color: #ad1457; font-weight: bold;">Question ${currentQuestion + 1}:</span> ${questionData.question}`;
+            
+            const optionsContainer = document.getElementById('optionsContainer');
+            optionsContainer.innerHTML = '';
+            
+            questionData.options.forEach((option, index) => {
+                const optionElement = document.createElement('div');
+                optionElement.className = 'option';
+                optionElement.innerHTML = `<strong>${String.fromCharCode(65 + index)}.</strong> ${option}`;
+                optionElement.onclick = () => selectOption(index);
+                optionElement.dataset.index = index;
+                optionsContainer.appendChild(optionElement);
+            });
+            
+            document.getElementById('feedback').classList.remove('show');
+            document.getElementById('prevBtn').disabled = currentQuestion === 0;
+            document.getElementById('nextBtn').disabled = true;
+            document.getElementById('nextBtn').textContent = currentQuestion === questions.length - 1 ? 'Finish Quiz' : 'Next';
+        }
+
+        function selectOption(selectedIndex) {
+            const questionData = questions[currentQuestion];
+            const options = document.querySelectorAll('.option');
+            
+            // Disable all options
+            options.forEach(option => {
+                option.classList.add('disabled');
+                option.onclick = null;
+            });
+            
+            // Mark selected option
+            options[selectedIndex].classList.add('selected');
+            
+            // Show correct answer (green)
+            options[questionData.correct].classList.add('correct');
+            
+            // Mark incorrect if wrong selection (red)
+            if (selectedIndex !== questionData.correct) {
+                options[selectedIndex].classList.add('incorrect');
+            }
+            
+            // Store answer
+            userAnswers[currentQuestion] = selectedIndex;
+            
+            // Show feedback
+            const feedback = document.getElementById('feedback');
+            feedback.className = `feedback show ${selectedIndex === questionData.correct ? 'correct' : 'incorrect'}`;
+            feedback.innerHTML = `
+                <strong>${selectedIndex === questionData.correct ? '✓ Correct!' : '✗ Incorrect'}</strong><br>
+                <strong>Correct Answer:</strong> ${String.fromCharCode(65 + questionData.correct)}. ${questionData.options[questionData.correct]}<br>
+                <strong>Explanation:</strong> ${questionData.explanation}
+            `;
+            
+            document.getElementById('nextBtn').disabled = false;
+            updateScore();
+        }
+
+        function updateScore() {
+            // Calculate score based on all answered questions
+            let calculatedScore = 0;
+            userAnswers.forEach((ans, idx) => {
+                if (ans === questions[idx].correct) calculatedScore++;
+            });
+            document.getElementById('scoreDisplay').textContent = `Score: ${calculatedScore}/${currentQuestion + 1}`;
+            score = calculatedScore;
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++;
+                showQuestion();
+                updateProgress();
+            } else {
+                finishQuiz();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                showQuestion();
+                updateProgress();
+                
+                // If question was already answered, show the previous selection
+                if (userAnswers[currentQuestion] !== undefined) {
+                    setTimeout(() => {
+                        selectOption(userAnswers[currentQuestion]);
+                    }, 100);
+                }
+            }
+        }
+
+        function updateProgress() {
+            const progress = ((currentQuestion) / questions.length) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+            document.getElementById('progressText').textContent = `Question ${currentQuestion + 1} of ${questions.length}`;
+        }
+
+        function finishQuiz() {
+            quizCompleted = true;
+            const percentage = Math.round((score / questions.length) * 100);
+            
+            document.getElementById('questionContainer').style.display = 'none';
+            document.getElementById('finalScore').classList.add('show');
+            document.getElementById('finalScoreCircle').textContent = `${percentage}%`;
+            document.getElementById('finalScoreText').innerHTML = `
+                You scored <strong>${score}</strong> out of <strong>${questions.length}</strong> questions correctly!<br>
+                <span style="font-size: 1.1em; margin-top: 10px; display: block;">
+                    ${percentage >= 90 ? '🏆 Excellent! Outstanding knowledge of Operating Systems!' :
+                      percentage >= 80 ? '🎉 Great job! Very good understanding!' :
+                      percentage >= 70 ? '👍 Good work! Solid foundation!' :
+                      percentage >= 60 ? '📚 Not bad! Keep studying to improve!' :
+                      '💪 Keep learning! Practice makes perfect!'}
+                </span>
+            `;
+            
+            // Update progress to 100%
+            document.getElementById('progressFill').style.width = '100%';
+            document.getElementById('progressText').textContent = 'Quiz Completed!';
+        }
+
+        function restartQuiz() {
+            currentQuestion = 0;
+            score = 0;
+            userAnswers = [];
+            quizCompleted = false;
+
+            // Shuffle questions on restart
+            shuffle(questions);
+
+            document.getElementById('questionContainer').style.display = 'block';
+            document.getElementById('finalScore').classList.remove('show');
+
+            initializeQuiz();
+        }
+
+        // Initialize quiz when page loads
+        window.onload = initializeQuiz;
+    </script>
+</body>
+</html>
