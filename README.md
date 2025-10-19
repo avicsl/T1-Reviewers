@@ -8,4 +8,5 @@ SoftEng Reviewer: https://avicsl.github.io/Reviewers/softeng
 Automata-Reviewer:  https://avicsl.github.io/Reviewers/automata  
 
 ## First Term - Finals
-OS Reviewer: https://avicsl.github.io/Reviewers/os-f
+OS Reviewer: https://avicsl.github.io/Reviewers/os-f  
+Rizal Reviewer: https://avicsl.github.io/Reviewers/rizal-f 
